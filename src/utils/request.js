@@ -2,15 +2,14 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { HOST } from '@/apiConfig/index'
 
-// create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  baseURL: HOST,
+  // withCredentials: true,
+  timeout: 5000
 })
 
-// request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -30,7 +29,6 @@ service.interceptors.request.use(
   }
 )
 
-// response interceptor
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status

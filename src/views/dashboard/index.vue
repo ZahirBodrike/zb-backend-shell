@@ -1,31 +1,25 @@
 <template>
   <div class="dashboard-container">
-    <component :is="currentRole" />
+    <mallki class-name="mallki-text" text="骑士团后台首页" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import adminDashboard from './admin'
-import editorDashboard from './editor'
+import Mallki from '@/components/TextHoverEffect/Mallki'
 
 export default {
   name: 'Dashboard',
-  components: { adminDashboard, editorDashboard },
-  data() {
-    return {
-      currentRole: 'adminDashboard'
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'roles'
-    ])
-  },
-  created() {
-    if (!this.roles.includes('admin')) {
-      this.currentRole = 'editorDashboard'
-    }
-  }
+  components: { Mallki }
 }
 </script>
+
+<style lang="scss" scoped>
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  .mallki-text {
+    font-size: 40px;
+  }
+}
+</style>

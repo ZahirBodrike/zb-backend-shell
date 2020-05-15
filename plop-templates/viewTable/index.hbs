@@ -1,0 +1,49 @@
+{{#if template}}
+<template>
+  <div class="{{ name }}-{{ subName }}-table">
+    <common-search-form
+      :form-item-list="formItemList"
+      :inline="true"
+      :input-width="200"
+      :show-reset-btn="true"
+    />
+
+    <common-table
+      ref="table"
+      :type="`remote`"
+      :columns="columns"
+      :fetch="getTable"
+      :list-field="`data`"
+      :total-field="`total`"
+      :page-sizes="[1, 10, 20]"
+    />
+  </div>
+</template>
+{{/if}}
+
+{{#if script}}
+<script>
+import CommonSearchForm from '@/components/CommonSearchForm'
+import CommonTable from '@/components/CommonTable'
+
+export default {
+  name: '{{ properCase name }}',
+  components: { CommonTable, CommonSearchForm },
+  data() {
+    return {
+      formItemList: [],
+      columns: [],
+      getTable: () => {}
+    }
+  }
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+.{{ name }}-{{ subName }}-table {
+  padding: 20px;
+}
+</style>
+{{/if}}
