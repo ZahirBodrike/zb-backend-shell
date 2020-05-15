@@ -5,6 +5,7 @@
       :inline="true"
       :input-width="200"
       :show-reset-btn="true"
+      :submit-handler="submitHandler"
     />
 
     <common-table
@@ -40,7 +41,7 @@ export default {
       formItemList: [
         { prop: 'age', label: '年龄' },
         { prop: 'name', label: 'Name', rules: [{ required: true, message: '请输入活动名称', trigger: 'blur' }] },
-        { prop: 'age', label: '年龄' }
+        { prop: 'sex', label: '性别' }
       ],
       getTable,
       columns: [
