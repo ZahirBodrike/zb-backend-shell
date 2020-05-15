@@ -7,7 +7,6 @@ const componentsRouter = {
   component: Layout,
   redirect: 'noRedirect',
   name: 'ComponentDemo',
-  hidden: true,
   alwaysShow: true,
   meta: {
     title: 'Components',
@@ -19,6 +18,16 @@ const componentsRouter = {
       component: () => import('@/views/components-demo/mixin'),
       name: 'ComponentMixinDemo',
       meta: { title: 'test page' }
+    },
+    {
+      path: 'index',
+      component: () => import('@/views/test-table'),
+      meta: { title: 'test-table' }
+    },
+    {
+      path: 'form',
+      component: () => import('@/views/test-search'),
+      meta: { title: 'test-form' }
     }
   ]
 }
