@@ -4,6 +4,10 @@
       ref="table"
       v-loading.lock="loading"
       :data="tableData"
+      :row-key="rowKey"
+      :lazy="treeTableLazy"
+      :load="loadChildData"
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
       @sort-change="args => emitEventHandler('sort-change', args)"
     >
@@ -39,7 +43,7 @@
 
     <div
       v-if="showPagination"
-      :style="{ marginTop: '10px', textAlign: 'right' }"
+      :style="{ marginTop: '10px', textAlign: 'center' }"
     >
       <el-pagination
         :current-page="pagination.pageIndex"

@@ -1,7 +1,7 @@
 export const formProps = {
   size: {
     type: String,
-    default: 'small',
+    default: 'medium',
     validator: sizeValidator
   },
   fuzzy: {
@@ -18,7 +18,6 @@ export const formProps = {
   },
   labelWidth: Number,
   itemWidth: Number,
-  inputWidth: Number,
   submitHandler: Function,
   submitLoading: {
     type: Boolean,
@@ -84,10 +83,10 @@ export const formProps = {
 }
 
 function sizeValidator(value) {
-  const methodTypes = ['large', 'small', 'mini']
+  const methodTypes = ['large', 'medium', 'small', 'mini']
   const valid = methodTypes.indexOf(value.toLowerCase()) !== -1 || value === ''
   if (!valid) {
-    throw new Error(`size 需要选择对值在其中之一：['large', 'small', 'mini']`)
+    throw new Error(`size 需要选择对值在其中之一：['large', 'medium', 'small', 'mini']`)
   }
   return valid
 }

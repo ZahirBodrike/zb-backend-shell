@@ -32,6 +32,17 @@ export const tableProps = {
       return validType
     }
   },
+  rowKey: {
+    type: String,
+    default: 'id'
+  },
+  treeTableLazy: {
+    type: Boolean,
+    default: true
+  },
+  loadChildData: {
+    type: Function
+  },
   data: {
     type: Array
   },

@@ -3,7 +3,7 @@
     ref="form"
     :model="formData"
     :inline="inline"
-    :label-width="labelWidth ? (labelWidth + 'px') : '80px'"
+    :label-width="labelWidth ? (labelWidth + 'px') : '100px'"
     @submit.native.prevent="searchHandler()"
   >
     <el-form-item
@@ -14,7 +14,7 @@
       :rules="item.rules || []"
       :label-width="item.labelWidth ? (item.labelWidth + 'px') : ''"
     >
-      <div :style="{ width: inputWidth ? ( inputWidth + 'px' ) : '200px'}">
+      <div>
 
         <el-input
           v-if="item.itemType === 'input' || item.itemType === undefined"
@@ -87,6 +87,7 @@
       >
         {{ submitBtnText }}
       </el-button>
+
       <el-button
         v-if="showResetBtn"
         type="primary"
@@ -95,6 +96,8 @@
         :loading="submitLoading"
         @click="resetForm"
       >{{ resetBtnText }}</el-button>
+
+      <slot name="btn" />
     </el-form-item>
   </el-form>
 </template>

@@ -4,8 +4,10 @@
     <common-search-form
       :form-item-list="formItemList"
       :inline="true"
-      :input-width="200"
+      :label-width="100"
+      :item-width="200"
       :show-reset-btn="true"
+      :submit-handler="submitHandler"
     />
 
     <common-table
@@ -15,7 +17,7 @@
       :fetch="getTable"
       :list-field="`data`"
       :total-field="`total`"
-      :page-sizes="[1, 10, 20]"
+      :page-sizes="[5, 10, 20]"
     />
   </div>
 </template>
@@ -34,6 +36,11 @@ export default {
       formItemList: [],
       columns: [],
       getTable: () => {}
+    }
+  },
+  methods: {
+    submitHandler(form) {
+      console.log(form)
     }
   }
 }

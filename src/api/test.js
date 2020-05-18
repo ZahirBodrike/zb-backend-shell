@@ -7,3 +7,4 @@ export function getTable(data) {
     params: data
   })
 }
+

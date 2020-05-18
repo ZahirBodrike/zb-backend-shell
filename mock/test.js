@@ -6,11 +6,11 @@ export default [
       return {
         code: 20000,
         data: [
-          { name: 'Sam', mobile: '15299xxxx', sex: 0, status: 1, age: 20, img: 'https://imgcdn.chuxingyouhui.com/blackunique/upload/729860269722cc40051de064b3a733a7.jpeg?x-oss-process=image/resize,w_800/quality,Q_90' },
-          { name: 'Jean', mobile: '13452xxxx', sex: 1, status: 1, age: 20, img: 'https://imgcdn.chuxingyouhui.com/blackunique/upload/729860269722cc40051de064b3a733a7.jpeg?x-oss-process=image/resize,w_800/quality,Q_90' },
-          { name: 'Tony', mobile: '187233xxxx', sex: 0, status: 1, age: 20, img: 'https://imgcdn.chuxingyouhui.com/blackunique/upload/729860269722cc40051de064b3a733a7.jpeg?x-oss-process=image/resize,w_800/quality,Q_90' }
-        ],
-        total: 3
+          { level: '一级类目', id: 1, name: '女装', typeId: '456', sort: '1', status: 1, hasChildren: true },
+          { level: '一级类目', id: 2, name: '女装', typeId: '456', sort: '1', status: 1 },
+          { level: '一级类目', id: 3, name: '女装', typeId: '456', sort: '1', status: 1 },
+          { level: '一级类目', id: 4, name: '女装', typeId: '456', sort: '1', status: 1 }
+        ]
       }
     }
   }
