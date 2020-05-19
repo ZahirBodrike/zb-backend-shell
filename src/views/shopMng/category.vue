@@ -1,6 +1,6 @@
 <template>
   <div class="good-category">
-    <div class="pan-btn light-blue-btn">新增分类</div>
+    <div class="pan-btn light-blue-btn" @click="gotoDetail">新增分类</div>
 
     <common-table
       ref="table"
@@ -53,6 +53,9 @@ export default {
       getTable().then(res => {
         resolve(res.data)
       })
+    },
+    gotoDetail() {
+      this.$router.push({ name: `${this.pageType}CategoryDetail` })
     }
   }
 }
