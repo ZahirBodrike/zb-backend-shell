@@ -18,7 +18,7 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img src="https://dss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1185812800,2555705639&fm=74&app=80&f=PNG&size=f121,121?sec=1880279984&t=c31736ce0bf83ab5329a8f95601d76e7" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">

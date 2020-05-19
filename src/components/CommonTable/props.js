@@ -89,7 +89,7 @@ export const tableProps = {
   },
   pageIndexKey: {
     type: String,
-    default: 'pageIndex'
+    default: 'page'
   },
   pageSizeKey: {
     type: String,

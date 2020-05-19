@@ -29,6 +29,13 @@ const suNingGoodRouter = {
       component: () => import('@/views/shopMng/detail'),
       name: 'suningDetail',
       meta: { title: '新增/编辑商品', type: 'suning' }
+    },
+    {
+      path: 'categoryDetail',
+      hidden: true,
+      component: () => import('@/views/shopMng/categoryDetail'),
+      name: 'suningCategoryDetail',
+      meta: { title: '新增/编辑分类', type: 'suning' }
     }
   ]
 }
