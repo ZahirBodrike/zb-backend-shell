@@ -22,6 +22,13 @@ const taobaoGoodRouter = {
       component: () => import('@/views/shopMng/category'),
       name: 'taobaoCategory',
       meta: { title: '淘宝商品分类', type: 'taobao' }
+    },
+    {
+      path: 'detail',
+      hidden: true,
+      component: () => import('@/views/shopMng/detail'),
+      name: 'taobaoDetail',
+      meta: { title: '新增/编辑商品', type: 'taobao' }
     }
   ]
 }

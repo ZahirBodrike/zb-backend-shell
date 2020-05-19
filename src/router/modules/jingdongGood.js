@@ -22,6 +22,13 @@ const jingdongGoodRouter = {
       component: () => import('@/views/shopMng/category'),
       name: 'jingdongCategory',
       meta: { title: '京东商品分类', type: 'jingdong' }
+    },
+    {
+      path: 'detail',
+      hidden: true,
+      component: () => import('@/views/shopMng/detail'),
+      name: 'jingdongDetail',
+      meta: { title: '新增/编辑商品', type: 'jingdong' }
     }
   ]
 }

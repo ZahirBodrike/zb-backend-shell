@@ -22,6 +22,13 @@ const pddGoodRouter = {
       component: () => import('@/views/shopMng/category'),
       name: 'pddCategory',
       meta: { title: '拼多多商品分类', type: 'pinduoduo' }
+    },
+    {
+      path: 'detail',
+      hidden: true,
+      component: () => import('@/views/shopMng/detail'),
+      name: 'pinduoduoDetail',
+      meta: { title: '新增/编辑商品', type: 'pinduoduo' }
     }
   ]
 }

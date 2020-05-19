@@ -44,6 +44,7 @@
 import draggable from 'vuedraggable'
 import PreviewVideo from '@/components/PreviewVideo'
 import { getAliOSSConfig, getAuthUrl } from '@/api/upload' // 请求后台的接口拿Ali-OSS数据
+
 export default {
   name: 'UploadVideo',
   components: { draggable, PreviewVideo },

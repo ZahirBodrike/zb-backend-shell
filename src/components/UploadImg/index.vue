@@ -8,7 +8,7 @@
         <label class="el-upload-list__item-status-label">
           <i class="el-icon-upload-success el-icon-check" />
         </label>
-        <img :src="item.url" class="el-upload-list__item-thumbnail">
+        <el-image :src="item.url" class="el-upload-list__item-thumbnail" :preview-src-list="fileList" />
         <span v-if="item.name" class="name">{{ item.name }}</span>
         <div class="el-upload-mask">
           <span v-if="canPreview" class="el-icon-zoom-in" @click="onHandlePreviewItem(index)" />
@@ -51,19 +51,19 @@ export default {
     canPreview: {
       type: Boolean,
       default: true
-    },
+    }, // 是否显示预览
     canDelete: {
       type: Boolean,
       default: true
-    },
+    }, // 是否显示删除
     actionUrl: {
       type: String,
       default: API.uploadImg2
-    },
+    }, // 图片发送请求的地址
     limitCount: {
       type: Number,
       default: 1
-    },
+    }, // 最大上传文件数
     limitSize: {
       type: Number,
       default: 500
