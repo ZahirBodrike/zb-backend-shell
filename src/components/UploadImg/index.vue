@@ -11,7 +11,7 @@
         <el-image :src="item.url" class="el-upload-list__item-thumbnail" :preview-src-list="fileList" />
         <span v-if="item.name" class="name">{{ item.name }}</span>
         <div class="el-upload-mask">
-          <span v-if="canPreview" class="el-icon-zoom-in" @click="onHandlePreviewItem(index)" />
+          <span v-if="canPreview" class="el-icon-zoom-in" />
           <span v-if="canDelete" class="el-icon-delete" @click="onHandleRemoveImgItem(index)" />
           <slot name="button" />
         </div>
@@ -73,7 +73,7 @@ export default {
       default: -1
     }, // 限制图片宽度(px)
     list: {
-      type: Array,
+      type: [Array, String],
       required: true
     }, // 如果限制为1张时为字符串,绑定时必须加sync修饰符
     sizeLimitCkeck: {
@@ -351,11 +351,6 @@ export default {
     /** 拖拽列表删除 */
     onHandleRemoveImgItem(index) {
       this.fileList.splice(index, 1)
-    },
-
-    /** 预览图片 */
-    onHandlePreviewItem(index) {
-      this.$refs['UploadPreviewImg'].show(index)
     },
 
     /** 设置图片（用于重置） */

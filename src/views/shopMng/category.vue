@@ -17,7 +17,7 @@
         <el-link type="primary">编辑</el-link>
         <template v-if="scope.row.level == '一级类目' && pageType == 'taobao'">
           <el-link type="primary">查看二级类目</el-link>
-          <el-link type="primary">新增二级类目</el-link>
+          <el-link type="primary" @click="gotoDetail('sub')">新增二级类目</el-link>
         </template>
       </template>
     </common-table>
@@ -54,8 +54,12 @@ export default {
         resolve(res.data)
       })
     },
-    gotoDetail() {
-      this.$router.push({ name: `${this.pageType}CategoryDetail` })
+    gotoDetail(type) {
+      if (type === 'sub') {
+        this.$router.push({ name: `${this.pageType}CategoryDetail`, query: { type }})
+      } else {
+        this.$router.push({ name: `${this.pageType}CategoryDetail` })
+      }
     }
   }
 }
