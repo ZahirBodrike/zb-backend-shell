@@ -22,6 +22,13 @@ const weipinhuiGoodRouter = {
       component: () => import('@/views/shopMng/category'),
       name: 'weipinhuiCategory',
       meta: { title: '唯品会商品分类', type: 'weipinhui' }
+    },
+    {
+      path: 'detail',
+      hidden: true,
+      component: () => import('@/views/shopMng/detail'),
+      name: 'weipinhuiDetail',
+      meta: { title: '新增/编辑商品', type: 'weipinhui' }
     }
   ]
 }

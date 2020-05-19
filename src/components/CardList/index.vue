@@ -2,10 +2,9 @@
   <el-row type="flex" style="flex-wrap: wrap">
     <el-card v-for="(item,index) in list" :key="index" class="card-box" shadow="hover">
       <div class="img-box">
-        <img :src="item">
+        <el-image :src="item" :preview-src-list="list" />
       </div>
       <div class="btn-box">
-        <el-button type="text" @click="onHandlePreviewItem(index)">查看图片</el-button>
         <el-button type="text" @click="onHandleConfirmItem(index)">{{ confirmText }}</el-button>
       </div>
     </el-card>
@@ -40,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 
 .card-box {
-  width: 15%;
+  width: 170px;
   margin:6px;
   /deep/ .el-card__body {
     padding: 0;
@@ -57,7 +56,7 @@ export default {
   }
   .btn-box{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 10px;
     button{
       margin: 0;

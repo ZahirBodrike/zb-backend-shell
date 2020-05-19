@@ -11,11 +11,11 @@
 5. ```npm install```
 6. ```npm run dev``` 跑起项目
 
-注意⚠️：如果需要快速生成vue模板，可以直接跑npm run new：view是业务页面，components是开发组件，store是新建仓库， view - table是新建一个（搜索+表格）的页面模板
+注意⚠️：如果需要快速生成vue模板，可以直接跑npm run new：view是业务页面(空的vue模版)，components是开发组件(空模板)，store是新建仓库， view - table是新建一个（搜索+表格）的页面模板
 
 #### router管理
 
-开发新页面要新开路由，创建一级目录（也就是components：Layout的配置）在src/router/modules里面，再引入asyncRoutes.ks, 如果创建二级页面、三级页面，只需要寻找当前模块的一级目录的modules增加配置就好，例如：src/router/modules/components.js
+开发新页面要新开路由，创建一级目录（也就是components：Layout的配置）在src/router/modules里面，再引入asyncRoutes.js, 如果创建二级页面、三级页面，只需要寻找当前模块的一级目录的modules增加配置就好，例如：src/router/modules/components.js
 
 #### api注册管理
 
@@ -58,8 +58,8 @@
 24. [TextHoverEffect 字体动效](src/components/TextHoverEffect/README.md)
 25. ThemePicker 修改element主题
 26. [Tinymce 轻量级富文本编辑器](src/components/Tinymce/README.md)
-27. UploadImg 上传图片
-28. UploadVideo 上传视频
+27. [UploadImg 上传图片](src/components/UploadImg/README.md)
+28. [UploadVideo 上传视频](src/components/UploadVideo/README.md)
 29. PreviewVideo 预览视频
 30. [CardList 卡片列表](src/components/CardList/README.md)
 31. UploadExcel 只上传Excel
