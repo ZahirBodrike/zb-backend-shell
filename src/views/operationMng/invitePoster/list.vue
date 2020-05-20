@@ -9,7 +9,7 @@
       :submit-handler="submitHandler"
     >
       <template v-slot:btn>
-        <el-button type="primary" @click="onHandleDetail(null)">添加内容</el-button>
+        <el-button type="primary" @click="onHandleDetail(null)">添加邀请海报</el-button>
       </template>
     </common-search-form>
 
@@ -23,13 +23,14 @@
       :page-sizes="[5, 10, 20]"
       :page-index-key="`currentPage`"
     >
-      <template v-slot:stat="scope">
-        <p>素材下载：{{ scope.row.downloadNum }}</p>
-        <p>素材转发：{{ scope.row.shareNum }}</p>
-      </template>
+      <template v-slot:enable="scope">{{ statusEnum[scope.row['enable']] }}</template>
       <template v-slot:createInfo="scope">
         <p>{{ scope.row.createdTime }}</p>
         <p>创建人：{{ scope.row.creator }}</p>
+      </template>
+      <template v-slot:updateInfo="scope">
+        <p>{{ scope.row.createdTime }}</p>
+        <p>修改人：{{ scope.row.creator }}</p>
       </template>
       <template v-slot:btn="scope">
         <el-button type="text" @click="onHandleDetail(scope.row.id)">编辑</el-button>
@@ -44,23 +45,35 @@
 <script>
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
-import * as materialService from '@/api/material'
+import { STATUS_FILTER, STATUS_ENUM } from '@/utils/constant.js'
+import * as operationService from '@/api/operation'
 
 export default {
-  name: 'SpreadMaterialList',
+  name: 'InvitePosterList',
   components: { CommonTable, CommonSearchForm },
   data() {
     return {
       formItemList: [
-        { label: '内容关键词', prop: 'proposal' }
+        { label: '邀请海报图标题', prop: 'proposal' },
+        {
+          label: '状态',
+          prop: 'platform',
+          itemType: 'select',
+          options: STATUS_FILTER
+        }
       ],
       columns: [
-        { label: '宣传文案', prop: 'proposal' },
-        { label: '数据', slotName: 'stat' },
+        { label: '标题', prop: 'posterTitle' },
+        { label: '上架时间', prop: 'addedTime' },
+        { label: '下架时间', prop: 'shelfTime' },
+        { label: '状态', slotName: 'status' },
+        { label: '备注', prop: 'remark' },
         { label: '创建信息', slotName: 'createInfo' },
+        { label: '最后修改信息', slotName: 'updateInfo' },
         { label: '操作', slotName: 'btn', minWidth: '300' }
       ],
-      getTable: materialService.spreadMaterialList
+      getTable: operationService.invitePosterList,
+      statusEnum: STATUS_ENUM
     }
   },
   methods: {
@@ -69,13 +82,13 @@ export default {
     },
     /** 详情 */
     onHandleDetail(id) {
-      this.$router.push({ name: 'spreadMaterialDetail', query: { id: id }})
+      this.$router.push({ name: 'invitePosterDetail', query: { id: id }})
     },
     /** 上下架事件*/
     onHandleOnOff(id, enable) {
       this.loading = true
-      materialService
-        .spreadMaterialOnOff({ id: id, enable: enable })
+      operationService
+        .invitePosterOnOff({ id: id, enable: enable })
         .then(response => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
@@ -92,8 +105,8 @@ export default {
     /** 删除事件 */
     onDelete(id) {
       this.loading = true
-      materialService
-        .spreadMaterialDelete(id)
+      operationService
+        .invitePosterDelete(id)
         .then(response => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](

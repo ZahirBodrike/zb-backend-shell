@@ -4,10 +4,22 @@
       <el-row>
         <el-form ref="detailForm" :inline="true" :model="detailForm" label-width="200px">
           <el-row>
-            <el-form-item label="作者：" prop="author">
-              <el-select v-model="detailForm.author" clearable placeholder="请选择">
+            <el-form-item label="邀请海报图标题" prop="posterTitle" :rules="rules.no_null">
+              <el-input v-model.trim="detailForm.posterTitle" />
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="是否默认模板" prop="defaultFlag" :rules="rules.no_null">
+              <el-radio-group v-model="detailForm.defaultFlag">
+                <el-radio v-for="d in defaultFilter" :key="d.value" :label="d.value">{{ d.label }}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="状态：" prop="enable" :rules="rules.no_null">
+              <el-select v-model="detailForm.enable" clearable placeholder="请选择">
                 <el-option
-                  v-for="item in authorFilter"
+                  v-for="item in statusFilter"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -16,21 +28,27 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-form-item label="宣传文案：" prop="proposal" :rules="rules.no_null">
-              <el-input
-                v-model="detailForm.proposal"
-                type="textarea"
-                clearable
-                placeholder="请输入"
-                :autosize="{ minRows: 5}"
-                maxlength="200"
-                show-word-limit
+            <el-form-item label="上线时间：" prop="onLine" :rules="rules.no_null">
+              <el-date-picker
+                v-model="detailForm.onLine"
+                :default-time="['00:00:00','23:59:59']"
+                type="datetimerange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                value-format="timestamp"
+                align="center"
               />
             </el-form-item>
           </el-row>
           <el-row>
-            <el-form-item label="素材图片：" prop="imgs" :rules="rules.no_null">
-              <uploadImg :list.sync="detailForm.imgs" :limit-count="6" />
+            <el-form-item label="备注" prop="remark">
+              <el-input v-model.trim="detailForm.remark" />
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="海报图片(750×1218px)：" prop="posterImgs" :rules="rules.no_null">
+              <uploadImg :list.sync="detailForm.posterImgs" :limit-count="5" />
             </el-form-item>
           </el-row>
         </el-form>
@@ -45,7 +63,7 @@
 
 <script>
 import uploadImg from '@/components/UploadImg'
-import { AUTHOR_FILTER } from '@/utils/constant.js'
+import { STATUS_SELECT_FILTER } from '@/utils/constant.js'
 import * as materialService from '@/api/material'
 
 export default {
@@ -62,13 +80,22 @@ export default {
         ]
       },
       detailForm: {
-        id: '',
-        author: '',
-        proposal: '',
-        imgs: []
+        posterId: '',
+        posterTitle: '',
+        posterImgs: [],
+        addedTime: '',
+        shelfTime: '',
+        onLine: [],
+        defaultFlag: 0,
+        enable: '',
+        remark: ''
       },
       detailId: null,
-      authorFilter: AUTHOR_FILTER
+      statusFilter: STATUS_SELECT_FILTER,
+      defaultFilter: [
+        { value: 1, label: '是' },
+        { value: 0, label: '否' }
+      ]
     }
   },
 
@@ -85,8 +112,13 @@ export default {
     /** 获取详情信息 */
     getDetailsData(id) {
       materialService.spreadMaterialDetail({ id: id }).then(response => {
+        var addedTime = new Date(response.data.addedTime.replace(/-/g, '/')).getTime()
+        var shelfTime = new Date(response.data.shelfTime.replace(/-/g, '/')).getTime()
         if (response.code === 200) {
-          this.detailForm = response.data
+          this.detailForm = {
+            ...response.data,
+            onLine: [addedTime, shelfTime]
+          }
         } else {
           this.$message['error'](response.msg)
         }
@@ -101,13 +133,21 @@ export default {
     onHandleSubmitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (!valid) return this.$message.error('提交信息有误！')
-        this.loading = true
         if (this.detailId) {
           this.detailForm.id = this.detailId
         }
+        const onLine = this.detailForm.onLine
+        var addedTime = new Date(onLine[1]).getTime()
+        var shelfTime = new Date(onLine[0]).getTime()
+        const data = {
+          ...this.detailsForm,
+          addedTime: addedTime,
+          shelfTime: shelfTime
+        }
+        this.loading = true
         materialService[
           this.detailId ? 'spreadMaterialUpdate' : 'spreadMaterialAdd'
-        ](this.detailForm)
+        ](data)
           .then(response => {
             this.loading = false
             this.$message[response.code === 200 ? 'success' : 'error'](

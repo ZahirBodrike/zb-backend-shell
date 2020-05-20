@@ -7,6 +7,7 @@ import weipinhuiGoodRouter from './modules/weipinhuiGood'
 import suNingGoodRouter from './modules/suNingGood'
 import orderRouter from './modules/orderMng'
 import materialRouter from './modules/material'
+import operationMngRouter from './modules/operationMng'
 
 const asyncRoutes = [
   componentsRouter,
@@ -17,6 +18,7 @@ const asyncRoutes = [
   weipinhuiGoodRouter,
   suNingGoodRouter,
   orderRouter,
+  operationMngRouter,
   materialRouter,
   { path: '*', redirect: '/404', hidden: true }
 ]
