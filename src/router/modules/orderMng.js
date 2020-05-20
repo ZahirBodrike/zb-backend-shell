@@ -30,6 +30,13 @@ const orderRouter = {
       meta: { title: '肯德基订单' }
     },
     {
+      path: 'kfcDetail',
+      component: () => import('@/views/orderMng/kfcDetail'),
+      hidden: true,
+      name: 'kfcDetail',
+      meta: { title: '肯德基订单详情' }
+    },
+    {
       path: 'rechargeList',
       component: () => import('@/views/orderMng/recharge'),
       name: 'rechargeList',
@@ -40,6 +47,12 @@ const orderRouter = {
       component: () => import('@/views/orderMng/coupon'),
       name: 'couponList',
       meta: { title: '卡券订单' }
+    },
+    {
+      path: 'orderCommissionList',
+      component: () => import('@/views/orderMng/orderCommission'),
+      name: 'orderCommissionList',
+      meta: { title: '订单分佣信息查询' }
     }
   ]
 }

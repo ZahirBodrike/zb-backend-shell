@@ -6,6 +6,7 @@ import pddGoodRouter from './modules/pinduoduoGood'
 import weipinhuiGoodRouter from './modules/weipinhuiGood'
 import suNingGoodRouter from './modules/suNingGood'
 import orderRouter from './modules/orderMng'
+import addOilMngRouter from './modules/addOilMng'
 
 const asyncRoutes = [
   componentsRouter,
@@ -16,6 +17,7 @@ const asyncRoutes = [
   weipinhuiGoodRouter,
   suNingGoodRouter,
   orderRouter,
+  addOilMngRouter,
 
   { path: '*', redirect: '/404', hidden: true }
 ]

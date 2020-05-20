@@ -8,3 +8,10 @@ export function getTable(data) {
   })
 }
 
+export function getKfcTable() {
+  return request({
+    url: '/kfc/list',
+    method: 'get'
+  })
+}
+

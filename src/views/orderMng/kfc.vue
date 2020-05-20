@@ -13,13 +13,13 @@
       ref="table"
       :type="`remote`"
       :columns="columns"
-      :fetch="getTable"
+      :fetch="getKfcTable"
       :list-field="`data`"
       :total-field="`total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:action>
-        <el-link type="primary">查看详情</el-link>
+      <template v-slot:action="scope">
+        <el-link type="primary" @click="gotoKfcDetail(scope)">查看详情</el-link>
       </template>
     </common-table>
   </div>
@@ -28,6 +28,8 @@
 <script>
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
+
+import { getKfcTable } from '@/api/test'
 
 export default {
   name: 'OrderMng',
@@ -66,12 +68,15 @@ export default {
         { label: '邀请人上级', prop: 'leader' },
         { label: '详情', slotName: 'action' }
       ],
-      getTable: () => {}
+      getKfcTable
     }
   },
   methods: {
     submitHandler(form) {
       console.log(form)
+    },
+    gotoKfcDetail(item) {
+      this.$router.push({ name: 'kfcDetail', params: item.row })
     }
   }
 }

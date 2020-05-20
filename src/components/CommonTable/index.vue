@@ -10,6 +10,7 @@
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
       @sort-change="args => emitEventHandler('sort-change', args)"
+      @selection-change="selection => emitEventHandler('selection-change', selection)"
     >
       <template v-for="(column, columnIndex) in columns">
         <el-table-column
