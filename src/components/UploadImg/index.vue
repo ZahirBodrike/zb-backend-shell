@@ -8,10 +8,10 @@
         <label class="el-upload-list__item-status-label">
           <i class="el-icon-upload-success el-icon-check" />
         </label>
-        <el-image :src="item.url" class="el-upload-list__item-thumbnail" :preview-src-list="fileList" />
+        <el-image :src="item.url" class="el-upload-list__item-thumbnail" :preview-src-list="[item.url]" />
         <span v-if="item.name" class="name">{{ item.name }}</span>
         <div class="el-upload-mask">
-          <span v-if="canPreview" class="el-icon-zoom-in" />
+          <span v-if="canPreview" class="el-icon-zoom-in" @click="showViewer = true" />
           <span v-if="canDelete" class="el-icon-delete" @click="onHandleRemoveImgItem(index)" />
           <slot name="button" />
         </div>
@@ -36,6 +36,12 @@
     >
       <i class="el-icon-plus" />
     </el-upload>
+
+    <el-image-viewer
+      v-if="showViewer"
+      :on-close="() => { showViewer = false }"
+      :url-list="fileList.map(i => i.url)"
+    />
   </div>
 </template>
 
@@ -43,10 +49,11 @@
 import draggable from 'vuedraggable'
 import request from '@/utils/request'
 import API from '@/api/common'
+import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 
 export default {
   name: 'UploadImg',
-  components: { draggable },
+  components: { draggable, ElImageViewer },
   props: {
     canPreview: {
       type: Boolean,
@@ -74,6 +81,7 @@ export default {
     }, // 限制图片宽度(px)
     list: {
       type: [Array, String],
+      default: () => '',
       required: true
     }, // 如果限制为1张时为字符串,绑定时必须加sync修饰符
     sizeLimitCkeck: {
@@ -98,7 +106,8 @@ export default {
     return {
       fileList: [], // 和list互斥
       isListWatch: false,
-      isFileListWatch: false
+      isFileListWatch: false,
+      showViewer: false
     }
   },
 

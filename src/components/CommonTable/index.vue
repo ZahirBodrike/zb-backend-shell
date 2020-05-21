@@ -226,7 +226,7 @@ export default {
         } else {
           totalValue = 0
         }
-        this.total = totalValue
+        this.total = +totalValue
 
         this.loading = false
       }).catch(() => {
