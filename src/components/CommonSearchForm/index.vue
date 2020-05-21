@@ -105,6 +105,8 @@
 <script>
 import { formProps } from './props'
 
+import moment from 'moment'
+
 export default {
   name: 'CommonSearchForm',
   props: formProps,
@@ -211,6 +213,10 @@ export default {
     },
     resetForm() {
       this.$refs['form'].resetFields()
+
+      const formKeys = Object.keys(this.formData)
+      formKeys.forEach(i => { this.formData[i] = '' })
+
       const { resetBtnCallback } = this
       if (resetBtnCallback) resetBtnCallback()
     },
@@ -227,8 +233,8 @@ export default {
         const firstDate = date[0]
         const secondDate = date[1]
         dates = [
-          `${firstDate.getFullYear()}-${('0' + (firstDate.getMonth() + 1)).substr(-2)}-${('0' + firstDate.getDate()).substr(-2)}`,
-          `${secondDate.getFullYear()}-${('0' + (secondDate.getMonth() + 1)).substr(-2)}-${('0' + secondDate.getDate()).substr(-2)}`
+          moment(firstDate).format('YYYY-MM-DD HH:mm:ss'),
+          moment(secondDate).format('YYYY-MM-DD HH:mm:ss')
         ]
       }
 

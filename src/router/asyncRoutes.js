@@ -22,6 +22,7 @@ const asyncRoutes = [
   addOilMngRouter,
   operationMngRouter,
   materialRouter,
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

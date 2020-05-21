@@ -2,6 +2,7 @@
 <template>
   <div class="{{ name }}-{{ subName }}-table">
     <common-search-form
+      ref="form"
       :form-item-list="formItemList"
       :inline="true"
       :label-width="100"
@@ -40,7 +41,10 @@ export default {
   },
   methods: {
     submitHandler(form) {
-      console.log(form)
+      this.$refs['table'].searchHandler({
+        currentPage: 1,
+        ...form
+      })
     }
   }
 }
