@@ -127,6 +127,7 @@ export default {
       getPopupMngListDetail({ popupId: this.$route.query.id }).then(res => {
         if (res.code === 200) {
           this.form = res.data
+          this.currentJumpType = res.data.jumpType
         }
       })
     }

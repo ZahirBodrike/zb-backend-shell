@@ -12,10 +12,7 @@ export function updatePopupMngList(data) {
   return request({
     url: '/distribution-agent-mng/updatePopup',
     method: 'post',
-    data,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    data
   })
 }
 
@@ -31,9 +28,6 @@ export function addPopupMngList(data) {
   return request({
     url: '/distribution-agent-mng/updatePopup',
     method: 'post',
-    data,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    data
   })
 }
