@@ -28,7 +28,7 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-form-item label="上线时间：" prop="onLine" :rules="rules.no_null">
+            <el-form-item label="上架时间：" prop="onLine" :rules="rules.no_null">
               <el-date-picker
                 v-model="detailForm.onLine"
                 :default-time="['00:00:00','23:59:59']"
@@ -48,7 +48,7 @@
           </el-row>
           <el-row>
             <el-form-item label="海报图片(750×1218px)：" prop="posterImgs" :rules="rules.no_null">
-              <uploadImg :list.sync="detailForm.posterImgs" :limit-count="5" />
+              <uploadImg :list.sync="detailForm.posterImgs" :invite-poster-size-limit-check="true" :limit-count="5" />
             </el-form-item>
           </el-row>
         </el-form>
@@ -64,7 +64,7 @@
 <script>
 import uploadImg from '@/components/UploadImg'
 import { STATUS_SELECT_FILTER } from '@/utils/constant.js'
-import * as materialService from '@/api/material'
+import * as operationService from '@/api/operation'
 
 export default {
   components: {
@@ -111,7 +111,7 @@ export default {
   methods: {
     /** 获取详情信息 */
     getDetailsData(id) {
-      materialService.spreadMaterialDetail({ id: id }).then(response => {
+      operationService.invitePosterDetail({ id: id }).then(response => {
         var addedTime = new Date(response.data.addedTime.replace(/-/g, '/')).getTime()
         var shelfTime = new Date(response.data.shelfTime.replace(/-/g, '/')).getTime()
         if (response.code === 200) {
@@ -137,22 +137,19 @@ export default {
           this.detailForm.id = this.detailId
         }
         const onLine = this.detailForm.onLine
-        var addedTime = new Date(onLine[1]).getTime()
-        var shelfTime = new Date(onLine[0]).getTime()
+        var addedTime = new Date(onLine[0] + 8 * 3600000)
+        var shelfTime = new Date(onLine[1] + 8 * 3600000)
         const data = {
-          ...this.detailsForm,
+          ...this.detailForm,
           addedTime: addedTime,
           shelfTime: shelfTime
         }
         this.loading = true
-        materialService[
-          this.detailId ? 'spreadMaterialUpdate' : 'spreadMaterialAdd'
+        operationService[
+          this.detailId ? 'invitePosterUpdate' : 'invitePosterAdd'
         ](data)
           .then(response => {
             this.loading = false
-            this.$message[response.code === 200 ? 'success' : 'error'](
-              response.msg
-            )
             if (response.code === 200) this.$router.go(-1)
           })
           .catch(Error => {

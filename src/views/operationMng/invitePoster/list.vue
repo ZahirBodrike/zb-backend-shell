@@ -23,41 +23,44 @@
       :page-sizes="[5, 10, 20]"
       :page-index-key="`currentPage`"
     >
-      <template v-slot:enable="scope">{{ statusEnum[scope.row['enable']] }}</template>
+      <template v-slot:status="scope">{{ statusEnum[scope.row.enable] }}</template>
       <template v-slot:createInfo="scope">
         <p>{{ scope.row.createdTime }}</p>
         <p>创建人：{{ scope.row.creator }}</p>
       </template>
       <template v-slot:updateInfo="scope">
-        <p>{{ scope.row.createdTime }}</p>
+        <p>{{ scope.row.updateTime }}</p>
         <p>修改人：{{ scope.row.creator }}</p>
       </template>
       <template v-slot:btn="scope">
-        <el-button type="text" @click="onHandleDetail(scope.row.id)">编辑</el-button>
-        <el-button v-if="scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.id,0)">下架</el-button>
-        <el-button v-if="scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.id,1)">上架</el-button>
-        <el-button type="text" @click="onDelete(scope.row.id)">删除</el-button>
+        <el-button type="text" @click="onHandleDetail(scope.row.posterId)">编辑</el-button>
+        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.posterId,0)">下架</el-button>
+        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.posterId,1)">上架</el-button>
+        <el-button type="text" @click="preview(scope.row.posterImgs)">查看海报</el-button>
+        <el-button type="text" @click="onDelete(scope.row.posterId)">删除</el-button>
       </template>
     </common-table>
+    <PreviewImg ref="PreviewPoster" :list="previewUrl" />
   </div>
 </template>
 
 <script>
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
+import PreviewImg from '@/components/PreviewImg'
 import { STATUS_FILTER, STATUS_ENUM } from '@/utils/constant.js'
 import * as operationService from '@/api/operation'
 
 export default {
   name: 'InvitePosterList',
-  components: { CommonTable, CommonSearchForm },
+  components: { CommonTable, CommonSearchForm, PreviewImg },
   data() {
     return {
       formItemList: [
-        { label: '邀请海报图标题', prop: 'proposal' },
+        { label: '邀请海报标题', prop: 'posterTitle' },
         {
           label: '状态',
-          prop: 'platform',
+          prop: 'enable',
           itemType: 'select',
           options: STATUS_FILTER
         }
@@ -73,7 +76,8 @@ export default {
         { label: '操作', slotName: 'btn', minWidth: '300' }
       ],
       getTable: operationService.invitePosterList,
-      statusEnum: STATUS_ENUM
+      statusEnum: STATUS_ENUM,
+      previewUrl: ''
     }
   },
   methods: {
@@ -85,10 +89,10 @@ export default {
       this.$router.push({ name: 'invitePosterDetail', query: { id: id }})
     },
     /** 上下架事件*/
-    onHandleOnOff(id, enable) {
+    onHandleOnOff(posterId, enable) {
       this.loading = true
       operationService
-        .invitePosterOnOff({ id: id, enable: enable })
+        .invitePosterOnOff({ posterId: posterId, enable: enable })
         .then(response => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
@@ -103,10 +107,10 @@ export default {
         })
     },
     /** 删除事件 */
-    onDelete(id) {
+    onDelete(posterId) {
       this.loading = true
       operationService
-        .invitePosterDelete(id)
+        .invitePosterDelete(posterId)
         .then(response => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
@@ -117,6 +121,11 @@ export default {
         .catch(Error => {
           this.loading = false
         })
+    },
+    /** 预览图片 */
+    preview(url) {
+      this.previewUrl = url
+      this.$refs.PreviewPoster.show(0)
     }
   }
 }

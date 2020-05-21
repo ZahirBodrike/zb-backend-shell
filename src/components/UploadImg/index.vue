@@ -36,17 +36,19 @@
     >
       <i class="el-icon-plus" />
     </el-upload>
+    <PreviewImg ref="UploadPreviewImg" :list="fileList" />
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
+import PreviewImg from '@/components/PreviewImg'
 import request from '@/utils/request'
 import API from '@/api/common'
 
 export default {
   name: 'UploadImg',
-  components: { draggable },
+  components: { draggable, PreviewImg },
   props: {
     canPreview: {
       type: Boolean,
@@ -89,6 +91,10 @@ export default {
       default: false
     },
     navigationSizeLimitCkeck: {
+      type: Boolean,
+      default: false
+    },
+    invitePosterSizeLimitCheck: {
       type: Boolean,
       default: false
     }
@@ -185,6 +191,10 @@ export default {
       if (this.navigationSizeLimitCkeck) {
         // banner图片尺寸校验
         return this.valNavigationSize(file)
+      }
+      if (this.invitePosterSizeLimitCheck) {
+        // 邀请海报尺寸校验
+        return this.valInvitePosterSize(file)
       }
 
       if (this.limitWidth !== -1) {
@@ -297,6 +307,27 @@ export default {
         },
         () => {
           this.$message.error(`上传图片尺寸必须等于于750*270`)
+          return Promise.reject()
+        }
+      )
+    },
+
+    /** 邀请海报图片规格 */
+    valInvitePosterSize(file) {
+      return new Promise((resolve, reject) => {
+        const _URL = window.URL || window.webkitURL
+        const image = new Image()
+        image.src = _URL.createObjectURL(file)
+        image.onload = function() {
+          const valid = (image.width === 750 && image.height === 1218)
+          valid ? resolve() : reject()
+        }
+      }).then(
+        () => {
+          return file
+        },
+        () => {
+          this.$message.error(`请上传750×1218px尺寸的海报图片`)
           return Promise.reject()
         }
       )
