@@ -1,11 +1,11 @@
 <template>
-  <el-dialog v-el-drag-dialog :visible.sync="isShow" :title="title" width="80%" top="50px" center :modal-append-to-body="false">
+  <el-dialog v-el-drag-dialog :visible.sync="isShow" :title="title" width="80%" top="50px" center>
     <div v-if="isShow">
-      <el-carousel :autoplay="false" :initial-index.sync="index" height="500px" indicator-position="outside" @change="onChangeItem">
+      <el-carousel :autoplay="false" :initial-index.sync="index" height="500px" indicator-position="outside">
         <el-carousel-item v-for="(item,i) in list" :key="i">
           <div class="dialog-item">
-            <video v-if="item" ref="videoItem" controls :src="typeof item==='object'?item[itemKey]:item" />
-            <span v-else>暂无视频</span>
+            <img v-if="item" :src="typeof item==='object'?item[itemKey]:item" alt="图片缺失">
+            <span v-else>暂无图片</span>
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -16,7 +16,7 @@
 <script>
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
-  name: 'PreviewVideo',
+  name: 'PreviewImg',
   directives: { elDragDialog },
   props: {
     visible: {
@@ -25,7 +25,7 @@ export default {
     },
     title: {
       type: String,
-      default: '视频预览'
+      default: '图片预览'
     },
     list: {
       type: Array,
@@ -65,12 +65,6 @@ export default {
 
     close() {
       this.isShow = false
-    },
-
-    onChangeItem() {
-      this.$refs['videoItem'].map(item => {
-        if (item)item.pause()
-      })
     }
   }
 }
@@ -86,9 +80,10 @@ export default {
   background: #DCDFE6;
   padding: 10px;
   font-size: 60px;
-  &>video{
+  &>img{
     width: 100%;
     height: 100%;
+    object-fit: contain;
   }
 }
 </style>

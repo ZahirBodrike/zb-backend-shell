@@ -1,6 +1,6 @@
 const runTime = {
   dev: () => {
-    return `//localhost:9527/dev-api`
+    return `//localhost:8502/distribution-agent-mng`
   },
   test: () => {
     return ``
