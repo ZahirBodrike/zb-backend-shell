@@ -16,6 +16,7 @@
     >
       <div>
 
+        <!-- 默认输入框 -->
         <el-input
           v-if="item.itemType === 'input' || item.itemType === undefined"
           v-model="formData[item.modelValue]"
@@ -26,6 +27,23 @@
           :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
         />
 
+        <!-- 上传图片 -->
+        <upload-img
+          v-else-if="item.itemType == 'upload'"
+          :list.sync="formData[item.modelValue]"
+          :can-preview="item.canPreview"
+          :can-delete="item.canDelete"
+          :limit-count="item.limitCount"
+          :limit-size="item.limitSize"
+          :limit-width="item.limitWidth"
+          :size-limit-ckeck="item.sizeLimitCkeck"
+          :cover-size-limit-ckeck="item.coverSizeLimitCkeck"
+          :banner-size-limit-ckeck="item.bannerSizeLimitCkeck"
+          :navigation-size-limit-ckeck="item.navigationSizeLimitCkeck"
+          :invite-poster-size-limit-check="item.invitePosterSizeLimitCheck"
+        />
+
+        <!-- 下拉框 -->
         <el-select
           v-else-if="item.itemType === 'select'"
           v-model="formData[item.modelValue]"
@@ -33,6 +51,7 @@
           :disabled="item.disabled"
           :placeholder="item.placeholder"
           :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
+          @change="e => emitEventHandler('change-select', item.prop, e)"
         >
           <el-option
             v-for="(option, optionIndex) in item.options"
@@ -48,6 +67,22 @@
           />
         </el-select>
 
+        <!-- 单选框 -->
+        <el-radio-group
+          v-else-if="item.itemType == 'radio'"
+          v-model="formData[item.modelValue]"
+          @change="e => emitEventHandler('change-choose', item.prop, e)"
+        >
+          <el-radio
+            v-for="(radio, radioIndex) in item.options"
+            :key="radioIndex"
+            :label="radio.label"
+          >
+            {{ radio.text }}
+          </el-radio>
+        </el-radio-group>
+
+        <!-- 日期选择器 -->
         <el-date-picker
           v-else-if="item.itemType === 'date'"
           v-model="formData[item.modelValue]"
@@ -57,10 +92,12 @@
           :disabled="item.disabled"
           :readonly="item.readonly"
           :editable="item.editable"
+          :value-format="item.valueFormat"
           :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
           :picker-options="item.pickerOptions || {}"
         />
 
+        <!-- 日期范围选择器 -->
         <el-date-picker
           v-else-if="item.itemType === 'daterange'"
           v-model="formData[item.modelValue]"
@@ -75,11 +112,21 @@
           @change="date => changeDate(date, item.prop[0], item.prop[1])"
         />
 
+        <!-- 开关check -->
+        <el-checkbox
+          v-else-if="item.type == 'switch'"
+          v-model="formData[item.modelValue]"
+          :label="item.checkLabel"
+          :true-label="item.trueLabel"
+          :false-label="item.falseLabel"
+        />
+
       </div>
     </el-form-item>
 
-    <el-form-item label="" :style="{ display: 'flex', justifyContent: 'flex-end' }">
+    <el-form-item label="" :style="{ display: 'flex', justifyContent: submitBtnFlex }">
       <el-button
+        :style="{ marginBottom: '10px' }"
         type="primary"
         :size="size"
         :loading="submitLoading"
@@ -104,11 +151,13 @@
 
 <script>
 import { formProps } from './props'
+import UploadImg from '@/components/UploadImg'
 
 import moment from 'moment'
 
 export default {
   name: 'CommonSearchForm',
+  components: { UploadImg },
   props: formProps,
   data() {
     const { formItemList, fuzzy } = this.$props
@@ -174,9 +223,30 @@ export default {
         return `width: ${itemWidth}px;`
       }
       return ''
+    },
+    submitBtnFlex() {
+      const map = {
+        left: 'flex-start',
+        mid: 'center',
+        right: 'flex-end'
+      }
+      return map[this.submitBtnPosition]
+    }
+  },
+  mounted() {
+    if (this.fetch && this.autoFetch) {
+      this.fetch(this.fetchParams).then(res => {
+        if (res.code === 200) {
+          this.formData = res.data
+          this.$emit('getData', this.formData)
+        }
+      })
     }
   },
   methods: {
+    emitEventHandler(event) {
+      this.$emit(event, ...Array.from(arguments).slice(1))
+    },
     isArray(value) {
       return typeof value === 'object' && Object.prototype.toString.call(value) === '[object Array]'
     },

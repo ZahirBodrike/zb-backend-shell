@@ -1,4 +1,10 @@
 export const formProps = {
+  fetch: Function,
+  fetchParams: Object,
+  autoFetch: {
+    type: [Boolean, String, Number],
+    default: false
+  },
   size: {
     type: String,
     default: 'medium',
@@ -32,6 +38,10 @@ export const formProps = {
     default: '重置'
   },
   resetBtnCallback: Function,
+  submitBtnPosition: {
+    type: String,
+    default: 'right'
+  },
   formItemList: {
     type: Array,
     require: true,
@@ -70,15 +80,30 @@ export const formProps = {
       type: Boolean,
       default: false
     },
-    options: Array,
-    selectFetch: Function,
-    selectResultField: String,
-    selectResultHandler: Function,
     valueKey: String,
     labelKey: String,
     format: Function,
     rules: Array,
-    pickerOptions: Object
+    pickerOptions: Object,
+
+    // switch
+    checkLabel: String,
+    trueLabel: [Number, String, Boolean],
+    falseLabel: [Number, String, Boolean],
+
+    // radio/select
+    options: Array,
+
+    // select
+    selectFetch: Function,
+    selectResultField: String,
+    selectResultHandler: Function,
+
+    // date
+    valueFormat: {
+      type: String,
+      default: 'yyyy-MM-dd HH:mm:ss'
+    }
   }
 }
 

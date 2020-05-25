@@ -5,23 +5,15 @@ const addOilMngRouter = {
   component: Layout,
   redirect: 'noRedirect',
   name: 'addOil',
-  alwaysShow: true,
   meta: {
     title: '加油管理',
     icon: 'list'
   },
   children: [
     {
-      path: 'privilege',
-      component: () => import('@/views/addOilMng/privilege'),
+      path: 'http://www.baidu.com',
       name: 'addOilPrivilege',
-      meta: { title: '加油特权' }
-    },
-    {
-      path: 'repeatStation',
-      component: () => import('@/views/addOilMng/repeatStation'),
-      name: 'repeatStation',
-      meta: { title: '重复油站标记' }
+      meta: { title: '加油管理' }
     }
   ]
 }

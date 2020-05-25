@@ -24,7 +24,7 @@
       :page-sizes="[5, 10, 20]"
     >
       <template v-slot:img="scope">
-        <img :src="scope.row.popupImg" width="100%">
+        <el-image :src="scope.row.popupImg" width="100%" :preview-src-list="[scope.row.popupImg]" />
       </template>
 
       <template v-slot:action="scope">
@@ -41,7 +41,7 @@
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
 
-import { getPopupMngList, updatePopupMngList } from '@/api/popupMng'
+import { getPopupMngList, updatePopupMngList } from '@/api/operation'
 
 import moment from 'moment'
 

@@ -1,6 +1,7 @@
 <template>
   <div class="operationMng-list-table">
     <common-search-form
+      ref="form"
       :form-item-list="formItemList"
       :inline="true"
       :label-width="100"
@@ -9,7 +10,7 @@
       :submit-handler="submitHandler"
     >
       <template v-slot:btn>
-        <el-link type="primary" @click="gotoDetail({})">+ 配置搜索热词</el-link>
+        <el-link type="primary" @click="gotoDetail({})">+ 创建消息任务</el-link>
       </template>
     </common-search-form>
 
@@ -17,13 +18,13 @@
       ref="table"
       :type="`remote`"
       :columns="columns"
-      :fetch="getHotSearchWordMngList"
+      :fetch="getMessageCenterMngList"
       :list-field="`data.contentList`"
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
       <template v-slot:action="scope">
-        <el-link type="primary" @click="gotoDetail(scope.row)">编辑</el-link>
+        <el-link type="primary" @click="gotoDetail(scope.row)">查看</el-link>
         <el-link type="primary" @click="changeStatus(scope.row)">
           {{ scope.row.enable ? '下架' : '上架' }}
         </el-link>
@@ -36,9 +37,7 @@
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
 
-import { getHotSearchWordMngList, updateHotSearchWordMngList } from '@/api/operation'
-
-import moment from 'moment'
+import { getMessageCenterMngList, updateMessageCenterMngList } from '@/api/operation'
 
 export default {
   name: 'OperationMng',
@@ -46,27 +45,32 @@ export default {
   data() {
     return {
       formItemList: [
-        { label: '名称', prop: 'wordName' },
-        { label: '状态', prop: 'enable', itemType: 'select',
-          options: []
-        }
+        { label: '消息标题', prop: 'messageTitle' },
+        { label: '状态', prop: 'status', itemType: 'select',
+          options: [
+            { label: '全部', value: null },
+            { label: '上架', value: 1 },
+            { label: '下架', value: 0 }
+          ]
+        },
+        { label: '创建时间', prop: ['createStartTime', 'createEndTime'], itemType: 'daterange' },
+        { label: '推送时间', prop: ['addedStartTime', 'addedEndTime'], itemType: 'daterange' }
       ],
       columns: [
-        { label: '配置ID', prop: 'wordId' },
-        { label: '名称', prop: 'wordName' },
-        { label: '权重', prop: 'sortNum' },
-        { label: '上架时间', prop: 'addedTime', minWidth: 150,
-          formatter: row => moment(row.addedTime).format('YYYY-MM-DD HH:mm:ss')
-        },
-        { label: '下架时间', prop: 'shelfTime', minWidth: 150,
-          formatter: row => moment(row.shelfTime).format('YYYY-MM-DD HH:mm:ss')
-        },
+        { label: '消息ID', prop: 'messageId' },
+        { label: '消息标题', prop: 'messageTitle' },
+        { label: '创建时间', prop: 'createdTime' },
+        { label: '推送时间', prop: 'addedTime' },
+        { label: '下架时间', prop: 'shelfTime' },
+        // { label: '推送人群', prop: 'createdTime' },
+        // { label: '推送渠道', prop: 'createdTime' },
         { label: '状态', prop: 'enable',
           formatter: row => row.enable ? '上架' : '下架'
         },
-        { label: '操作', prop: 'enable', slotName: 'action' }
+        // { label: '配置人', prop: 'createdTime' },
+        { label: '操作', slotName: 'action' }
       ],
-      getHotSearchWordMngList
+      getMessageCenterMngList
     }
   },
   methods: {
@@ -77,11 +81,11 @@ export default {
       })
     },
     gotoDetail(data) {
-      this.$router.push({ name: 'searchHotWordListDetail', query: { id: data.wordId }})
+      this.$router.push({ name: 'messageCenterDetail', query: { id: data.messageId }})
     },
     changeStatus(item) {
-      const obj = { enable: item.enable ? 0 : 1, wordId: item.wordId }
-      updateHotSearchWordMngList(obj).then(res => {
+      const obj = { enable: item.enable ? 0 : 1, messageId: item.messageId }
+      updateMessageCenterMngList(obj).then(res => {
         if (res.code === 200) {
           this.$refs['table'].fetchHandler()
         }

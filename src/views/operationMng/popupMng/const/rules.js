@@ -11,3 +11,4 @@ export const formRules = {
   jumpObject: [{ required: true, message: '请填写跳转参数' }],
   platform: [{ required: true, message: '请填写平台' }]
 }
+

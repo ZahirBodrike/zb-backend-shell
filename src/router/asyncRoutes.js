@@ -9,6 +9,11 @@ import orderRouter from './modules/orderMng'
 import addOilMngRouter from './modules/addOilMng'
 import materialRouter from './modules/material'
 import operationMngRouter from './modules/operationMng'
+import couponMngRouter from './modules/couponMng'
+import financeMngRouter from './modules/finance'
+import signToMoneyRouter from './modules/signToMoney'
+import redEnvelopeWarRouter from './modules/redEnvelope'
+import rebateMngRouter from './modules/rebateMng'
 
 const asyncRoutes = [
   componentsRouter,
@@ -22,6 +27,11 @@ const asyncRoutes = [
   addOilMngRouter,
   operationMngRouter,
   materialRouter,
+  couponMngRouter,
+  financeMngRouter,
+  signToMoneyRouter,
+  redEnvelopeWarRouter,
+  rebateMngRouter,
 
   { path: '*', redirect: '/404', hidden: true }
 ]
