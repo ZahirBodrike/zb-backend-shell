@@ -6,7 +6,7 @@ routerModules.keys().forEach(key => {
   router.push(routerModules(key).default)
 })
 
-router.sort((a, b) => a.sort ? (a.sort - b.sort) : -1)
+router.sort(a => a.top ? -1 : 1)
 
 const asyncRoutes = [
   ...router,

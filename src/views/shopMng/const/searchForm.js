@@ -1,6 +1,6 @@
 export const taobaoSearch = [
-  { prop: 'goodId', label: '商品ID' },
-  { prop: 'goodName', label: '商品名称' }
+  { prop: 'goodsId', label: '商品ID' },
+  { prop: 'goodsName', label: '商品名称' }
 ]
 
 export const jingdongSearch = [

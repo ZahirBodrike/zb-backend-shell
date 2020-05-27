@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const jingdongGoodRouter = {
+  top: true,
   path: '/jingdong',
   component: Layout,
   redirect: 'noRedirect',

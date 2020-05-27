@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const taobaoGoodRouter = {
+  top: true,
   path: '/taobao',
   component: Layout,
   redirect: 'noRedirect',

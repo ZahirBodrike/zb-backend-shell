@@ -1,16 +1,21 @@
+const shopTagMap = {
+  0: '淘宝',
+  1: '天猫'
+}
+
 export const taobaoTable = [
-  { prop: 'img', label: '商品图片', slotName: 'img' },
-  { prop: 'shopId', label: '商品ID' },
-  { prop: 'shopTitle', label: '商品标题' },
-  { prop: 'type1', label: '淘宝类目(一级)' },
-  { prop: 'shopTag', label: '商品标识' },
-  { prop: '30sale', label: '30天销量' },
-  { prop: 'price', label: '淘宝天猫价' },
-  { prop: 'couponPrice', label: '领券价(券后)' },
-  { prop: 'coupon', label: '优惠券金额' },
-  { prop: 'rate', label: '佣金比例', fomatter: row => row },
+  { prop: 'pictUrl', label: '商品图片', slotName: 'img', fixed: 'left' },
+  { prop: 'numIid', label: '商品ID', fixed: 'left' },
+  { prop: 'title', label: '商品标题', minWidth: 200 },
+  { prop: 'levelOneCategoryName', label: '淘宝类目(一级)' },
+  { prop: 'userType', label: '商品标识', formatter: row => shopTagMap[row.userType] },
+  { prop: 'volume', label: '30天销量' },
+  { prop: 'zkFinalPrice', label: '淘宝天猫价' },
+  { prop: 'salePrice', label: '领券价(券后)' },
+  { prop: 'couponInfo', label: '优惠券金额' },
+  { prop: 'commissionRate', label: '佣金比例', formatter: row => row.commissionRate },
   { prop: 'commission', label: '佣金' },
-  { prop: 'couponEndTime', label: '优惠券结束时间' },
+  { prop: 'couponEndTime', label: '优惠券结束时间', minWidth: 200 },
   { label: '操作', slotName: 'action' }
 ]
 

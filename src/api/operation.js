@@ -1,21 +1,51 @@
 import request from '@/utils/request'
 
-/**
- * 获取邀请海报列表
- * @param {*} params
- */
+// 获取首页精选商品列表
+export function getHomePageChoiceMngList(data) {
+  return request({
+    url: '/distribution-agent-mng/mng/homeSelection/list',
+    method: 'post',
+    data
+  })
+}
+
+// 获取首页精选商品基础信息
+export function getHomePageChoiceMngListDetail(data) {
+  return request({
+    url: '/distribution-agent-mng/mng/homeSelection/getGoodsBaseInfo',
+    method: 'post',
+    data
+  })
+}
+
+// 添加首页精选商品
+export function addHomePageChoiceMngList(params) {
+  return request({
+    url: '/distribution-agent-mng/mng/homeSelection/addGoods',
+    method: 'get',
+    params
+  })
+}
+
+// 编辑首页精选商品
+export function updateHomePageChoiceMngList(params) {
+  return request({
+    url: '/distribution-agent-mng/mng/homeSelection/updateStatus',
+    method: 'get',
+    params
+  })
+}
+
+// 获取邀请海报列表
 export function invitePosterList(params) {
   return request({
     url: '/invitePoster/v1_0/list',
     method: 'get',
-    params: params
+    params
   })
 }
 
-/**
- * 新增邀请海报
- * @param {} data
- */
+// 新增邀请海报
 export function invitePosterAdd(data) {
   return request({
     url: '/invitePoster/v1_0/add',
@@ -23,10 +53,8 @@ export function invitePosterAdd(data) {
     data
   })
 }
-/**
- * 获取邀请海报详情
- * @param {} params
- */
+
+// 获取邀请海报详情
 export function invitePosterDetail(params) {
   return request({
     url: '/invitePoster/v1_0/detail',
@@ -34,10 +62,8 @@ export function invitePosterDetail(params) {
     params: params
   })
 }
-/**
- * 更新邀请海报详情
- * @param {} data
- */
+
+//  更新邀请海报详情
 export function invitePosterUpdate(data) {
   return request({
     url: '/invitePoster/v1_0/update',
@@ -45,10 +71,8 @@ export function invitePosterUpdate(data) {
     data
   })
 }
-/**
- * 更新邀请海报状态
- * @param {} data
- */
+
+//  更新邀请海报状态
 export function invitePosterOnOff(data) {
   return request({
     url: '/invitePoster/v1_0/updateStatus',
@@ -56,10 +80,8 @@ export function invitePosterOnOff(data) {
     data
   })
 }
-/**
- * 删除邀请海报
- * @param {} id
- */
+
+//  删除邀请海报
 export function invitePosterDelete(id) {
   return request({
     url: '/invitePoster/v1_0/delete?id=' + id,

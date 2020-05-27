@@ -27,6 +27,7 @@
           type="daterange"
           placeholder="请选择时间"
           :style="itemStyle"
+          :disabled="item.disable"
         />
 
         <el-date-picker
@@ -35,38 +36,46 @@
           type="date"
           placeholder="请选择时间"
           :style="itemStyle"
+          :disabled="item.disable"
         />
 
         <el-card
           v-else-if="item.type == 'bigCard'"
           shadow="always"
-          :style="{ width: '550px' }"
+          :style="{ width: '350px' }"
         >
-          <el-image :src="currentBigPic" :preview-src-list="[currentBigPic]" />
+          <el-image :lazy="true" :src="form[item.prop]" :preview-src-list="[form[item.prop]]" />
         </el-card>
 
         <card-list
           v-else-if="item.type == 'miniCard'"
-          :list="cardList"
+          :list="form[item.prop] && form[item.prop].slice(0, form[item.prop].length - 1).split(',')"
           confirm-text="设为主图"
           @event-confirm="setMainPic"
         />
 
-        <el-input v-else v-model="form[item.prop]" :style="itemStyle" />
+        <el-radio-group v-else-if="item.type == 'chooseCheck'" v-model="form[item.prop]" :disabled="item.disable">
+          <el-radio :label="0">不检测</el-radio>
+          <el-radio :label="1">检测</el-radio>
+        </el-radio-group>
+
+        <el-input v-else v-model="form[item.prop]" :style="itemStyle" :disabled="item.disable" />
       </el-form-item>
     </el-form>
 
-    <back-to-top />
+    <el-back-to-top />
   </div>
 </template>
 
 <script>
 import Mallki from '@/components/TextHoverEffect/Mallki'
 import CardList from '@/components/CardList'
-import BackToTop from '@/components/BackToTop'
+import ElBackToTop from '@/components/ElBackToTop'
 
 import { taobaoDetailForm, jingdongDetailForm, pinduoduoDetailForm,
   weipinhuiDetailForm, suningDetailForm } from './const/goodDetailForm'
+
+import { getTaobaoGoodListDetail, updateTaobaoGoodList } from '@/api/taobaoGoodMng'
 
 const fromItemListMap = {
   taobao: taobaoDetailForm,
@@ -76,31 +85,61 @@ const fromItemListMap = {
   suning: suningDetailForm
 }
 
+const detailApiMap = {
+  taobao: getTaobaoGoodListDetail
+}
+
+const updateApiMap = {
+  taobao: updateTaobaoGoodList
+}
+
 export default {
-  components: { Mallki, CardList, BackToTop },
+  components: { Mallki, CardList, ElBackToTop },
   data() {
     const pageType = this.$route.meta.type
     return {
       pageType,
       formItemList: fromItemListMap[pageType],
+      getDetail: detailApiMap[pageType],
+      postUpdate: updateApiMap[pageType],
 
       form: {},
+
       itemStyle: {
         width: `300px`
-      },
-      currentBigPic: 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg',
-      cardList: [
-        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
-        'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
-      ]
+      }
+    }
+  },
+  mounted() {
+    if (this.$route.query.id) {
+      this.getDetail({ goodsId: this.$route.query.id }).then(res => {
+        if (res.code === 200) {
+          this.form = res.data
+          this.form.couponTime = [res.data.couponStartTime, res.data.couponEndTime]
+        }
+      })
+    } else {
+      this.form['pictUrl'] = 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
     }
   },
   methods: {
     setMainPic(item) {
-      this.currentBigPic = item
+      this.form['pictUrl'] = item
     },
     handleSubmit() {
-      console.log(this.form)
+      const obj = {
+        id: this.form.id,
+        numIid: this.$route.query.id,
+        status: 1,
+        pictUrl: this.form.pictUrl,
+        title: this.form.title
+      }
+      this.postUpdate(obj).then(res => {
+        if (res.code === 200) {
+          this.$message.success('修改成功')
+          this.$router.go(-1)
+        }
+      })
     },
     goBack() {
       this.$router.push({ path: `${this.$route.matched[0].path}/list` })

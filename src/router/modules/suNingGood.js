@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const suNingGoodRouter = {
+  top: true,
   path: '/suning',
   component: Layout,
   redirect: 'noRedirect',

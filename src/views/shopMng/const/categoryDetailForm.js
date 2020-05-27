@@ -1,16 +1,16 @@
 export const taobaoCategoryDetailForm = [
   { label: '类目名称', prop: 'name' },
-  { label: '淘宝类目ID', prop: 'id' },
-  { label: '运营位权重', prop: 'sort' },
+  { label: '淘宝类目ID', prop: 'tbkCatId' },
+  { label: '运营位权重', prop: 'sortNum' },
   { label: 'ICON图标', prop: 'icon', type: 'upload' }
 ]
 
 export const taobaoSubCategoryDetailForm = [
-  { label: '一级类目名称', prop: 'name' },
-  { label: '二级类目名称', prop: 'name2' },
-  { label: '淘宝类目ID', prop: 'id' },
-  { label: '关键词', prop: 'keyword' },
-  { label: '运营位权重', prop: 'sort' },
+  { label: '一级类目名称', prop: 'onlyReadName', disabled: true },
+  { label: '二级类目名称', prop: 'name' },
+  { label: '淘宝类目ID', prop: 'tbkCatId' },
+  { label: '关键词', prop: 'description' },
+  { label: '运营位权重', prop: 'sortNum' },
   { label: 'ICON图标', prop: 'icon', type: 'upload' }
 ]
 

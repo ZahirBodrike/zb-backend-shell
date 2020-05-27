@@ -2,7 +2,7 @@
   <el-row type="flex" style="flex-wrap: wrap">
     <el-card v-for="(item,index) in list" :key="index" class="card-box" shadow="hover">
       <div class="img-box">
-        <el-image :src="item" :preview-src-list="list" />
+        <el-image :src="item" :preview-src-list="list" :lazy="true" />
       </div>
       <div class="btn-box">
         <el-button type="text" @click="onHandleConfirmItem(index)">{{ confirmText }}</el-button>

@@ -10,7 +10,7 @@
       >
         <upload-img v-if="item.type == 'upload'" :list.sync="imgList" />
 
-        <el-input v-else v-model="form[item.prop]" :style="itemStyle" />
+        <el-input v-else v-model="form[item.prop]" :style="itemStyle" :disabled="item.disabled" />
       </el-form-item>
 
       <el-form-item label-width="120px">
@@ -26,6 +26,8 @@ import UploadImg from '@/components/UploadImg'
 import { taobaoCategoryDetailForm, jingdongCategoryDetailForm, pinduoduoCategoryDetailForm,
   suningCategoryDetailForm, taobaoSubCategoryDetailForm } from './const/categoryDetailForm'
 
+import { getTaobaoTypeListDetail, updateTaobaoTypeList, addTaobaoTypeList } from '@/api/taobaoGoodMng'
+
 const categoryDetailFormMap = {
   taobao: taobaoCategoryDetailForm,
   jingdong: jingdongCategoryDetailForm,
@@ -37,6 +39,18 @@ const subCategoryDetailFormMap = {
   taobao: taobaoSubCategoryDetailForm
 }
 
+const getDetailMap = {
+  taobao: getTaobaoTypeListDetail
+}
+
+const updateSubmitMap = {
+  taobao: updateTaobaoTypeList
+}
+
+const addSubmitMap = {
+  taobao: addTaobaoTypeList
+}
+
 export default {
   components: { UploadImg },
   data() {
@@ -44,6 +58,9 @@ export default {
     return {
       pageType,
       formItemList: categoryDetailFormMap[pageType],
+      getDetail: getDetailMap[pageType],
+      updateDetail: updateSubmitMap[pageType],
+      addDetail: addSubmitMap[pageType],
 
       form: {},
       imgList: '',
@@ -52,15 +69,25 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请填写类目名称' }],
-        id: [{ required: true, message: '请填写淘宝类目ID' }],
+        tbkCatId: [{ required: true, message: '请填写淘宝类目ID' }],
         sort: [{ required: true, message: '请填写运营位权重' }],
-        icon: [{ required: true }]
+        icon: [{ required: true, message: '请上传icon' }]
       }
     }
   },
   mounted() {
-    if (this.$route.query.type === 'sub') {
+    const query = this.$route.query
+    if (query.type === 'sub' && !query.id) {
+      // 新建二级类目
       this.formItemList = subCategoryDetailFormMap[this.pageType]
+      this.form.onlyReadName = query.name
+    } else if (query.type === 'sub' && query.id) {
+      // 编辑二级类目
+      this.formItemList = subCategoryDetailFormMap[this.pageType]
+      this.handleGetCategoryDetail(query.id)
+    } else if (!query.type && query.id) {
+      // 编辑一级类目
+      this.handleGetCategoryDetail(query.id)
     }
   },
   methods: {
@@ -68,7 +95,43 @@ export default {
       this.$router.push({ path: `${this.$route.matched[0].path}/category` })
     },
     handleSubmit() {
-      console.log(this.form)
+      // 目前只有淘宝有二级类目
+      if (this.pageType === 'taobao') {
+        this.form.parentTypeId = this.$route.query.parentTypeId
+        this.form.level = this.$route.query.parentTypeId ? 2 : 1
+        this.form.onlyReadName = undefined
+      }
+      this.$refs.form.validate(valid => {
+        if (!valid) return
+
+        if (this.$route.query.id) {
+          this.updateDetail(this.form).then(res => {
+            if (res.code === 200) {
+              this.$message.success('修改成功')
+              this.$router.go(-1)
+            }
+          })
+        } else {
+          this.addDetail(this.form).then(res => {
+            if (res.code === 200) {
+              this.$message.success('添加成功')
+              this.$router.go(-1)
+            }
+          })
+        }
+      })
+    },
+    handleGetCategoryDetail(id) {
+      this.getDetail({ id }).then(res => {
+        if (res.code === 200) {
+          this.form = res.data
+
+          // 修复淘宝分类详情的只读不显示
+          if (this.$route.query.type === 'sub' && this.$route.query.id) {
+            this.form.onlyReadName = res.data.parentTypeName
+          }
+        }
+      })
     }
   }
 }
