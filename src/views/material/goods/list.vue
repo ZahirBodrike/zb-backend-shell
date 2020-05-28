@@ -24,7 +24,7 @@
       :page-index-key="`currentPage`"
     >
       <template v-slot:platform="scope">{{ supplierEnum[scope.row['platform']] }}</template>
-      <template v-slot:couponPrice="scope">优惠券金额</template>
+      <template v-slot:couponPrice>优惠券金额</template>
       <template v-slot:stat="scope">
         <p>素材下载：{{ scope.row.downloadNum }}</p>
         <p>素材转发：{{ scope.row.shareNum }}</p>
