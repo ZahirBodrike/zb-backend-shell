@@ -8,9 +8,11 @@
       :item-width="200"
       :show-reset-btn="true"
       :submit-handler="submitHandler"
-    />
-
-    <el-link type="primary">下载兑换记录</el-link>
+    >
+      <template v-slot:btn>
+        <el-link type="primary" :href="downloadData">下载兑换记录</el-link>
+      </template>
+    </common-search-form>
 
     <common-table
       ref="table"
@@ -30,6 +32,8 @@ import CommonTable from '@/components/CommonTable'
 
 import { getGoldenBeanRecord } from '@/api/signToMoney'
 
+import { HOST } from '@/apiConfig'
+
 export default {
   name: 'SignToMoney',
   components: { CommonTable, CommonSearchForm },
@@ -37,6 +41,7 @@ export default {
     return {
       getGoldenBeanRecord,
 
+      downloadData: `${HOST}/beanExchangeRecord/v1_0/export`,
       formItemList: [
         { label: '用户ID', prop: 'uid' },
         { label: '手机号', prop: 'phone' },

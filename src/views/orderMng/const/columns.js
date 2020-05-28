@@ -1,3 +1,18 @@
+const rewardMap = {
+  1: '自购奖励',
+  2: '直属普通会员',
+  7: '直属合伙人奖励',
+  8: '直属高级合伙人奖励',
+  9: '直属联合创始人奖励映射'
+}
+
+const levelMap = {
+  1: '普通会员',
+  2: '合伙人',
+  3: '高级合伙人',
+  4: '联合合伙人'
+}
+
 export const kfcDetailMainTableOne = [
   { label: '订单编号', prop: 'number' },
   { label: '订单状态', prop: 'status' },
@@ -53,29 +68,34 @@ export const kfcDetailBuyTable = [
 ]
 
 export const orderCommissionOrderTable = [
-  { label: '订单编号', prop: '' },
-  { label: '订单状态', prop: '' },
-  { label: '下单时间', prop: '' },
-  { label: '订单完成时间', prop: '' },
-  { label: '结算日期', prop: '' },
-  { label: '失败原因', prop: '' },
+  { label: '订单编号', prop: 'orderSn' },
+  { label: '订单状态', prop: 'orderStatus' },
+  { label: '下单时间', prop: 'createTime' },
+  { label: '订单完成时间', prop: 'paidTime' },
+  { label: '结算日期', prop: 'earningTime' },
+  { label: '失败原因', prop: 'failedReason' },
   { label: '订单归属', prop: '' }
 ]
 
 export const orderCommissionGoodTable = [
-  { label: '商品ID', prop: '' },
-  { label: '商品名称', prop: '' },
+  { label: '商品ID', prop: 'itemId' },
+  { label: '商品名称', prop: 'itemTitle', width: 200 },
   { label: '商品价格', prop: '' },
-  { label: '商品数量', prop: '' },
-  { label: '付款金额', prop: '' },
-  { label: '预估收益', prop: '' },
-  { label: '佣金比例', prop: '' },
-  { label: '商品返佣', prop: '' }
+  { label: '商品数量', prop: 'itemNum' },
+  { label: '付款金额', prop: 'payPrice' },
+  { label: '预估收益', prop: 'paymentIncome' },
+  { label: '佣金比例', prop: 'commissionRate' },
+  { label: '商品返佣', prop: 'commission' }
 ]
 
 export const orderCommissionUserTable = [
-  { label: '佣金信息', prop: '' },
-  { label: '分佣金额', prop: '' },
-  { label: '比例', prop: '' },
-  { label: '用户信息', prop: '' }
+  { label: '佣金信息', prop: 'reward',
+    formatter: row => rewardMap[row.reward]
+  },
+  { label: '分佣金额', prop: 'userCommission' },
+  { label: '比例', prop: 'userIncomeRate' },
+  { label: '用户级别', prop: 'TzLevel',
+    formatter: row => levelMap[row.reward]
+  },
+  { label: '用户信息', prop: 'userInfo' }
 ]

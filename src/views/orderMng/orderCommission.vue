@@ -1,14 +1,5 @@
 <template>
   <div class="order-commission">
-    <common-search-form
-      :form-item-list="formItemList"
-      :inline="true"
-      :label-width="100"
-      :item-width="200"
-      :show-reset-btn="true"
-      :submit-handler="submitHandler"
-    />
-
     <el-table :data="orderTable">
       <el-table-column
         v-for="(item, index) in orderCommissionOrderTable"
@@ -26,48 +17,60 @@
         :key="index"
         :label="item.label"
         :prop="item.prop"
+        :min-width="item.width"
       />
     </el-table>
 
     <el-divider />
 
-    <el-table :data="UserTable">
+    <el-table :data="userTable">
       <el-table-column
         v-for="(item, index) in orderCommissionUserTable"
         :key="index"
         :label="item.label"
         :prop="item.prop"
-      />
+        :min-width="item.width"
+      >
+        <template v-if="item.formatter" v-slot="scope">
+          {{ item.formatter(scope.row) }}
+        </template>
+        <template v-else v-slot="scope">{{ scope.row[item.prop] }}</template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import CommonSearchForm from '@/components/CommonSearchForm'
-
 import { orderCommissionOrderTable, orderCommissionGoodTable, orderCommissionUserTable } from './const/columns'
 
+import { getOrderCommissionInfo } from '@/api/order'
+
 export default {
-  components: { CommonSearchForm },
   data() {
     return {
       orderCommissionOrderTable,
       orderCommissionGoodTable,
       orderCommissionUserTable,
 
-      formItemList: [
-        { label: '所属平台', prop: 'platform' },
-        { label: '订单编号', prop: 'number' },
-        { label: '下单时间', prop: ['time1', 'time2'], itemType: 'daterange' }
-      ],
-
       orderTable: [],
-      GoodTable: []
+      GoodTable: [],
+      userTable: []
     }
   },
+
+  mounted() {
+    const obj = this.$route.query
+    this.getPageData(obj)
+  },
+
   methods: {
-    submitHandler(e) {
-      console.log(e)
+    async getPageData(param) {
+      const { code, data } = await getOrderCommissionInfo(param)
+      if (code === 200) {
+        this.orderTable = [data.order]
+        this.GoodTable = data.dbCommissions
+        this.userTable = data.dbCommissions
+      }
     }
   }
 }

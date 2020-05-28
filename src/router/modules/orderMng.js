@@ -21,6 +21,7 @@ const orderRouter = {
     {
       path: 'orderCommissionList',
       component: () => import('@/views/orderMng/orderCommission'),
+      hidden: true,
       name: 'orderCommissionList',
       meta: { title: '订单分佣信息查询' }
     }

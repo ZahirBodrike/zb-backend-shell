@@ -36,7 +36,7 @@ export function updateGoldenBeanExchangeConfig(data) {
   })
 }
 
-// 获取金豆任务列表
+// 获取金豆兑换记录
 export function getGoldenBeanRecord(params) {
   return request({
     url: '/beanExchangeRecord/v1_0/list',
@@ -44,3 +44,4 @@ export function getGoldenBeanRecord(params) {
     params
   })
 }
+

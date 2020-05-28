@@ -18,10 +18,10 @@ export default {
   data() {
     return {
       tableData: [
-        { level: '普通会员', type: 0 },
-        { level: '合伙人', type: 1 },
-        { level: '高级合伙人', type: 2 },
-        { level: '联合合伙人', type: 3 }
+        { level: '普通会员', type: 1 },
+        { level: '合伙人', type: 2 },
+        { level: '高级合伙人', type: 3 },
+        { level: '联合合伙人', type: 4 }
       ]
     }
   },
