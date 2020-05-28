@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const signToMoneyRouter = {
+  sort: 12,
   path: '/signToMoney',
   component: Layout,
   redirect: 'noRedirect',

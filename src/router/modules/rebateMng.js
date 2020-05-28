@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const rebateMngRouter = {
+  sort: 13,
   path: '/rebate',
   component: Layout,
   redirect: 'noRedirect',

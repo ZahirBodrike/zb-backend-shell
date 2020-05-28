@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const redEnvelopeWarRouter = {
+  sort: 14,
   path: '/red-envelope',
   component: Layout,
   redirect: 'noRedirect',

@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const materialRouter = {
+  sort: 8,
   path: '/material',
   component: Layout,
   redirect: 'noRedirect',

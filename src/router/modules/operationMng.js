@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const operationMngRouter = {
+  sort: 7,
   path: '/operation',
   component: Layout,
   redirect: 'noRedirect',

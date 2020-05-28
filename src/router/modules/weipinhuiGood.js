@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 
 const weipinhuiGoodRouter = {
-  top: true,
+  sort: 4,
   path: '/weipinhui',
   component: Layout,
   redirect: 'noRedirect',

@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 
 const pddGoodRouter = {
-  top: true,
+  sort: 3,
   path: '/pinduoduo',
   component: Layout,
   redirect: 'noRedirect',

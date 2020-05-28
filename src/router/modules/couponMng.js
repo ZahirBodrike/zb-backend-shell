@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const couponMngRouter = {
+  sort: 10,
   path: 'http://www.baidu.com',
   component: Layout,
   redirect: 'noRedirect',

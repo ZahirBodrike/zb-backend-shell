@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const financeMngRouter = {
+  sort: 15,
   path: '/finance',
   component: Layout,
   redirect: 'noRedirect',

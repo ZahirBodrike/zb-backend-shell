@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const orderRouter = {
+  sort: 9,
   path: '/order',
   component: Layout,
   redirect: 'noRedirect',

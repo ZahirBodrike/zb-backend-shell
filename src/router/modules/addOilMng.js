@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const addOilMngRouter = {
+  sort: 11,
   path: 'http://map.baidu.com',
   component: Layout,
   redirect: 'noRedirect',

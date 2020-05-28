@@ -1,6 +1,7 @@
 import Layout from '@/layout'
 
 const userMngRouter = {
+  sort: 6,
   path: '/user',
   component: Layout,
   redirect: 'noRedirect',
