@@ -115,16 +115,3 @@ export function createUniqueString() {
   const randomNum = parseInt((1 + Math.random()) * 65536) + ''
   return (+(randomNum + timestamp)).toString(32)
 }
-
-// 校验是否合法的价格(XX.XX)
-export function isLawfulPrice(price) {
-  const point = String(price).indexOf('.') + 1
-  if (!point) return true
-  return String(price).length - point <= 2
-}
-
-// 校验是否合法的库存数
-export function isLawfulStock(stockNum) {
-  if (stockNum < 0) return false
-  return String(stockNum).indexOf('.') === -1
-}
