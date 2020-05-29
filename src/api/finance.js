@@ -8,3 +8,12 @@ export function getCashOutRecordList(data) {
     data
   })
 }
+
+// 获取对账单数据
+export function getMemoTicket(data) {
+  return request({
+    url: '/distribution-agent-mng/commissionMonthlyStatement/page',
+    method: 'post',
+    data
+  })
+}
