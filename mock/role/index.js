@@ -1,8 +1,8 @@
 import Mock from 'mockjs'
-import { deepClone } from '../../src/utils/index.js'
+import { cloneDeep } from 'lodash'
 import { asyncRoutes, constantRoutes } from './routes.js'
 
-const routes = deepClone([...constantRoutes, ...asyncRoutes])
+const routes = cloneDeep([...constantRoutes, ...asyncRoutes])
 
 const roles = [
   {

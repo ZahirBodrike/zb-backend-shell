@@ -51,20 +51,19 @@
 15. [MarkdownEditor markdown编辑器](src/components/MarkdownEditor/README.md)
 16. [MDinput 加了动画的input](src/components/MDinput/README.md)
 17. [PanThunmb 图片➕旋转动画](src/components/PanThumb/README.md)
-18. [RightPanel 右方拉出抽屉](src/components/RightPanel/README.md)
-19. Screenfull 打开全屏
-20. Share/DropdownMenu 动画show出列表
-21. SizeSelect 选择字体大小
-22. Sticky 吸附
-23. SvgIcon svg图标
-24. [TextHoverEffect 字体动效](src/components/TextHoverEffect/README.md)
-25. ThemePicker 修改element主题
-26. [Tinymce 轻量级富文本编辑器](src/components/Tinymce/README.md)
-27. [UploadImg 上传图片](src/components/UploadImg/README.md)
-28. [UploadVideo 上传视频](src/components/UploadVideo/README.md)
-29. PreviewVideo 预览视频
-30. [CardList 卡片列表](src/components/CardList/README.md)
-31. UploadExcel 只上传Excel
+18. Screenfull 打开全屏
+19. Share/DropdownMenu 动画show出列表
+20. SizeSelect 选择字体大小
+21. Sticky 吸附
+22. SvgIcon svg图标
+23. [TextHoverEffect 字体动效](src/components/TextHoverEffect/README.md)
+24. ThemePicker 修改element主题
+25. [Tinymce 轻量级富文本编辑器](src/components/Tinymce/README.md)
+26. [UploadImg 上传图片](src/components/UploadImg/README.md)
+27. [UploadVideo 上传视频](src/components/UploadVideo/README.md)
+28. PreviewVideo 预览视频
+29. [CardList 卡片列表](src/components/CardList/README.md)
+30. UploadExcel 只上传Excel
 
 
 
