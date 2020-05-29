@@ -2,11 +2,7 @@ import { sortBy } from 'lodash'
 
 const routerModules = require.context('./modules', true, /\.js$/)
 
-const router = []
-
-routerModules.keys().forEach(key => {
-  router.push(routerModules(key).default)
-})
+const router = routerModules.keys().map(key => routerModules(key).default)
 
 const sortedRouter = sortBy(router, i => i.sort)
 

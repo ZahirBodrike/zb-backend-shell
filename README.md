@@ -2,6 +2,8 @@
 
 [vue-element-admin](./GUIDE.md)
 
+这是我们的git工作流：[git flow](./GITFLOW.md)
+
 #### 开发流程：
 
 1. 下载nvm管理node.js的版本，[nvm下载](https://www.cnblogs.com/gaozejie/p/10689742.html),安装好后终端执行 ```nvm install v12.12.0```
