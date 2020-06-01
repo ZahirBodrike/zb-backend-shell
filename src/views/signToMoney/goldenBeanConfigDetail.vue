@@ -19,7 +19,7 @@
       :list-field="`data`"
       :show-pagination="false"
     >
-      <template v-slot:action>
+      <template #action>
         <el-link type="primary">编辑</el-link>
       </template>
     </common-table>

@@ -103,6 +103,7 @@ export default {
       addNewItem,
       jumpTypeChoose,
       formItemList,
+
       itemStyle: {
         width: '300px'
       },

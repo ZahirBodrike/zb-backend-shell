@@ -21,7 +21,7 @@
       :show-pagination="false"
       :data-handler="dataHandler"
     >
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link type="primary" @click="showConfig(scope.row)">编辑</el-link>
       </template>
     </common-table>

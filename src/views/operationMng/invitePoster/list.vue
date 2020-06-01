@@ -8,7 +8,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-button type="primary" @click="onHandleDetail(null)">添加邀请海报</el-button>
       </template>
     </common-search-form>
@@ -23,16 +23,16 @@
       :page-sizes="[5, 10, 20]"
       :page-index-key="`currentPage`"
     >
-      <template v-slot:status="scope">{{ statusEnum[scope.row.enable] }}</template>
-      <template v-slot:createInfo="scope">
+      <template #status="scope">{{ statusEnum[scope.row.enable] }}</template>
+      <template #createInfo="scope">
         <p>{{ scope.row.createdTime }}</p>
         <p>创建人：{{ scope.row.creator }}</p>
       </template>
-      <template v-slot:updateInfo="scope">
+      <template #updateInfo="scope">
         <p>{{ scope.row.updateTime }}</p>
         <p>修改人：{{ scope.row.creator }}</p>
       </template>
-      <template v-slot:btn="scope">
+      <template #btn="scope">
         <el-button type="text" @click="onHandleDetail(scope.row.posterId)">编辑</el-button>
         <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.posterId,0)">下架</el-button>
         <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.posterId,1)">上架</el-button>

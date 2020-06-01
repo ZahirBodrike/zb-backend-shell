@@ -18,7 +18,7 @@
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:link="scope">
+      <template #link="scope">
         <el-link type="primary" @click="gotoDetail(scope.row)">{{ scope.row.orderSn }}</el-link>
       </template>
     </common-table>

@@ -8,7 +8,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-button type="primary" @click="onHandleDetail(null)">添加内容</el-button>
       </template>
     </common-search-form>
@@ -23,15 +23,15 @@
       :page-sizes="[5, 10, 20]"
       :page-index-key="`currentPage`"
     >
-      <template v-slot:stat="scope">
+      <template #stat="scope">
         <p>素材下载：{{ scope.row.downloadNum }}</p>
         <p>素材转发：{{ scope.row.shareNum }}</p>
       </template>
-      <template v-slot:createInfo="scope">
+      <template #createInfo="scope">
         <p>{{ scope.row.createdTime }}</p>
         <p>创建人：{{ scope.row.creator }}</p>
       </template>
-      <template v-slot:btn="scope">
+      <template #btn="scope">
         <el-button type="text" @click="onHandleDetail(scope.row.id)">编辑</el-button>
         <el-button v-if="scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.id,0)">下架</el-button>
         <el-button v-if="scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.id,1)">上架</el-button>

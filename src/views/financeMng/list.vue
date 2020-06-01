@@ -9,7 +9,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-link type="primary">下载账单</el-link>
       </template>
     </common-search-form>
@@ -23,7 +23,7 @@
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:action>
+      <template #action>
         <el-link type="primary">下载明细</el-link>
       </template>
     </common-table>

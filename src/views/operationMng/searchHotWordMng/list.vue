@@ -8,7 +8,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-link type="primary" @click="gotoDetail({})">+ 配置搜索热词</el-link>
       </template>
     </common-search-form>
@@ -22,7 +22,7 @@
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link type="primary" @click="gotoDetail(scope.row)">编辑</el-link>
         <el-link type="primary" @click="changeStatus(scope.row)">
           {{ scope.row.enable ? '下架' : '上架' }}

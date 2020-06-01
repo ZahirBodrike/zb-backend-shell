@@ -9,7 +9,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-button @click="addTbDialog = true">添加商品</el-button>
         <!-- <el-button>批量添加商品</el-button> -->
       </template>
@@ -24,11 +24,11 @@
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:img="scope">
+      <template #img="scope">
         <el-image :src="scope.row.pictUrl" :preview-src-list="[scope.row.pictUrl]" />
       </template>
 
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link type="primary" @click="changeStatus(scope.row)">{{ scope.row.status ? '下架' : '上架' }}</el-link>
       </template>
     </common-table>

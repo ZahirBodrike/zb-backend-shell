@@ -8,7 +8,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-button v-if="addGoodBtnList.includes(pageType)" @click="handleAddGood">添加商品</el-button>
         <el-button v-if="mulAddGoodBtnList.includes(pageType)">批量添加商品</el-button>
       </template>
@@ -23,11 +23,11 @@
       :total-field="`data.total`"
       :page-sizes="[5, 10, 20]"
     >
-      <template v-slot:img="scope">
+      <template #img="scope">
         <el-image :src="scope.row.pictUrl" :preview-src-list="[scope.row.pictUrl]" />
       </template>
 
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link type="primary" @click="$router.push({ name: 'taobaoDetail', query: {id: scope.row.numIid} })">
           编辑</el-link>
         <el-link type="primary" @click="handleDelete(scope.row.numIid)">删除</el-link>

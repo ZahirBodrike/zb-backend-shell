@@ -15,7 +15,7 @@
       :list-field="`data`"
       :show-pagination="false"
     >
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link type="primary" @click="showTaskConfig(scope.row)">编辑</el-link>
       </template>
     </common-table>

@@ -9,7 +9,7 @@
       :show-reset-btn="true"
       :submit-handler="submitHandler"
     >
-      <template v-slot:btn>
+      <template #btn>
         <el-link type="primary" :href="downloadData">下载兑换记录</el-link>
       </template>
     </common-search-form>

@@ -12,7 +12,7 @@
       :tree-table-lazy="pageType == 'taobao'"
       :load-child-data="pageType == 'taobao' ? loadChildData : () => {}"
     >
-      <template v-slot:action="scope">
+      <template #action="scope">
         <el-link
           type="primary"
           @click="gotoDetail({
