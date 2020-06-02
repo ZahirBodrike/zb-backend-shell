@@ -197,7 +197,7 @@ export default {
         this.$message['error']('请先选择商品所属平台！')
         return
       }
-      console.log(222)
+
       materialService.goodsInfo({ platform: this.detailForm.platform, goodsId: this.detailForm.goodsId })
         .then(response => {
           this.$message[response.code === 200 ? 'success' : 'error'](

@@ -34,7 +34,7 @@ export const jingdongDetailForm = [
   { label: '领券价（券后）', prop: 'couponPrice' },
   { label: '佣金比例', prop: 'rate' },
   { label: '佣金金额', prop: 'commission' },
-  { label: '商品主图', prop: 'mainPic', type: 'bigCard' },
+  { label: '商品主图', prop: 'pictUrl', type: 'bigCard' },
   { label: '商品小图', prop: 'miniPic', type: 'miniCard' },
   { label: '一级类目', prop: 'level1' },
   { label: '二级类目', prop: 'level2' },

@@ -12,7 +12,7 @@
       @sort-change="args => emitEventHandler('sort-change', args)"
       @selection-change="selection => emitEventHandler('selection-change', selection)"
     >
-      <template v-for="(column, columnIndex) in columns">
+      <template v-for="(column, columnIndex) in freezeColumn">
         <el-table-column
           v-if="column.type === undefined"
           :key="columnIndex"
@@ -55,7 +55,6 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
-
     </div>
   </div>
 </template>
@@ -83,6 +82,11 @@ export default {
       },
       total: 0,
       cacheLocalData: []
+    }
+  },
+  computed: {
+    freezeColumn() {
+      return this.columns && Object.freeze(this.columns)
     }
   },
   watch: {
@@ -185,6 +189,7 @@ export default {
 
       if (!fetch) {
         console.log('请传入请求函数')
+        this.loading = false
         return
       }
 

@@ -67,9 +67,9 @@ export default {
     async getPageData(param) {
       const { code, data } = await getOrderCommissionInfo(param)
       if (code === 200) {
-        this.orderTable = [data.order]
-        this.GoodTable = data.dbCommissions
-        this.userTable = data.dbCommissions
+        this.orderTable = Object.freeze([data.order])
+        this.GoodTable = Object.freeze(data.dbCommissions)
+        this.userTable = Object.freeze(data.dbCommissions)
       }
     }
   }
