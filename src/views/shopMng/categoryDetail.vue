@@ -27,6 +27,7 @@ import { taobaoCategoryDetailForm, jingdongCategoryDetailForm, pinduoduoCategory
   suningCategoryDetailForm, taobaoSubCategoryDetailForm } from './const/categoryDetailForm'
 
 import { getTaobaoTypeListDetail, updateTaobaoTypeList, addTaobaoTypeList } from '@/api/taobaoGoodMng'
+import { getJingdongTypeListDetail, updateJingdongTypeList, addJingdongTypeList } from '@/api/jingdongGoodMng'
 
 const categoryDetailFormMap = {
   taobao: taobaoCategoryDetailForm,
@@ -40,15 +41,18 @@ const subCategoryDetailFormMap = {
 }
 
 const getDetailMap = {
-  taobao: getTaobaoTypeListDetail
+  taobao: getTaobaoTypeListDetail,
+  jingdong: getJingdongTypeListDetail
 }
 
 const updateSubmitMap = {
-  taobao: updateTaobaoTypeList
+  taobao: updateTaobaoTypeList,
+  jingdong: updateJingdongTypeList
 }
 
 const addSubmitMap = {
-  taobao: addTaobaoTypeList
+  taobao: addTaobaoTypeList,
+  jingdong: addJingdongTypeList
 }
 
 export default {
@@ -102,7 +106,7 @@ export default {
         this.form.onlyReadName = undefined
       }
       this.$refs.form.validate(valid => {
-        if (!valid) return
+        // if (!valid) return
 
         if (this.$route.query.id) {
           this.updateDetail(this.form).then(res => {

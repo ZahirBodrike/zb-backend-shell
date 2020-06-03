@@ -6,7 +6,7 @@
       ref="table"
       :type="`remote`"
       :columns="columns"
-      :fetch="getTaobaoTypeList"
+      :fetch="getTypeData"
       :list-field="`data`"
       :show-pagination="false"
       :tree-table-lazy="pageType == 'taobao'"
@@ -37,10 +37,22 @@ import CommonTable from '@/components/CommonTable'
 
 import { getTaobaoTypeList } from '@/api/taobaoGoodMng'
 
+import { getJingdongTypeList } from '@/api/jingdongGoodMng'
+
 const levelMap = {
   1: '一级类目',
   2: '二级类目',
   3: '三级类目'
+}
+
+const typeDataMap = {
+  taobao: getTaobaoTypeList,
+  jingdong: getJingdongTypeList
+}
+
+const categoryInfo = {
+  taobao: { name: '淘宝', prop: 'tbkCatId' },
+  jingdong: { name: '京东', prop: 'jdfCid' }
 }
 
 export default {
@@ -49,15 +61,16 @@ export default {
     const pageType = this.$route.meta.type
     return {
       pageType,
+      getTypeData: typeDataMap[pageType],
 
       columns: [
         { label: '类目级别', prop: 'level', formatter: row => {
           return levelMap[row.level]
         }
         },
-        { label: '类目ID', prop: 'id' },
+        { label: 'ID', prop: 'id' },
         { label: '类目名称', prop: 'name' },
-        { label: '淘宝类目ID', prop: 'tbkCatId' },
+        { label: `${categoryInfo[pageType].name}类目ID`, prop: categoryInfo[pageType].prop },
         { label: '权重', prop: 'sortNum' },
         { label: '状态', prop: 'status', formatter: row => {
           return row.status ? '有效' : '无效'

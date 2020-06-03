@@ -28,9 +28,18 @@
       </template>
 
       <template #action="scope">
-        <el-link type="primary" @click="$router.push({ name: 'taobaoDetail', query: {id: scope.row.numIid} })">
+        <el-link type="primary" @click="gotoDetail(scope.row)">
           编辑</el-link>
-        <el-link type="primary" @click="handleDelete(scope.row.numIid)">删除</el-link>
+        <el-link
+          v-if="actionDeleteLinkList.includes(pageType)"
+          type="primary"
+          @click="handleDelete(scope.row.numIid)"
+        >删除</el-link>
+        <el-link
+          v-if="actionChangeStatusLinkList.includes(pageType)"
+          type="primary"
+          @click="handleChangeStatus(scope.row)"
+        >{{ scope.row.status ? '下架' : '上架' }}</el-link>
       </template>
     </common-table>
 
@@ -75,6 +84,7 @@
 <script>
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
+import qs from 'qs'
 
 import { taobaoSearch, jingdongSearch, pinduoduoSearch, weipinhuiSearch,
   suningSearch } from './const/searchForm'
@@ -83,6 +93,8 @@ import { taobaoTable, jingdongTable, pinduoduoTable, weipinhuiTable,
 
 import { getTaobaoGoodList, getTaobaoFavorites, addTaobaoGoodList,
   delTaobaoGoodList } from '@/api/taobaoGoodMng'
+
+import { getJingdongGoodList, changeStatusJingdongGoodList } from '@/api/jingdongGoodMng'
 
 const searchFormMap = {
   taobao: taobaoSearch,
@@ -101,7 +113,8 @@ const tableMap = {
 }
 
 const listApi = {
-  taobao: getTaobaoGoodList
+  taobao: getTaobaoGoodList,
+  jingdong: getJingdongGoodList
 }
 
 const deleteApi = {
@@ -122,6 +135,8 @@ export default {
 
       addGoodBtnList: ['taobao', 'jingdong', 'pinduoduo', 'weipinhui', 'suning'],
       mulAddGoodBtnList: ['jingdong', 'pinduoduo', 'weipinhui'],
+      actionDeleteLinkList: ['taobao'],
+      actionChangeStatusLinkList: ['jingdong'],
 
       addGoodForm: {
         type: '',
@@ -140,6 +155,16 @@ export default {
         ...form
       })
     },
+    gotoDetail(row) {
+      let id = null
+      if (this.pageType === 'jingdong') {
+        id = row.id
+      } else {
+        id = row.numIid
+      }
+
+      this.$router.push({ name: `${this.pageType}Detail`, query: { id }})
+    },
     handleAddGood() {
       if (['taobao'].includes(this.pageType)) {
         this.selectLoading = true
@@ -156,6 +181,18 @@ export default {
       this.deleteItem({ goodsId: id }).then(res => {
         if (res.code === 200) {
           this.$message.success('删除成功')
+          this.$refs['table'].searchHandler()
+        }
+      })
+    },
+    handleChangeStatus(row) {
+      const obj = {
+        id: row.id,
+        status: row.status ? 0 : 1
+      }
+      changeStatusJingdongGoodList(qs.stringify(obj)).then(res => {
+        if (res.code === 200) {
+          this.$message.success('操作成功')
           this.$refs['table'].searchHandler()
         }
       })

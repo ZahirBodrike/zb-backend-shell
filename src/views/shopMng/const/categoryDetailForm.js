@@ -16,8 +16,8 @@ export const taobaoSubCategoryDetailForm = [
 
 export const jingdongCategoryDetailForm = [
   { label: '类目名称', prop: 'name' },
-  { label: '京东类目ID', prop: 'id' },
-  { label: '运营位权重', prop: 'sort' },
+  { label: '京东类目ID', prop: 'jdfCid' },
+  { label: '运营位权重', prop: 'sortNum' },
   { label: 'ICON图标', prop: 'icon', type: 'upload' }
 ]
 

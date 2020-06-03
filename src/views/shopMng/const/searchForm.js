@@ -4,8 +4,8 @@ export const taobaoSearch = [
 ]
 
 export const jingdongSearch = [
-  { prop: 'goodId', label: '商品ID' },
-  { prop: 'goodName', label: '商品名称' }
+  { prop: 'skuId', label: '商品ID' },
+  { prop: 'goodsName', label: '商品名称' }
 ]
 
 export const pinduoduoSearch = [

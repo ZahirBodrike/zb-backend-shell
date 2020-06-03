@@ -66,6 +66,8 @@
 import CommonSearchForm from '@/components/CommonSearchForm'
 import CommonTable from '@/components/CommonTable'
 
+import qs from 'qs'
+
 import { platformMap } from './const'
 
 import { getHomePageChoiceMngList, updateHomePageChoiceMngList, addHomePageChoiceMngList } from '@/api/operation'
@@ -126,7 +128,7 @@ export default {
         id: item.id,
         status: item.status ? 0 : 1
       }
-      updateHomePageChoiceMngList(obj).then(res => {
+      updateHomePageChoiceMngList(qs.stringify(obj)).then(res => {
         if (res.code === 200) {
           this.$message.success('操作成功')
           this.$refs['table'].searchHandler()

@@ -21,26 +21,26 @@ export const taobaoDetailForm = [
 ]
 
 export const jingdongDetailForm = [
-  { label: '商品ID', prop: 'goodid' },
-  { label: '店铺名称', prop: 'shopname' },
-  { label: '京东标题', prop: 'title' },
-  { label: '商品标题', prop: 'goodtitle' },
-  { label: '商品价格', prop: 'price' },
-  { label: '优惠券id/链接', prop: 'couponid' },
-  { label: '优惠券面值', prop: 'coupon' },
-  { label: '优惠券门槛价格', prop: 'couponInfo' },
-  { label: '优惠券数量', prop: 'couponNum' },
-  { label: '优惠券有效期', prop: 'duration', type: 'daterange' },
-  { label: '领券价（券后）', prop: 'couponPrice' },
-  { label: '佣金比例', prop: 'rate' },
-  { label: '佣金金额', prop: 'commission' },
+  { label: '商品ID', prop: 'jdfSpuId', type: 'search' },
+  { label: '店铺名称', prop: 'shopName', disable: true },
+  { label: '京东标题', prop: 'jdfSkuNameOrigin', disable: true },
+  { label: '商品标题', prop: 'jdfSkuName' },
+  { label: '商品价格', prop: 'price', disable: true },
+  { label: '优惠券id/链接', prop: 'link' },
+  { label: '优惠券面值', prop: 'discount', disable: true },
+  { label: '优惠券门槛价格', prop: 'quota', disable: true },
+  { label: '优惠券数量', prop: 'couponRemainCount', disable: true },
+  { label: '优惠券有效期', prop: 'couponTime', type: 'daterange', disable: true },
+  { label: '领券价（券后）', prop: 'salePrice', disable: true }, //
+  { label: '佣金比例', prop: 'commissionShare', disable: true },
+  { label: '佣金金额', prop: 'commission', disable: true },
   { label: '商品主图', prop: 'pictUrl', type: 'bigCard' },
-  { label: '商品小图', prop: 'miniPic', type: 'miniCard' },
-  { label: '一级类目', prop: 'level1' },
-  { label: '二级类目', prop: 'level2' },
-  { label: '三级类目', prop: 'level3' },
-  { label: '检测券', prop: 'check' },
-  { label: '检测时间', prop: 'checkTime', type: 'date' }
+  { label: '商品小图', prop: 'smallImagesStr', type: 'miniCard' },
+  { label: '一级类目', prop: 'jdfCid1Name', disable: true },
+  { label: '二级类目', prop: 'jdfCid2Name', disable: true },
+  { label: '三级类目', prop: 'jdfCid3Name', disable: true },
+  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck', disable: true }, //
+  { label: '检测时间', prop: 'checkTime', type: 'date', disable: true } //
 ]
 
 export const pinduoduoDetailForm = [

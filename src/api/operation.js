@@ -28,11 +28,11 @@ export function addHomePageChoiceMngList(params) {
 }
 
 // 编辑首页精选商品
-export function updateHomePageChoiceMngList(params) {
+export function updateHomePageChoiceMngList(data) {
   return request({
     url: '/distribution-agent-mng/mng/homeSelection/updateStatus',
-    method: 'get',
-    params
+    method: 'put',
+    data
   })
 }
 
