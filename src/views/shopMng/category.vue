@@ -93,18 +93,22 @@ export default {
     },
     gotoDetail(obj) {
       if (obj.type === 'sub' && !obj.id) {
+        // 新建 二级类目
         this.$router.push({
           name: `${this.pageType}CategoryDetail`,
           query: { type: obj.type, name: obj.name, parentTypeId: obj.parentTypeId }
         })
       } else if (obj.type === 'sub' && obj.id) {
+        // 编辑 二级类目
         this.$router.push({
           name: `${this.pageType}CategoryDetail`,
           query: { type: obj.type, id: obj.id, name: obj.name, parentTypeId: obj.parentTypeId }
         })
       } else if (!obj.type && obj.id) {
+        // 编辑 一级类目
         this.$router.push({ name: `${this.pageType}CategoryDetail`, query: { id: obj.id }})
       } else {
+        // 新建 一级类目
         this.$router.push({ name: `${this.pageType}CategoryDetail` })
       }
     }

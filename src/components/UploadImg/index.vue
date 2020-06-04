@@ -213,14 +213,14 @@ export default {
     },
 
     /** 校验图片长度 */
-    valWidth: function(file) {
+    valWidth(file) {
       const _this = this
-      return new Promise(function(resolve, reject) {
+      return new Promise((resolve, reject) => {
         const width = _this.limitWidth // 图片宽度
         const _URL = window.URL || window.webkitURL
         const image = new Image()
         image.src = _URL.createObjectURL(file)
-        image.onload = function() {
+        image.onload = () => {
           const valid = image.width <= width
           valid ? resolve() : reject()
         }

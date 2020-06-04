@@ -1,4 +1,5 @@
-import { HOST,
+import {
+  HOST,
   WORK_ORDER_URL,
   M_GOODS_DETAIL,
   COUPON_PAGE_LINK,
@@ -10,7 +11,7 @@ import { HOST,
 
 const API = {
   uploadImg: `${HOST}/file/img/v1_0/base64_upload`,
-  uploadImg2: `${HOST}/distribution-agent-mng/common/img/base64_upload`,
+  uploadImg2: `${HOST}/common/img/base64_upload`,
   uploadPdf: `${HOST}/zy_invoice/v1_0/upload_pdf`,
   uploadFile: `${HOST}/common/img/file`,
 

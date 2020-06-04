@@ -10,7 +10,12 @@
       >
         <upload-img v-if="item.type == 'upload'" :list.sync="imgList" />
 
-        <el-input v-else v-model="form[item.prop]" :style="itemStyle" :disabled="item.disabled" />
+        <el-input
+          v-else
+          v-model="form[item.prop]"
+          :style="itemStyle"
+          :disabled="item.disabled"
+        />
       </el-form-item>
 
       <el-form-item label-width="120px">
@@ -106,7 +111,7 @@ export default {
         this.form.onlyReadName = undefined
       }
       this.$refs.form.validate(valid => {
-        // if (!valid) return
+        if (!valid) return
 
         if (this.$route.query.id) {
           this.updateDetail(this.form).then(res => {

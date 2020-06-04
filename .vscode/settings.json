@@ -1,0 +1,25 @@
+{
+  "git.autofetch": true,
+  "diffEditor.renderSideBySide": false,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "emmet.triggerExpansionOnTab": true,
+  "explorer.confirmDelete": false,
+  "window.zoomLevel": 0,
+  "editor.renderWhitespace": "none",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "eslint.validate": [
+    "html",
+    {
+        "language": "vue",
+        "autoFix": true
+    },
+    {
+        "language": "javascript",
+        "autoFix": true
+    }
+  ],
+  "eslint.autoFixOnSave": true
+}
