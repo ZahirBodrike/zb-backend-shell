@@ -2,7 +2,12 @@
   <div class="dndList">
     <div :style="{width:width1}" class="dndList-list">
       <h3>{{ list1Title }}</h3>
-      <draggable :set-data="setData" :list="list1" group="article" class="dragArea">
+      <draggable
+        :set-data="setData"
+        :list="list1"
+        group="article"
+        class="dragArea"
+      >
         <div v-for="element in list1" :key="element.id" class="list-complete-item">
           <div class="list-complete-item-handle">
             {{ element.id }}[{{ element.author }}] {{ element.title }}
@@ -66,10 +71,10 @@ export default {
   },
   methods: {
     isNotInList1(v) {
-      return this.list1.every(k => v.id !== k.id)
+      return this.list1.every((k) => v.id !== k.id)
     },
     isNotInList2(v) {
-      return this.list2.every(k => v.id !== k.id)
+      return this.list2.every((k) => v.id !== k.id)
     },
     deleteEle(ele) {
       for (const item of this.list1) {

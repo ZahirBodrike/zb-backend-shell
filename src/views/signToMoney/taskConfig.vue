@@ -2,7 +2,9 @@
   <div class="task-config-list">
     <div class="config">
       <span v-loading="beanLoading">金豆汇率配置：{{ beanNum }}金豆 = {{ cashAmount }}元</span>
-      <el-link type="primary" @click="showConfigBean">编辑</el-link>
+      <el-link type="primary" @click="showConfigBean">
+        编辑
+      </el-link>
     </div>
 
     <el-divider />
@@ -16,7 +18,9 @@
       :show-pagination="false"
     >
       <template #action="scope">
-        <el-link type="primary" @click="showTaskConfig(scope.row)">编辑</el-link>
+        <el-link type="primary" @click="showTaskConfig(scope.row)">
+          编辑
+        </el-link>
       </template>
     </common-table>
 
@@ -25,7 +29,6 @@
       title="金豆汇率配置"
       :visible.sync="dialogVisible"
     >
-
       <el-form :model="goldenBean" label-width="120px">
         <el-form-item label="金豆数">
           <el-input-number v-model="goldenBean.beanNum" />
@@ -47,7 +50,6 @@
       title="任务配置"
       :visible.sync="taskDialogVisible"
     >
-
       <el-form :model="currentTask" label-width="100px">
         <el-form-item label="任务名称">
           <el-input v-model="currentTask.title" :style="{ width: '300px' }" />

@@ -8,12 +8,12 @@ export const taobaoTable = [
   { prop: 'numIid', label: '商品ID', fixed: 'left' },
   { prop: 'title', label: '商品标题', minWidth: 200 },
   { prop: 'levelOneCategoryName', label: '淘宝类目(一级)' },
-  { prop: 'userType', label: '商品标识', formatter: row => shopTagMap[row.userType] },
+  { prop: 'userType', label: '商品标识', formatter: (row) => shopTagMap[row.userType] },
   { prop: 'volume', label: '30天销量' },
   { prop: 'zkFinalPrice', label: '淘宝天猫价' },
   { prop: 'salePrice', label: '领券价(券后)' },
   { prop: 'couponInfo', label: '优惠券金额' },
-  { prop: 'commissionRate', label: '佣金比例', formatter: row => row.commissionRate },
+  { prop: 'commissionRate', label: '佣金比例', formatter: (row) => row.commissionRate },
   { prop: 'commission', label: '佣金' },
   { prop: 'couponEndTime', label: '优惠券结束时间', minWidth: 200 },
   { label: '操作', slotName: 'action' }
@@ -28,11 +28,11 @@ export const jingdongTable = [
   { prop: 'volume', label: '30天销量' },
   { prop: 'zkFinalPrice', label: '商品价格' },
   { prop: 'salePrice', label: '领券价(券后)' },
-  { prop: 'couponInfo', label: '优惠券金额', formatter: row => row.couponInfo || '无' },
-  { prop: 'commissionRate', label: '佣金比例', formatter: row => row.commissionRate },
+  { prop: 'couponInfo', label: '优惠券金额', formatter: (row) => row.couponInfo || '无' },
+  { prop: 'commissionRate', label: '佣金比例', formatter: (row) => row.commissionRate },
   { prop: 'commission', label: '佣金' },
-  { prop: 'couponEndTime', label: '优惠券结束时间', formatter: row => row.couponInfo || '无' },
-  { prop: 'status', label: '状态', formatter: row => row.status ? '上架' : '下架' },
+  { prop: 'couponEndTime', label: '优惠券结束时间', formatter: (row) => row.couponInfo || '无' },
+  { prop: 'status', label: '状态', formatter: (row) => row.status ? '上架' : '下架' },
   { label: '操作', slotName: 'action' }
 ]
 
@@ -46,7 +46,7 @@ export const pinduoduoTable = [
   { prop: 'groupPrice', label: '拼团价' },
   { prop: 'couponPrice', label: '领券价(券后)' },
   { prop: 'coupon', label: '优惠券金额' },
-  { prop: 'rate', label: '佣金比例', fomatter: row => row },
+  { prop: 'rate', label: '佣金比例', fomatter: (row) => row },
   { prop: 'commission', label: '佣金' },
   { prop: 'couponEndTime', label: '优惠券结束时间' },
   { label: '操作', slotName: 'action' }
@@ -61,7 +61,7 @@ export const weipinhuiTable = [
   { prop: 'price', label: '市场价' },
   { prop: 'couponPrice', label: '折后价' },
   { prop: 'couponRate', label: '折扣比例' },
-  { prop: 'rate', label: '佣金比例', fomatter: row => row },
+  { prop: 'rate', label: '佣金比例', fomatter: (row) => row },
   { prop: 'commission', label: '佣金' },
   { prop: 'couponEndTime', label: '商品售卖结束时间' },
   { label: '操作', slotName: 'action' }
@@ -77,7 +77,7 @@ export const suningTable = [
   { prop: 'price', label: '商品价格' },
   { prop: 'couponPrice', label: '领券价(券后)' },
   { prop: 'coupon', label: '优惠券金额' },
-  { prop: 'rate', label: '佣金比例', fomatter: row => row },
+  { prop: 'rate', label: '佣金比例', fomatter: (row) => row },
   { prop: 'commission', label: '佣金' },
   { prop: 'couponEndTime', label: '优惠券结束时间' },
   { label: '操作', slotName: 'action' }

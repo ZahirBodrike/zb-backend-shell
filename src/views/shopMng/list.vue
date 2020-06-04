@@ -9,8 +9,12 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-button v-if="addGoodBtnList.includes(pageType)" @click="handleAddGood">添加商品</el-button>
-        <el-button v-if="mulAddGoodBtnList.includes(pageType)">批量添加商品</el-button>
+        <el-button v-if="addGoodBtnList.includes(pageType)" @click="handleAddGood">
+          添加商品
+        </el-button>
+        <el-button v-if="mulAddGoodBtnList.includes(pageType)">
+          批量添加商品
+        </el-button>
       </template>
     </common-search-form>
 
@@ -29,17 +33,22 @@
 
       <template #action="scope">
         <el-link type="primary" @click="gotoDetail(scope.row)">
-          编辑</el-link>
+          编辑
+        </el-link>
         <el-link
           v-if="actionDeleteLinkList.includes(pageType)"
           type="primary"
           @click="handleDelete(scope.row.numIid)"
-        >删除</el-link>
+        >
+          删除
+        </el-link>
         <el-link
           v-if="actionChangeStatusLinkList.includes(pageType)"
           type="primary"
           @click="handleChangeStatus(scope.row)"
-        >{{ scope.row.status ? '下架' : '上架' }}</el-link>
+        >
+          {{ scope.row.status ? '下架' : '上架' }}
+        </el-link>
       </template>
     </common-table>
 
@@ -74,8 +83,12 @@
       </el-form>
 
       <div slot="footer">
-        <el-button @click="addTbDialog = false;addGoodForm.type = ''">取 消</el-button>
-        <el-button type="primary" @click="handleSubmitAddGood">确定</el-button>
+        <el-button @click="addTbDialog = false;addGoodForm.type = ''">
+          取 消
+        </el-button>
+        <el-button type="primary" @click="handleSubmitAddGood">
+          确定
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -169,7 +182,7 @@ export default {
       if (['taobao'].includes(this.pageType)) {
         this.selectLoading = true
         this.addTbDialog = true
-        getTaobaoFavorites().then(res => {
+        getTaobaoFavorites().then((res) => {
           this.taobaoFavorites = res.data
           this.selectLoading = false
         })
@@ -178,7 +191,7 @@ export default {
       }
     },
     handleDelete(id) {
-      this.deleteItem({ goodsId: id }).then(res => {
+      this.deleteItem({ goodsId: id }).then((res) => {
         if (res.code === 200) {
           this.$message.success('删除成功')
           this.$refs['table'].searchHandler()
@@ -190,7 +203,7 @@ export default {
         id: row.id,
         status: row.status ? 0 : 1
       }
-      changeStatusJingdongGoodList(qs.stringify(obj)).then(res => {
+      changeStatusJingdongGoodList(qs.stringify(obj)).then((res) => {
         if (res.code === 200) {
           this.$message.success('操作成功')
           this.$refs['table'].searchHandler()
@@ -199,7 +212,7 @@ export default {
     },
 
     handleSubmitAddGood() {
-      this.$refs['addGoodForm'].validate(vaild => {
+      this.$refs['addGoodForm'].validate((vaild) => {
         if (!vaild) return
 
         this.addTaobaoGoodLoading = true
@@ -211,7 +224,7 @@ export default {
           obj.materialId = this.addGoodForm.value
         }
 
-        addTaobaoGoodList(obj).then(res => {
+        addTaobaoGoodList(obj).then((res) => {
           if (res.code === 200) {
             this.$message.success('添加成功')
             this.$refs['table'].searchHandler()

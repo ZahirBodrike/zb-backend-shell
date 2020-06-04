@@ -27,7 +27,7 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'medium'
 })
 
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])
 })
 
@@ -37,5 +37,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App)
 })

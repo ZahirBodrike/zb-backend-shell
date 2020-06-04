@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-link type="primary" :href="downloadData">下载兑换记录</el-link>
+        <el-link type="primary" :href="downloadData">
+          下载兑换记录
+        </el-link>
       </template>
     </common-search-form>
 

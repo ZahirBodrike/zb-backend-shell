@@ -1,6 +1,5 @@
 <template>
   <div class="searchHotWord-detail">
-
     <common-search-form
       ref="form"
       :fetch="getHotSearchWordMngListDetail"
@@ -18,7 +17,6 @@
       @getData="handleGetData"
       @change-choose="handleChangeChoose"
     />
-
   </div>
 </template>
 
@@ -97,14 +95,14 @@ export default {
   methods: {
     submitHandler(form) {
       if (this.$route.query.id) {
-        updateHotSearchWordMngList(form).then(res => {
+        updateHotSearchWordMngList(form).then((res) => {
           if (res.code === 200) {
             this.$message.success('修改成功')
             this.$router.go(-1)
           }
         })
       } else {
-        addHotSearchWordMngList(form).then(res => {
+        addHotSearchWordMngList(form).then((res) => {
           if (res.code === 200) {
             this.$message.success('添加成功')
             this.$router.go(-1)

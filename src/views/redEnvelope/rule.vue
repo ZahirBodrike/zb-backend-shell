@@ -48,16 +48,19 @@
           :prop="item.prop"
         >
           <el-input v-model="form[item.prop]" :style="itemStyle">
-            <template slot="append">{{ item.append }}</template>
+            <template slot="append">
+              {{ item.append }}
+            </template>
           </el-input>
         </el-form-item>
       </el-form>
     </div>
 
     <div :style="{ marginLeft: '200px' }">
-      <el-button type="primary" @click="handleSubmit">保存</el-button>
+      <el-button type="primary" @click="handleSubmit">
+        保存
+      </el-button>
     </div>
-
   </div>
 </template>
 

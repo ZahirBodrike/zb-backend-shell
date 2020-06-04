@@ -104,7 +104,7 @@ export default {
       } else {
         this.isListWatch = true
         const orgList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newVal !== '' && newVal != null ? [newVal] : []) : newVal
-        const newList = [].concat(orgList).map(item => {
+        const newList = [].concat(orgList).map((item) => {
           return { raw: { ossUrl: item }}
         })
         this.fileList = newList
@@ -116,7 +116,7 @@ export default {
         this.isListWatch = false
       } else {
         this.isFileListWatch = true
-        const newList = [].concat(newVal).map(item => {
+        const newList = [].concat(newVal).map((item) => {
           return item ? item.raw.ossUrl : null
         })
         const resList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newList.length > 0 ? newList[0] : '') : newList
@@ -172,7 +172,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         getAliOSSConfig()
-          .then(response => {
+          .then((response) => {
             const {
               accessKeyId,
               dir,

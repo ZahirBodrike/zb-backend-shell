@@ -21,7 +21,13 @@
           </i>
           <span v-show="loading !== 1" class="vicp-hint">{{ lang.hint }}</span>
           <span v-show="!isSupported" class="vicp-no-supported-hint">{{ lang.noSupported }}</span>
-          <input v-show="false" v-if="step == 1" ref="fileinput" type="file" @change="handleChange">
+          <input
+            v-show="false"
+            v-if="step == 1"
+            ref="fileinput"
+            type="file"
+            @change="handleChange"
+          >
         </div>
         <div v-show="hasError" class="vicp-error">
           <i class="vicp-icon2" />
@@ -129,7 +135,12 @@
           <a @click="off" @mousedown="ripple">{{ lang.btn.close }}</a>
         </div>
       </div>
-      <canvas v-show="false" ref="canvas" :width="width" :height="height" />
+      <canvas
+        v-show="false"
+        ref="canvas"
+        :width="width"
+        :height="height"
+      />
     </div>
   </div>
 </template>
@@ -478,7 +489,7 @@ export default {
     // 设置图片源
     setSourceImg(file) {
       const fr = new FileReader()
-      fr.onload = e => {
+      fr.onload = (e) => {
         this.sourceImgUrl = fr.result
         this.startCrop()
       }
@@ -776,7 +787,7 @@ export default {
       )
       // 添加其他参数
       if (typeof params === 'object' && params) {
-        Object.keys(params).forEach(k => {
+        Object.keys(params).forEach((k) => {
           fmData.append(k, params[k])
         })
       }
@@ -795,11 +806,11 @@ export default {
         method: 'post',
         data: fmData
       })
-        .then(resData => {
+        .then((resData) => {
           this.loading = 2
           this.$emit('crop-upload-success', resData.data)
         })
-        .catch(err => {
+        .catch((err) => {
           if (this.value) {
             this.loading = 3
             this.hasError = true

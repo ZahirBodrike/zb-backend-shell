@@ -21,18 +21,24 @@
     </div>
     <div class="form">
       <el-row v-for="(item,index) in areaList" :key="index" class="flex">
-        <el-col :span="3" class="form-item"><el-tag>热区{{ item.number }}</el-tag></el-col>
+        <el-col :span="3" class="form-item">
+          <el-tag>热区{{ item.number }}</el-tag>
+        </el-col>
         <el-col :span="10" class="form-item">
           <label class="label">名称</label><el-input v-model="item.name" />
         </el-col>
         <el-col :span="10" class="form-item">
           <label class="label">链接</label><el-input v-model="item.gotolink" />
         </el-col>
-        <el-col :span="1"><i class="el-icon-delete" @click="delItem(index)" /></el-col>
+        <el-col :span="1">
+          <i class="el-icon-delete" @click="delItem(index)" />
+        </el-col>
       </el-row>
     </div>
     <div>
-      <el-button @click="clearList">重置</el-button>
+      <el-button @click="clearList">
+        重置
+      </el-button>
     </div>
   </div>
 </template>
@@ -201,9 +207,9 @@ export default {
     delItem(index) {
       this.areaList.splice(index, 1)
       if (this.areaList) {
-        const arr = this.areaList.filter(i => i.number > index)
+        const arr = this.areaList.filter((i) => i.number > index)
         if (!arr) return
-        arr.forEach(i => i.number--)
+        arr.forEach((i) => i.number--)
         if (this.areaList[this.areaList.length - 1]) {
           this.imgNum = this.areaList[this.areaList.length - 1].number + 1
         } else {

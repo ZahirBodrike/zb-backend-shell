@@ -11,6 +11,7 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
   rules: {
+    // 0 - "off" /  1 - "warn" / 2 - "error"
     "vue/max-attributes-per-line": [2, {
       "singleline": 3,
       "multiline": {
@@ -18,15 +19,19 @@ module.exports = {
         "allowFirstLine": false
       }
     }],
-    "vue/singleline-html-element-content-newline": "off",
-    "vue/multiline-html-element-content-newline":"off",
-    "vue/name-property-casing": ["error", "PascalCase"],
-    "vue/no-v-html": "off",
+    "vue/singleline-html-element-content-newline": 2,
+    "vue/multiline-html-element-content-newline": 2,
+    "vue/name-property-casing": [2, "PascalCase"],
+    "vue/no-async-in-computed-properties": 2,
+    "vue/no-duplicate-attributes": 2,
+    "vue/no-dupe-keys": 2,
+    "vue/no-v-html": 0,
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
       'after': true
     }],
+    'arrow-parens': 2,
     'block-spacing': [2, 'always'],
     'brace-style': [2, '1tbs', {
       'allowSingleLine': true

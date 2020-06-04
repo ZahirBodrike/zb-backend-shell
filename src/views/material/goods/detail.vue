@@ -2,7 +2,12 @@
   <div v-loading.fullscreen="loading" class="app-container">
     <div class="section-box">
       <el-row>
-        <el-form ref="detailForm" :inline="true" :model="detailForm" label-width="200px">
+        <el-form
+          ref="detailForm"
+          :inline="true"
+          :model="detailForm"
+          label-width="200px"
+        >
           <el-row>
             <el-form-item label="作者：" prop="author">
               <el-select v-model="detailForm.author" clearable placeholder="请选择">
@@ -91,8 +96,12 @@
       </el-row>
     </div>
     <el-row type="flex" justify="center" class="detail-btn-box">
-      <el-button @click="onHandleDetailsCancel">取消</el-button>
-      <el-button type="primary" @click="onHandleSubmitForm('detailForm')">保存</el-button>
+      <el-button @click="onHandleDetailsCancel">
+        取消
+      </el-button>
+      <el-button type="primary" @click="onHandleSubmitForm('detailForm')">
+        保存
+      </el-button>
     </el-row>
   </div>
 </template>
@@ -149,7 +158,7 @@ export default {
   methods: {
     /** 获取详情信息 */
     getDetailsData(id) {
-      materialService.goodsMaterialDetail({ id: id }).then(response => {
+      materialService.goodsMaterialDetail({ id: id }).then((response) => {
         if (response.code === 200) {
           this.detailForm = response.data
         } else {
@@ -164,7 +173,7 @@ export default {
 
     /** 提交表单 */
     onHandleSubmitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!valid) return this.$message.error('提交信息有误！')
         this.loading = true
         if (this.detailId) {
@@ -179,14 +188,14 @@ export default {
         materialService[
           this.detailId ? 'goodsMaterialUpdate' : 'goodsMaterialAdd'
         ](this.detailForm)
-          .then(response => {
+          .then((response) => {
             this.loading = false
             this.$message[response.code === 200 ? 'success' : 'error'](
               response.msg
             )
             if (response.code === 200) this.$router.go(-1)
           })
-          .catch(Error => {
+          .catch((Error) => {
             this.loading = false
           })
       })
@@ -199,7 +208,7 @@ export default {
       }
 
       materialService.goodsInfo({ platform: this.detailForm.platform, goodsId: this.detailForm.goodsId })
-        .then(response => {
+        .then((response) => {
           this.$message[response.code === 200 ? 'success' : 'error'](
             response.msg
           )
@@ -207,7 +216,7 @@ export default {
             // TODO 赋值商品信息
           }
         })
-        .catch(Error => {
+        .catch((Error) => {
         })
     }
   }

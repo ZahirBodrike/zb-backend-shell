@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-link type="primary" @click="gotoDetail({})">+ 创建消息任务</el-link>
+        <el-link type="primary" @click="gotoDetail({})">
+          + 创建消息任务
+        </el-link>
       </template>
     </common-search-form>
 
@@ -24,7 +26,9 @@
       :page-sizes="[5, 10, 20]"
     >
       <template #action="scope">
-        <el-link type="primary" @click="gotoDetail(scope.row)">查看</el-link>
+        <el-link type="primary" @click="gotoDetail(scope.row)">
+          查看
+        </el-link>
         <el-link type="primary" @click="changeStatus(scope.row)">
           {{ scope.row.enable ? '下架' : '上架' }}
         </el-link>
@@ -65,7 +69,7 @@ export default {
         // { label: '推送人群', prop: 'createdTime' },
         // { label: '推送渠道', prop: 'createdTime' },
         { label: '状态', prop: 'enable',
-          formatter: row => row.enable ? '上架' : '下架'
+          formatter: (row) => row.enable ? '上架' : '下架'
         },
         // { label: '配置人', prop: 'createdTime' },
         { label: '操作', slotName: 'action' }
@@ -85,7 +89,7 @@ export default {
     },
     changeStatus(item) {
       const obj = { enable: item.enable ? 0 : 1, messageId: item.messageId }
-      updateMessageCenterMngList(obj).then(res => {
+      updateMessageCenterMngList(obj).then((res) => {
         if (res.code === 200) {
           this.$refs['table'].fetchHandler()
         }

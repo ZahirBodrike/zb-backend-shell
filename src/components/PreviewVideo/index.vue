@@ -1,10 +1,29 @@
 <template>
-  <el-dialog v-el-drag-dialog :visible.sync="isShow" :title="title" width="80%" top="50px" center :modal-append-to-body="false">
+  <el-dialog
+    v-el-drag-dialog
+    :visible.sync="isShow"
+    :title="title"
+    width="80%"
+    top="50px"
+    center
+    :modal-append-to-body="false"
+  >
     <div v-if="isShow">
-      <el-carousel :autoplay="false" :initial-index.sync="index" height="500px" indicator-position="outside" @change="onChangeItem">
+      <el-carousel
+        :autoplay="false"
+        :initial-index.sync="index"
+        height="500px"
+        indicator-position="outside"
+        @change="onChangeItem"
+      >
         <el-carousel-item v-for="(item,i) in list" :key="i">
           <div class="dialog-item">
-            <video v-if="item" ref="videoItem" controls :src="typeof item==='object'?item[itemKey]:item" />
+            <video
+              v-if="item"
+              ref="videoItem"
+              controls
+              :src="typeof item==='object'?item[itemKey]:item"
+            />
             <span v-else>暂无视频</span>
           </div>
         </el-carousel-item>
@@ -68,7 +87,7 @@ export default {
     },
 
     onChangeItem() {
-      this.$refs['videoItem'].map(item => {
+      this.$refs['videoItem'].map((item) => {
         if (item)item.pause()
       })
     }

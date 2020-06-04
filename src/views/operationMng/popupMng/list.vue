@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-link type="primary" @click="gotoDetail({})">+ 配置弹窗</el-link>
+        <el-link type="primary" @click="gotoDetail({})">
+          + 配置弹窗
+        </el-link>
       </template>
     </common-search-form>
 
@@ -28,7 +30,9 @@
       </template>
 
       <template #action="scope">
-        <el-link type="primary" @click="gotoDetail(scope.row)">编辑</el-link>
+        <el-link type="primary" @click="gotoDetail(scope.row)">
+          编辑
+        </el-link>
         <el-link type="primary" @click="changeStatus(scope.row)">
           {{ scope.row.enable ? '下架' : '上架' }}
         </el-link>
@@ -88,23 +92,23 @@ export default {
         { label: '名称', prop: 'popupName' },
         { label: '海报图', prop: 'popupImg', slotName: 'img' },
         { label: '上架时间', prop: 'addedTime',
-          formatter: row => moment(row.addedTime).format('YYYY-MM-DD HH:mm:ss')
+          formatter: (row) => moment(row.addedTime).format('YYYY-MM-DD HH:mm:ss')
         },
         { label: '下架时间', prop: 'shelfTime',
-          formatter: row => moment(row.addedTime).format('YYYY-MM-DD HH:mm:ss')
+          formatter: (row) => moment(row.addedTime).format('YYYY-MM-DD HH:mm:ss')
         },
         { label: '跳转类型', prop: 'jumpType',
-          formatter: row => jumpTypeMap[row.jumpType]
+          formatter: (row) => jumpTypeMap[row.jumpType]
         },
         { label: '配置参数', prop: 'jumpObject',
-          formatter: row => row.jumpObject || '无'
+          formatter: (row) => row.jumpObject || '无'
         },
         { label: '页面', prop: 'tabName' },
         { label: '频率', prop: 'popupRate',
-          formatter: row => `每日${row.popupRate}次`
+          formatter: (row) => `每日${row.popupRate}次`
         },
         { label: '状态', prop: 'enable',
-          formatter: row => row.enable ? '上架' : '下架'
+          formatter: (row) => row.enable ? '上架' : '下架'
         },
         { label: '操作', prop: 'enable', slotName: 'action' }
       ]
@@ -122,7 +126,7 @@ export default {
     },
     changeStatus(item) {
       const obj = { enable: item.enable ? 0 : 1, popupId: item.popupId }
-      updatePopupMngList(obj).then(res => {
+      updatePopupMngList(obj).then((res) => {
         if (res.code === 200) {
           this.$refs['table'].fetchHandler()
         }

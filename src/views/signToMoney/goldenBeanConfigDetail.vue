@@ -4,7 +4,9 @@
       <p>金豆配置 - <strong>{{ this.$route.query.level }}</strong></p>
 
       <div>
-        <el-button type="primary">保存</el-button>
+        <el-button type="primary">
+          保存
+        </el-button>
         <el-button>取消</el-button>
       </div>
     </div>
@@ -20,7 +22,9 @@
       :show-pagination="false"
     >
       <template #action>
-        <el-link type="primary">编辑</el-link>
+        <el-link type="primary">
+          编辑
+        </el-link>
       </template>
     </common-table>
 
@@ -28,7 +32,6 @@
       title="todo"
       :visible.sync="dialogVisible"
     >
-
       <span slot="footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>

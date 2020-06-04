@@ -70,11 +70,11 @@ export default {
       chalkHandler()
 
       const styles = [].slice.call(document.querySelectorAll('style'))
-        .filter(style => {
+        .filter((style) => {
           const text = style.innerText
           return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
         })
-      styles.forEach(style => {
+      styles.forEach((style) => {
         const { innerText } = style
         if (typeof innerText !== 'string') return
         style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
@@ -96,7 +96,7 @@ export default {
     },
 
     getCSSString(url, variable) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const xhr = new XMLHttpRequest()
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4 && xhr.status === 200) {

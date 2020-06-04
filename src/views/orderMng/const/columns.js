@@ -90,12 +90,12 @@ export const orderCommissionGoodTable = [
 
 export const orderCommissionUserTable = [
   { label: '佣金信息', prop: 'reward',
-    formatter: row => rewardMap[row.reward]
+    formatter: (row) => rewardMap[row.reward]
   },
   { label: '分佣金额', prop: 'userCommission' },
   { label: '比例', prop: 'userIncomeRate' },
   { label: '用户级别', prop: 'TzLevel',
-    formatter: row => levelMap[row.reward]
+    formatter: (row) => levelMap[row.reward]
   },
   { label: '用户信息', prop: 'userInfo' }
 ]

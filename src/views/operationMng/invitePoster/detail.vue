@@ -2,7 +2,12 @@
   <div v-loading.fullscreen="loading" class="app-container">
     <div class="section-box">
       <el-row>
-        <el-form ref="detailForm" :inline="true" :model="detailForm" label-width="200px">
+        <el-form
+          ref="detailForm"
+          :inline="true"
+          :model="detailForm"
+          label-width="200px"
+        >
           <el-row>
             <el-form-item label="邀请海报图标题" prop="posterTitle" :rules="rules.no_null">
               <el-input v-model.trim="detailForm.posterTitle" />
@@ -11,7 +16,9 @@
           <el-row>
             <el-form-item label="是否默认模板" prop="defaultFlag" :rules="rules.no_null">
               <el-radio-group v-model="detailForm.defaultFlag">
-                <el-radio v-for="d in defaultFilter" :key="d.value" :label="d.value">{{ d.label }}</el-radio>
+                <el-radio v-for="d in defaultFilter" :key="d.value" :label="d.value">
+                  {{ d.label }}
+                </el-radio>
               </el-radio-group>
             </el-form-item>
           </el-row>
@@ -55,8 +62,12 @@
       </el-row>
     </div>
     <el-row type="flex" justify="center" class="detail-btn-box">
-      <el-button @click="onHandleDetailsCancel">取消</el-button>
-      <el-button type="primary" @click="onHandleSubmitForm('detailForm')">保存</el-button>
+      <el-button @click="onHandleDetailsCancel">
+        取消
+      </el-button>
+      <el-button type="primary" @click="onHandleSubmitForm('detailForm')">
+        保存
+      </el-button>
     </el-row>
   </div>
 </template>
@@ -111,7 +122,7 @@ export default {
   methods: {
     /** 获取详情信息 */
     getDetailsData(id) {
-      operationService.invitePosterDetail({ id: id }).then(response => {
+      operationService.invitePosterDetail({ id: id }).then((response) => {
         var addedTime = new Date(response.data.addedTime.replace(/-/g, '/')).getTime()
         var shelfTime = new Date(response.data.shelfTime.replace(/-/g, '/')).getTime()
         if (response.code === 200) {
@@ -131,7 +142,7 @@ export default {
 
     /** 提交表单 */
     onHandleSubmitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!valid) return this.$message.error('提交信息有误！')
         if (this.detailId) {
           this.detailForm.id = this.detailId
@@ -148,11 +159,11 @@ export default {
         operationService[
           this.detailId ? 'invitePosterUpdate' : 'invitePosterAdd'
         ](data)
-          .then(response => {
+          .then((response) => {
             this.loading = false
             if (response.code === 200) this.$router.go(-1)
           })
-          .catch(Error => {
+          .catch((Error) => {
             this.loading = false
           })
       })

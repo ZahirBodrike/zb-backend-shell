@@ -1,5 +1,12 @@
 <template>
-  <el-select ref="dragSelect" v-model="selectVal" v-bind="$attrs" class="drag-select" multiple v-on="$listeners">
+  <el-select
+    ref="dragSelect"
+    v-model="selectVal"
+    v-bind="$attrs"
+    class="drag-select"
+    multiple
+    v-on="$listeners"
+  >
     <slot />
   </el-select>
 </template>
@@ -38,7 +45,7 @@ export default {
           // to avoid Firefox bug
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
-        onEnd: evt => {
+        onEnd: (evt) => {
           const targetRow = this.value.splice(evt.oldIndex, 1)[0]
           this.value.splice(evt.newIndex, 0, targetRow)
         }

@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     />
 
-    <el-link type="primary">下载数据</el-link>
+    <el-link type="primary">
+      下载数据
+    </el-link>
 
     <common-table
       ref="table"

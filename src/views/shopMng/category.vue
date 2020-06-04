@@ -1,6 +1,8 @@
 <template>
   <div class="good-category">
-    <div class="pan-btn light-blue-btn" @click="gotoDetail">新增分类</div>
+    <div class="pan-btn light-blue-btn" @click="gotoDetail">
+      新增分类
+    </div>
 
     <common-table
       ref="table"
@@ -21,7 +23,9 @@
             name: scope.row.name,
             parentTypeId: scope.row.parentTypeId
           })"
-        >编辑</el-link>
+        >
+          编辑
+        </el-link>
         <template v-if="scope.row.level == 1 && pageType == 'taobao'">
           <el-link type="primary" @click="gotoDetail({type: 'sub', name: scope.row.name, parentTypeId: scope.row.id })">
             新增二级类目
@@ -64,7 +68,7 @@ export default {
       getTypeData: typeDataMap[pageType],
 
       columns: [
-        { label: '类目级别', prop: 'level', formatter: row => {
+        { label: '类目级别', prop: 'level', formatter: (row) => {
           return levelMap[row.level]
         }
         },
@@ -72,7 +76,7 @@ export default {
         { label: '类目名称', prop: 'name' },
         { label: `${categoryInfo[pageType].name}类目ID`, prop: categoryInfo[pageType].prop },
         { label: '权重', prop: 'sortNum' },
-        { label: '状态', prop: 'status', formatter: row => {
+        { label: '状态', prop: 'status', formatter: (row) => {
           return row.status ? '有效' : '无效'
         } },
         { label: '操作', slotName: 'action', minWidth: '250' }
@@ -85,7 +89,7 @@ export default {
       const obj = {
         parentTypeId: tree.id
       }
-      getTaobaoTypeList(obj).then(res => {
+      getTaobaoTypeList(obj).then((res) => {
         if (res.code === 200) {
           resolve(res.data)
         }

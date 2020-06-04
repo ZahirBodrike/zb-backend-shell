@@ -22,7 +22,9 @@
       :data-handler="dataHandler"
     >
       <template #action="scope">
-        <el-link type="primary" @click="showConfig(scope.row)">编辑</el-link>
+        <el-link type="primary" @click="showConfig(scope.row)">
+          编辑
+        </el-link>
       </template>
     </common-table>
 
@@ -109,7 +111,7 @@ export default {
     async updateCurrent() {
       const { id, name, ...rate } = this.currentConfig
 
-      const isFloat = Object.keys(rate).find(i => rate[i] > 1 || rate[i] < 0)
+      const isFloat = Object.keys(rate).find((i) => rate[i] > 1 || rate[i] < 0)
       if (isFloat) {
         this.$message.error('比例必须在0-1这个范围')
         return false

@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-link type="primary">下载提现记录</el-link>
+        <el-link type="primary">
+          下载提现记录
+        </el-link>
       </template>
     </common-search-form>
 
@@ -79,7 +81,7 @@ export default {
         { label: '用户ID', prop: 'userId' },
         { label: '姓名', prop: 'userName' },
         { label: '用户级别', prop: 'userLevel',
-          formatter: row => userLevelMap[row.userLevel]
+          formatter: (row) => userLevelMap[row.userLevel]
         },
         { label: '手机号', prop: 'phone' },
         { label: '支付宝账号', prop: 'openId' },
@@ -87,7 +89,7 @@ export default {
         { label: '申请提现时间', prop: 'createdTime', minWidth: 200 },
         { label: '打款时间', prop: 'payTime', minWidth: 200 },
         { label: '提现状态', prop: 'status',
-          formatter: row => statusMap[row.status]
+          formatter: (row) => statusMap[row.status]
         }
         // { label: '操作', slot: 'action' }
       ]

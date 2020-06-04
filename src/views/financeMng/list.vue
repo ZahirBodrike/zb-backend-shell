@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-link type="primary">下载账单</el-link>
+        <el-link type="primary">
+          下载账单
+        </el-link>
       </template>
     </common-search-form>
 
@@ -24,7 +26,9 @@
       :page-sizes="[5, 10, 20]"
     >
       <template #action>
-        <el-link type="primary">下载明细</el-link>
+        <el-link type="primary">
+          下载明细
+        </el-link>
       </template>
     </common-table>
   </div>
@@ -67,7 +71,7 @@ export default {
         { label: '对账月份', prop: 'month' },
         { label: '用户ID', prop: 'uid' },
         { label: '姓名', prop: 'userName' },
-        { label: '用户级别', prop: 'level', formatter: row => userLevelMap[row.level] },
+        { label: '用户级别', prop: 'level', formatter: (row) => userLevelMap[row.level] },
         { label: '自购分享佣金', prop: 'zg' },
         { label: '直推佣金', prop: 'zt' },
         { label: '间推佣金', prop: 'jt' },

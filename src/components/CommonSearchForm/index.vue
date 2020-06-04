@@ -15,7 +15,6 @@
       :label-width="item.labelWidth ? (item.labelWidth + 'px') : ''"
     >
       <div>
-
         <!-- 默认输入框 -->
         <el-input
           v-if="item.itemType === 'input' || item.itemType === undefined"
@@ -120,7 +119,6 @@
           :true-label="item.trueLabel"
           :false-label="item.falseLabel"
         />
-
       </div>
     </el-form-item>
 
@@ -142,7 +140,9 @@
         :size="size"
         :loading="submitLoading"
         @click="resetForm"
-      >{{ resetBtnText }}</el-button>
+      >
+        {{ resetBtnText }}
+      </el-button>
 
       <slot name="btn" />
     </el-form-item>
@@ -182,7 +182,7 @@ export default {
           format[item.prop] = item.format
         }
       } else if (propType === 'object' && Object.prototype.toString.call(item.prop) === '[object Array]') {
-        item.prop.forEach(value => {
+        item.prop.forEach((value) => {
           formData[value] = ''
           if (item.format) {
             format[value] = item.format
@@ -235,7 +235,7 @@ export default {
   },
   mounted() {
     if (this.fetch && this.autoFetch) {
-      this.fetch(this.fetchParams).then(res => {
+      this.fetch(this.fetchParams).then((res) => {
         if (res.code === 200) {
           this.formData = res.data
           this.$emit('getData', this.formData)
@@ -266,11 +266,11 @@ export default {
       return this.fuzzyOps
     },
     getParams(callback) {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate((valid) => {
         if (valid) {
           const { formData, datePrefix, format } = this
           const formattedForm = {}
-          Object.keys(formData).forEach(v => {
+          Object.keys(formData).forEach((v) => {
             if (v.indexOf(datePrefix) === -1) {
               formattedForm[v] = format[v] ? format[v](formData[v], v) : formData[v]
             }
@@ -285,7 +285,7 @@ export default {
       this.$refs['form'].resetFields()
 
       const formKeys = Object.keys(this.formData)
-      formKeys.forEach(i => { this.formData[i] = '' })
+      formKeys.forEach((i) => { this.formData[i] = '' })
 
       const { resetBtnCallback } = this
       if (resetBtnCallback) resetBtnCallback()
@@ -312,11 +312,11 @@ export default {
       this.formData[endDate] = dates[1]
     },
     getRemoteData({ fetch, dataKey, resultField, resultHandler }) {
-      fetch().then(response => {
+      fetch().then((response) => {
         let result = response
         if (typeof response === 'object' && !this.isArray(response)) {
           if (resultField.indexOf('.') !== -1) {
-            resultField.split('.').forEach(value => {
+            resultField.split('.').forEach((value) => {
               result = result[value]
             })
           } else {

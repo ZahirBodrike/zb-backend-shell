@@ -11,20 +11,20 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(
-  config => {
+  (config) => {
     if (store.getters.token) {
       config.headers['X-Token'] = getToken()
     }
     return config
   },
-  error => {
+  (error) => {
     console.log(error) // for debug
     return Promise.reject(error)
   }
 )
 
 service.interceptors.response.use(
-  response => {
+  (response) => {
     const res = response.data
 
     if (res.code !== 200) {
@@ -51,7 +51,7 @@ service.interceptors.response.use(
       return res
     }
   },
-  error => {
+  (error) => {
     console.log('err' + error) // for debug
     Message({
       message: error.message,

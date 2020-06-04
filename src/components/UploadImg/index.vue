@@ -137,7 +137,7 @@ export default {
       } else {
         this.isListWatch = true
         const orgList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newVal !== '' && newVal != null ? [newVal] : []) : newVal
-        const newList = [].concat(orgList).map(item => {
+        const newList = [].concat(orgList).map((item) => {
           return { url: item }
         })
         this.fileList = newList
@@ -150,7 +150,7 @@ export default {
         this.isListWatch = false
       } else {
         this.isFileListWatch = true
-        const newList = [].concat(newVal).map(item => {
+        const newList = [].concat(newVal).map((item) => {
           return item ? item.url : null
         })
         const resList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newList.length > 0 ? newList[0] : '') : newList
@@ -355,10 +355,10 @@ export default {
           }
         }
         request(config)
-          .catch(err => {
+          .catch((err) => {
             options.onError(err)
           })
-          .then(res => {
+          .then((res) => {
             if (res.code === 200) {
               this.fileList.push({
                 raw: options.file,
@@ -372,7 +372,7 @@ export default {
             }
           })
       }
-      reader.onerror = error => {
+      reader.onerror = (error) => {
         this.$message.error(error)
       }
     },

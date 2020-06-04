@@ -9,7 +9,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-button type="primary" @click="onHandleDetail(null)">添加内容</el-button>
+        <el-button type="primary" @click="onHandleDetail(null)">
+          添加内容
+        </el-button>
       </template>
     </common-search-form>
 
@@ -32,10 +34,18 @@
         <p>创建人：{{ scope.row.creator }}</p>
       </template>
       <template #btn="scope">
-        <el-button type="text" @click="onHandleDetail(scope.row.id)">编辑</el-button>
-        <el-button v-if="scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.id,0)">下架</el-button>
-        <el-button v-if="scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.id,1)">上架</el-button>
-        <el-button type="text" @click="onDelete(scope.row.id)">删除</el-button>
+        <el-button type="text" @click="onHandleDetail(scope.row.id)">
+          编辑
+        </el-button>
+        <el-button v-if="scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.id,0)">
+          下架
+        </el-button>
+        <el-button v-if="scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.id,1)">
+          上架
+        </el-button>
+        <el-button type="text" @click="onDelete(scope.row.id)">
+          删除
+        </el-button>
       </template>
     </common-table>
   </div>
@@ -76,7 +86,7 @@ export default {
       this.loading = true
       materialService
         .spreadMaterialOnOff({ id: id, enable: enable })
-        .then(response => {
+        .then((response) => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
             response.msg
@@ -85,7 +95,7 @@ export default {
             this.$refs.table.dataChangeHandler()
           }
         })
-        .catch(Error => {
+        .catch((Error) => {
           this.loading = false
         })
     },
@@ -94,14 +104,14 @@ export default {
       this.loading = true
       materialService
         .spreadMaterialDelete(id)
-        .then(response => {
+        .then((response) => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
             response.msg
           )
           if (response.code === 200) this.submitHandler()
         })
-        .catch(Error => {
+        .catch((Error) => {
           this.loading = false
         })
     }

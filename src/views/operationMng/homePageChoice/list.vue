@@ -10,7 +10,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-button @click="addTbDialog = true">添加商品</el-button>
+        <el-button @click="addTbDialog = true">
+          添加商品
+        </el-button>
         <!-- <el-button>批量添加商品</el-button> -->
       </template>
     </common-search-form>
@@ -29,7 +31,9 @@
       </template>
 
       <template #action="scope">
-        <el-link type="primary" @click="changeStatus(scope.row)">{{ scope.row.status ? '下架' : '上架' }}</el-link>
+        <el-link type="primary" @click="changeStatus(scope.row)">
+          {{ scope.row.status ? '下架' : '上架' }}
+        </el-link>
       </template>
     </common-table>
 
@@ -55,8 +59,12 @@
       </el-form>
 
       <div slot="footer">
-        <el-button @click="addTbDialog = false">取 消</el-button>
-        <el-button type="primary" @click="addGood">确定</el-button>
+        <el-button @click="addTbDialog = false">
+          取 消
+        </el-button>
+        <el-button type="primary" @click="addGood">
+          确定
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -103,7 +111,7 @@ export default {
         { label: '佣金比例', prop: 'commissionRate' },
         { label: '佣金', prop: 'commission' },
         { label: '优惠券结束时间', prop: 'couponEndTime' },
-        { label: '状态', prop: 'status', formatter: row => {
+        { label: '状态', prop: 'status', formatter: (row) => {
           return row.status ? '已上架' : '已下架'
         } },
         { label: '操作', slotName: 'action' }
@@ -128,7 +136,7 @@ export default {
         id: item.id,
         status: item.status ? 0 : 1
       }
-      updateHomePageChoiceMngList(qs.stringify(obj)).then(res => {
+      updateHomePageChoiceMngList(qs.stringify(obj)).then((res) => {
         if (res.code === 200) {
           this.$message.success('操作成功')
           this.$refs['table'].searchHandler()
@@ -136,9 +144,9 @@ export default {
       })
     },
     addGood() {
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate((valid) => {
         if (!valid) return
-        addHomePageChoiceMngList(this.form).then(res => {
+        addHomePageChoiceMngList(this.form).then((res) => {
           if (res.code === 200) {
             this.$message.success('添加成功')
             this.addTbDialog = false

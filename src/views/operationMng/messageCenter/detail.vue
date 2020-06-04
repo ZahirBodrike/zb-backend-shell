@@ -58,8 +58,12 @@
       </el-form-item>
 
       <el-form-item label="">
-        <el-button type="primary" @click="handleSubmit">确定</el-button>
-        <el-button @click="$router.go(-1)">取消</el-button>
+        <el-button type="primary" @click="handleSubmit">
+          确定
+        </el-button>
+        <el-button @click="$router.go(-1)">
+          取消
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -94,7 +98,7 @@ export default {
   },
   mounted() {
     if (this.$route.query.id) {
-      getMessageCenterMngListDetail({ messageId: this.$route.query.id }).then(res => {
+      getMessageCenterMngListDetail({ messageId: this.$route.query.id }).then((res) => {
         if (res.code === 200) {
           this.form = res.data
         }
@@ -103,17 +107,17 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate((valid) => {
         if (!valid) return
         if (this.$route.query.id) {
-          updateMessageCenterMngList(this.form).then(res => {
+          updateMessageCenterMngList(this.form).then((res) => {
             if (res.code === 200) {
               this.$message.success('修改成功')
               this.$router.go(-1)
             }
           })
         } else {
-          addMessageCenterMngList(this.form).then(res => {
+          addMessageCenterMngList(this.form).then((res) => {
             if (res.code === 200) {
               this.$message.success('修改成功')
               this.$router.go(-1)

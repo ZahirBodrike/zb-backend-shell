@@ -19,7 +19,9 @@
       :page-sizes="[5, 10, 20]"
     >
       <template #link="scope">
-        <el-link type="primary" @click="gotoDetail(scope.row)">{{ scope.row.orderSn }}</el-link>
+        <el-link type="primary" @click="gotoDetail(scope.row)">
+          {{ scope.row.orderSn }}
+        </el-link>
       </template>
     </common-table>
   </div>
@@ -71,12 +73,12 @@ export default {
         { prop: 'orderParentSn', label: '父订单编号', minWidth: 200 },
         { prop: 'orderSn', label: '子订单编号', slotName: 'link', minWidth: 200 },
         { prop: 'source', label: '所属平台',
-          formatter: row => {
+          formatter: (row) => {
             return platformMap[row.source] || row.source
           }
         },
         { prop: 'orderStatus', label: '订单状态',
-          formatter: row => {
+          formatter: (row) => {
             return orderStatusMap[row.orderStatus] || row.orderStatus
           }
         },

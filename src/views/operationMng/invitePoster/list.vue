@@ -9,7 +9,9 @@
       :submit-handler="submitHandler"
     >
       <template #btn>
-        <el-button type="primary" @click="onHandleDetail(null)">添加邀请海报</el-button>
+        <el-button type="primary" @click="onHandleDetail(null)">
+          添加邀请海报
+        </el-button>
       </template>
     </common-search-form>
 
@@ -23,7 +25,9 @@
       :page-sizes="[5, 10, 20]"
       :page-index-key="`currentPage`"
     >
-      <template #status="scope">{{ statusEnum[scope.row.enable] }}</template>
+      <template #status="scope">
+        {{ statusEnum[scope.row.enable] }}
+      </template>
       <template #createInfo="scope">
         <p>{{ scope.row.createdTime }}</p>
         <p>创建人：{{ scope.row.creator }}</p>
@@ -33,11 +37,21 @@
         <p>修改人：{{ scope.row.creator }}</p>
       </template>
       <template #btn="scope">
-        <el-button type="text" @click="onHandleDetail(scope.row.posterId)">编辑</el-button>
-        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.posterId,0)">下架</el-button>
-        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.posterId,1)">上架</el-button>
-        <el-button type="text" @click="preview(scope.row.posterImgs)">查看海报</el-button>
-        <el-button type="text" @click="onDelete(scope.row.posterId)">删除</el-button>
+        <el-button type="text" @click="onHandleDetail(scope.row.posterId)">
+          编辑
+        </el-button>
+        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.posterId,0)">
+          下架
+        </el-button>
+        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.posterId,1)">
+          上架
+        </el-button>
+        <el-button type="text" @click="preview(scope.row.posterImgs)">
+          查看海报
+        </el-button>
+        <el-button type="text" @click="onDelete(scope.row.posterId)">
+          删除
+        </el-button>
       </template>
     </common-table>
     <PreviewImg ref="PreviewPoster" :list="previewUrl" />
@@ -93,7 +107,7 @@ export default {
       this.loading = true
       operationService
         .invitePosterOnOff({ posterId: posterId, enable: enable })
-        .then(response => {
+        .then((response) => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
             response.msg
@@ -102,7 +116,7 @@ export default {
             this.$refs.table.dataChangeHandler()
           }
         })
-        .catch(Error => {
+        .catch((Error) => {
           this.loading = false
         })
     },
@@ -111,14 +125,14 @@ export default {
       this.loading = true
       operationService
         .invitePosterDelete(posterId)
-        .then(response => {
+        .then((response) => {
           this.loading = false
           this.$message[response.code === 200 ? 'success' : 'error'](
             response.msg
           )
           if (response.code === 200) this.submitHandler()
         })
-        .catch(Error => {
+        .catch((Error) => {
           this.loading = false
         })
     },

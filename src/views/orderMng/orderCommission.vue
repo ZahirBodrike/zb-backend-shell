@@ -34,7 +34,9 @@
         <template v-if="item.formatter" v-slot="scope">
           {{ item.formatter(scope.row) }}
         </template>
-        <template v-else v-slot="scope">{{ scope.row[item.prop] }}</template>
+        <template v-else v-slot="scope">
+          {{ scope.row[item.prop] }}
+        </template>
       </el-table-column>
     </el-table>
   </div>

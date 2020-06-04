@@ -94,7 +94,7 @@ const actions = {
 
   // remove token
   resetToken({ commit }) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken()
@@ -104,7 +104,7 @@ const actions = {
 
   // dynamically modify permissions
   changeRoles({ commit, dispatch }, role) {
-    return new Promise(async resolve => {
+    return new Promise(async(resolve) => {
       const token = role + '-token'
 
       commit('SET_TOKEN', token)

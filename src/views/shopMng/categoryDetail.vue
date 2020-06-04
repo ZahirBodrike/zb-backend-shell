@@ -19,8 +19,12 @@
       </el-form-item>
 
       <el-form-item label-width="120px">
-        <el-button type="primary" @click="handleSubmit">保存</el-button>
-        <el-button @click="goBack">取消</el-button>
+        <el-button type="primary" @click="handleSubmit">
+          保存
+        </el-button>
+        <el-button @click="goBack">
+          取消
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -110,18 +114,18 @@ export default {
         this.form.level = this.$route.query.parentTypeId ? 2 : 1
         this.form.onlyReadName = undefined
       }
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate((valid) => {
         if (!valid) return
 
         if (this.$route.query.id) {
-          this.updateDetail(this.form).then(res => {
+          this.updateDetail(this.form).then((res) => {
             if (res.code === 200) {
               this.$message.success('修改成功')
               this.$router.go(-1)
             }
           })
         } else {
-          this.addDetail(this.form).then(res => {
+          this.addDetail(this.form).then((res) => {
             if (res.code === 200) {
               this.$message.success('添加成功')
               this.$router.go(-1)
@@ -131,7 +135,7 @@ export default {
       })
     },
     handleGetCategoryDetail(id) {
-      this.getDetail({ id }).then(res => {
+      this.getDetail({ id }).then((res) => {
         if (res.code === 200) {
           this.form = res.data
 

@@ -3,8 +3,12 @@
     <div class="nav">
       <mallki text="商品信息" class="text" />
       <div>
-        <el-button type="primary" size="small" @click="handleSubmit">保存</el-button>
-        <el-button size="small" @click="goBack">取消</el-button>
+        <el-button type="primary" size="small" @click="handleSubmit">
+          保存
+        </el-button>
+        <el-button size="small" @click="goBack">
+          取消
+        </el-button>
       </div>
     </div>
 
@@ -56,8 +60,12 @@
         />
 
         <el-radio-group v-else-if="item.type == 'chooseCheck'" v-model="form[item.prop]" :disabled="item.disable">
-          <el-radio :label="0">不检测</el-radio>
-          <el-radio :label="1">检测</el-radio>
+          <el-radio :label="0">
+            不检测
+          </el-radio>
+          <el-radio :label="1">
+            检测
+          </el-radio>
         </el-radio-group>
 
         <div v-else-if="item.type == 'search'">
@@ -65,7 +73,12 @@
           <el-button icon="el-icon-search" :disabled="item.disable" @click="handleSearchGood(form[item.prop])" />
         </div>
 
-        <el-input v-else v-model="form[item.prop]" :style="itemStyle" :disabled="item.disable" />
+        <el-input
+          v-else
+          v-model="form[item.prop]"
+          :style="itemStyle"
+          :disabled="item.disable"
+        />
       </el-form-item>
     </el-form>
 
@@ -161,7 +174,7 @@ export default {
 
     handleSearchGood(id) {
       this.loading = true
-      getJingdongGoodListDetail({ skuId: id }).then(res => {
+      getJingdongGoodListDetail({ skuId: id }).then((res) => {
         if (res.code === 200) {
           this.loading = false
 
@@ -178,7 +191,7 @@ export default {
     },
     getDetailData(id) {
       this.loading = true
-      this.getDetail({ [this.idName]: id }).then(res => {
+      this.getDetail({ [this.idName]: id }).then((res) => {
         if (res.code === 200) {
           this.loading = false
 
@@ -215,14 +228,14 @@ export default {
       }
 
       if (this.$route.query.id) {
-        this.postUpdate(obj).then(res => {
+        this.postUpdate(obj).then((res) => {
           if (res.code === 200) {
             this.$message.success('修改成功')
             this.$router.go(-1)
           }
         })
       } else {
-        this.postAdd(obj).then(res => {
+        this.postAdd(obj).then((res) => {
           if (res.code === 200) {
             this.$message.success('添加成功')
             this.$router.go(-1)

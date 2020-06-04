@@ -1,7 +1,19 @@
 <template>
-  <el-dialog v-el-drag-dialog :visible.sync="isShow" :title="title" width="80%" top="50px" center>
+  <el-dialog
+    v-el-drag-dialog
+    :visible.sync="isShow"
+    :title="title"
+    width="80%"
+    top="50px"
+    center
+  >
     <div v-if="isShow">
-      <el-carousel :autoplay="false" :initial-index.sync="index" height="500px" indicator-position="outside">
+      <el-carousel
+        :autoplay="false"
+        :initial-index.sync="index"
+        height="500px"
+        indicator-position="outside"
+      >
         <el-carousel-item v-for="(item,i) in list" :key="i">
           <div class="dialog-item">
             <img v-if="item" :src="typeof item==='object'?item[itemKey]:item" alt="图片缺失">

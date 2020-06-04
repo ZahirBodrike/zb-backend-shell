@@ -136,7 +136,7 @@ export default {
     dataFilterHandler(formParams) {
       const { cacheLocalData, params } = this
       const mergeParams = Object.assign(params, formParams)
-      const validParamKeys = Object.keys(mergeParams).filter(v => {
+      const validParamKeys = Object.keys(mergeParams).filter((v) => {
         return mergeParams[v] !== undefined && mergeParams[v] !== ''
       })
       const searchForm = this.$parent.$refs['form']
@@ -146,9 +146,9 @@ export default {
       }
 
       if (validParamKeys.length > 0) {
-        const validData = cacheLocalData.filter(v => {
+        const validData = cacheLocalData.filter((v) => {
           const valids = []
-          validParamKeys.forEach(vv => {
+          validParamKeys.forEach((vv) => {
             if (typeof v[vv] === 'number') {
               valids.push(
                 paramFuzzy && paramFuzzy[vv] ? (String(v[vv]).indexOf(String(mergeParams[vv])) !== -1)
@@ -160,7 +160,7 @@ export default {
               )
             }
           })
-          return valids.every(vvv => {
+          return valids.every((vvv) => {
             return vvv
           })
         })
@@ -193,12 +193,12 @@ export default {
         return
       }
 
-      fetch(params).then(response => {
+      fetch(params).then((response) => {
         let result = response
 
         if (response && !(response instanceof Array)) {
           if (listField && listField.indexOf('.') !== -1) {
-            listField.split('.').forEach(i => {
+            listField.split('.').forEach((i) => {
               result = result[i]
             })
           } else {
@@ -222,7 +222,7 @@ export default {
           totalValue = response.length
         } else if (typeof response === 'object') {
           if (totalField && totalField.indexOf('.') !== -1) {
-            totalField.split('.').forEach(i => {
+            totalField.split('.').forEach((i) => {
               totalValue = totalValue[i]
             })
           } else {

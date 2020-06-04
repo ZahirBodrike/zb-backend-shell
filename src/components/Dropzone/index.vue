@@ -1,5 +1,10 @@
 <template>
-  <div :id="id" :ref="id" :action="url" class="dropzone">
+  <div
+    :id="id"
+    :ref="id"
+    :action="url"
+    class="dropzone"
+  >
     <input type="file" name="file">
   </div>
 </template>
@@ -148,13 +153,13 @@ export default {
       document.addEventListener('paste', this.pasteImg)
     }
 
-    this.dropzone.on('success', file => {
+    this.dropzone.on('success', (file) => {
       vm.$emit('dropzone-success', file, vm.dropzone.element)
     })
-    this.dropzone.on('addedfile', file => {
+    this.dropzone.on('addedfile', (file) => {
       vm.$emit('dropzone-fileAdded', file)
     })
-    this.dropzone.on('removedfile', file => {
+    this.dropzone.on('removedfile', (file) => {
       vm.$emit('dropzone-removedFile', file)
     })
     this.dropzone.on('error', (file, error, xhr) => {
