@@ -59,7 +59,7 @@ module.exports = {
       .rule('vue')
       .use('vue-loader')
       .loader('vue-loader')
-      .tap(options => {
+      .tap((options) => {
         options.compilerOptions.preserveWhitespace = true
         return options
       })
@@ -67,7 +67,7 @@ module.exports = {
 
     config
       .when(process.env.NODE_ENV !== 'development',
-        config => {
+        (config) => {
           config
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')

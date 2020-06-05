@@ -93,7 +93,7 @@ export default {
   methods: {
     /** 获取详情信息 */
     getDetailsData(id) {
-      materialService.spreadMaterialDetail({ id: id }).then((response) => {
+      materialService.spreadMaterialDetail({ id }).then((response) => {
         if (response.code === 200) {
           this.detailForm = response.data
         } else {

@@ -15,5 +15,5 @@ git commit 的 message不要为空, commit类型如下:
 3. docs: 文档更新
 4. style: 样式、文案、标点更新
 5. refactor: 代码重构
-6. perf: 新能优化
+6. perf: 性能优化
 7. build: 构建打包
