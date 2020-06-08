@@ -55,7 +55,7 @@ const typeDataMap = {
 }
 
 const categoryInfo = {
-  taobao: { name: '淘宝', prop: 'tbkCatId' },
+  taobao: { name: '淘宝', prop: 'catId' },
   jingdong: { name: '京东', prop: 'jdfCid' }
 }
 
@@ -70,8 +70,7 @@ export default {
       columns: [
         { label: '类目级别', prop: 'level', formatter: (row) => {
           return levelMap[row.level]
-        }
-        },
+        } },
         { label: 'ID', prop: 'id' },
         { label: '类目名称', prop: 'name' },
         { label: `${categoryInfo[pageType].name}类目ID`, prop: categoryInfo[pageType].prop },
@@ -97,22 +96,22 @@ export default {
     },
     gotoDetail(obj) {
       if (obj.type === 'sub' && !obj.id) {
-        // 新建 二级类目
+        /* 新建 二级类目 */
         this.$router.push({
           name: `${this.pageType}CategoryDetail`,
           query: { type: obj.type, name: obj.name, parentTypeId: obj.parentTypeId }
         })
       } else if (obj.type === 'sub' && obj.id) {
-        // 编辑 二级类目
+        /* 编辑 二级类目 */
         this.$router.push({
           name: `${this.pageType}CategoryDetail`,
           query: { type: obj.type, id: obj.id, name: obj.name, parentTypeId: obj.parentTypeId }
         })
       } else if (!obj.type && obj.id) {
-        // 编辑 一级类目
+        /* 编辑 一级类目 */
         this.$router.push({ name: `${this.pageType}CategoryDetail`, query: { id: obj.id }})
       } else {
-        // 新建 一级类目
+        /* 新建 一级类目 */
         this.$router.push({ name: `${this.pageType}CategoryDetail` })
       }
     }

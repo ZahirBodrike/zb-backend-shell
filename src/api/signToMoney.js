@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取金豆任务列表
+/* 获取金豆任务列表 */
 export function getGoldenBeanTaskList(params) {
   return request({
     url: '/beanTask/v1_0/list',
@@ -9,7 +9,7 @@ export function getGoldenBeanTaskList(params) {
   })
 }
 
-// 修改金豆任务列表
+/* 修改金豆任务列表 */
 export function updateGoldenBeanTaskList(data) {
   return request({
     url: '/beanTask/v1_0/update',
@@ -18,7 +18,7 @@ export function updateGoldenBeanTaskList(data) {
   })
 }
 
-// 获取金豆任务列表
+/* 获取金豆任务列表 */
 export function getGoldenBeanExchangeConfig(params) {
   return request({
     url: '/beanExchangeRate/v1_0/get',
@@ -27,7 +27,7 @@ export function getGoldenBeanExchangeConfig(params) {
   })
 }
 
-// 修改金豆任务列表
+/* 修改金豆任务列表 */
 export function updateGoldenBeanExchangeConfig(data) {
   return request({
     url: '/beanExchangeRate/v1_0/update',
@@ -36,7 +36,7 @@ export function updateGoldenBeanExchangeConfig(data) {
   })
 }
 
-// 获取金豆兑换记录
+/* 获取金豆兑换记录 */
 export function getGoldenBeanRecord(params) {
   return request({
     url: '/beanExchangeRecord/v1_0/list',

@@ -99,6 +99,7 @@ import { getTaobaoGoodListDetail, updateTaobaoGoodList } from '@/api/taobaoGoodM
 import { getJingdongGoodListDetail, addJingdongGoodList, updateJingdongGoodList,
   getJingdongGoodListDetailById } from '@/api/jingdongGoodMng'
 
+/* 详情表单字段 */
 const fromItemListMap = {
   taobao: taobaoDetailForm,
   jingdong: jingdongDetailForm,
@@ -107,20 +108,24 @@ const fromItemListMap = {
   suning: suningDetailForm
 }
 
+/* 获取详情的api */
 const detailApiMap = {
   taobao: getTaobaoGoodListDetail,
   jingdong: getJingdongGoodListDetailById
 }
 
+/* 更新功能的api */
 const updateApiMap = {
   taobao: updateTaobaoGoodList,
   jingdong: updateJingdongGoodList
 }
 
+/* 新增功能的api */
 const addApiMap = {
   jingdong: addJingdongGoodList
 }
 
+/* 兼容各类型的请求id */
 const idNameMap = {
   taobao: 'goodsId',
   jingdong: 'id'
@@ -147,23 +152,26 @@ export default {
     }
   },
   mounted() {
+    /* 编辑时的id无法编辑 */
     if (this.$route.query.id) {
       this.$set(this.formItemList[0], 'disable', true)
       this.getDetailData(this.$route.query.id)
     } else {
       this.$set(this.formItemList[0], 'disable', false)
-      this.form['pictUrl'] = 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
     }
   },
   methods: {
+    /* 切换主图 */
     setMainPic(item) {
       this.form['pictUrl'] = item
     },
 
+    /* 返回列表 */
     goBack() {
       this.$router.push({ path: `${this.$route.matched[0].path}/list` })
     },
 
+    /* 商品小图列表 兼容接口字段string的逗号不确定性 */
     smallPicList(prop) {
       if (this.pageType === 'taobao') {
         return this.form[prop] && this.form[prop].slice(0, this.form[prop].length - 1).split(',')
@@ -172,6 +180,7 @@ export default {
       }
     },
 
+    /* 通过商品id查询商品详情 */
     handleSearchGood(id) {
       this.loading = true
       getJingdongGoodListDetail({ skuId: id }).then((res) => {
@@ -189,6 +198,8 @@ export default {
         }
       })
     },
+
+    /* 通过列表id获取商品详情 */
     getDetailData(id) {
       this.loading = true
       this.getDetail({ [this.idName]: id }).then((res) => {
@@ -207,13 +218,14 @@ export default {
       })
     },
 
+    /* 确定修改/新增 区分各个类型的obj参数 */
     handleSubmit() {
       let obj = {}
       if (this.pageType === 'taobao') {
         obj = {
           id: this.form.id,
           numIid: this.$route.query.id,
-          status: 1, // this.form.status
+          status: this.form.status,
           pictUrl: this.form.pictUrl,
           title: this.form.title
         }

@@ -82,7 +82,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请填写类目名称' }],
-        tbkCatId: [{ required: true, message: '请填写淘宝类目ID' }],
+        catId: [{ required: true, message: '请填写淘宝类目ID' }],
         sort: [{ required: true, message: '请填写运营位权重' }],
         icon: [{ required: true, message: '请上传icon' }]
       }
@@ -91,15 +91,15 @@ export default {
   mounted() {
     const query = this.$route.query
     if (query.type === 'sub' && !query.id) {
-      // 新建二级类目
+      /* 新建二级类目 */
       this.formItemList = subCategoryDetailFormMap[this.pageType]
       this.form.onlyReadName = query.name
     } else if (query.type === 'sub' && query.id) {
-      // 编辑二级类目
+      /* 编辑二级类目 */
       this.formItemList = subCategoryDetailFormMap[this.pageType]
       this.handleGetCategoryDetail(query.id)
     } else if (!query.type && query.id) {
-      // 编辑一级类目
+      /* 编辑一级类目 */
       this.handleGetCategoryDetail(query.id)
     }
   },
@@ -108,7 +108,7 @@ export default {
       this.$router.push({ path: `${this.$route.matched[0].path}/category` })
     },
     handleSubmit() {
-      // 目前只有淘宝有二级类目
+      /* 目前只有淘宝有二级类目 */
       if (this.pageType === 'taobao') {
         this.form.parentTypeId = this.$route.query.parentTypeId
         this.form.level = this.$route.query.parentTypeId ? 2 : 1
@@ -139,7 +139,7 @@ export default {
         if (res.code === 200) {
           this.form = res.data
 
-          // 修复淘宝分类详情的只读不显示
+          /* 淘宝二级分类详情的只读显示 */
           if (this.$route.query.type === 'sub' && this.$route.query.id) {
             this.form.onlyReadName = res.data.parentTypeName
           }

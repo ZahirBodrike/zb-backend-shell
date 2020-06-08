@@ -30,9 +30,11 @@
             <span v-if="column.slotName">
               <slot :name="column.slotName" :row="scope.row" :$index="scope.$index" />
             </span>
+
             <span v-else-if="column.formatter">
               {{ column.formatter(scope.row, scope.column, scope.row[column.prop], scope.$index) }}
             </span>
+
             <span v-else>
               {{ scope.row[column.prop] }}
             </span>
@@ -85,6 +87,7 @@ export default {
     }
   },
   computed: {
+    /* 冻结列数据 优化渲染性能 */
     freezeColumn() {
       return this.columns && Object.freeze(this.columns)
     }
@@ -96,28 +99,33 @@ export default {
   },
   mounted() {
     if (this.type === 'remote' && this.autoLoad) {
+      /* fetch数据的表格 */
       this.fetchHandler(this.params)
     } else if (this.type === 'local') {
+      /* 写死数据的表格 */
       this.loadLocalData(this.data)
     }
   },
   methods: {
-    // 切换每页数据量
+    /* 切换每页数据量 */
     handleSizeChange(size) {
       this.pagination.pageSize = size
       this.dataChangeHandler()
     },
-    // 切换页数
+
+    /* 切换页数 */
     handleCurrentChange(pageIndex) {
       this.pagination.pageIndex = pageIndex
       this.dataChangeHandler()
     },
-    // 外部调用的搜索刷新
+
+    /* 外部调用的搜索刷新 */
     searchHandler(...searchForm) {
       this.pagination.pageIndex = 1
       this.dataChangeHandler(...searchForm)
     },
-    // 请求接口数据或者获取本地数据
+
+    /* 请求接口数据或者获取本地数据 */
     dataChangeHandler(...data) {
       if (this.type === 'local') {
         this.dataFilterHandler(...data)
@@ -125,44 +133,50 @@ export default {
         this.fetchHandler(...data)
       }
     },
-    // 筛选出当前页的数据
+
+    /* 筛选出当前页的数据 */
     dataFilter(data) {
       const { pageIndex, pageSize } = this.pagination
       return data.filter((v, i) => {
         return i >= (pageIndex - 1) * pageSize && i < pageIndex * pageSize
       })
     },
-    // 处理本地数据
+
+    /* 处理本地数据 */
     dataFilterHandler(formParams) {
       const { cacheLocalData, params } = this
-      const mergeParams = Object.assign(params, formParams)
-      const validParamKeys = Object.keys(mergeParams).filter((v) => {
-        return mergeParams[v] !== undefined && mergeParams[v] !== ''
-      })
       const searchForm = this.$parent.$refs['form']
+
+      const mergeParams = { ...params, ...formParams }
+
+      /* 筛出mergeParams中value不为空的参数key */
+      const validParamKeys = Object.keys(mergeParams).filter((key) => {
+        return mergeParams[key] !== undefined && mergeParams[key] !== ''
+      })
+
+      /* 模糊搜索 */
       let paramFuzzy
       if (searchForm) {
         paramFuzzy = searchForm.getParamFuzzy()
       }
 
       if (validParamKeys.length > 0) {
-        const validData = cacheLocalData.filter((v) => {
+        /* 是否本地表格数据模糊搜索 fuzzy:true/false */
+        const validData = cacheLocalData.filter((item) => {
           const valids = []
-          validParamKeys.forEach((vv) => {
-            if (typeof v[vv] === 'number') {
+          validParamKeys.forEach((key) => {
+            if (typeof item[key] === 'number') {
               valids.push(
-                paramFuzzy && paramFuzzy[vv] ? (String(v[vv]).indexOf(String(mergeParams[vv])) !== -1)
-                  : (String(v[vv]) === String(mergeParams[vv]))
+                paramFuzzy && paramFuzzy[key] ? (String(item[key]).indexOf(String(mergeParams[key])) !== -1)
+                  : (String(item[key]) === String(mergeParams[key]))
               )
             } else {
               valids.push(
-                paramFuzzy && paramFuzzy[vv] ? (v[vv].indexOf(mergeParams[vv]) !== -1) : (v[vv] === mergeParams[vv])
+                paramFuzzy && paramFuzzy[key] ? (item[key].indexOf(mergeParams[key]) !== -1) : (item[key] === mergeParams[key])
               )
             }
           })
-          return valids.every((vvv) => {
-            return vvv
-          })
+          return valids.every((i) => i)
         })
 
         this.tableData = this.dataFilter(validData)
@@ -172,13 +186,14 @@ export default {
         this.tableData = this.dataFilter(cacheLocalData)
       }
     },
-    // 获取接口数据
+
+    /* 获取接口数据 */
     fetchHandler(formParams = {}) {
       this.loading = true
       let { params } = this
       const { showPagination, pagination, totalField, pageSizeKey, pageIndexKey, listField, fetch } = this
 
-      params = JSON.parse(JSON.stringify(Object.assign(params, formParams)))
+      params = JSON.parse(JSON.stringify({ ...params, ...formParams }))
 
       if (showPagination) {
         params = Object.assign(params, {
@@ -238,11 +253,13 @@ export default {
         this.loading = false
       })
     },
-    // 触发自定义事件
+
+    /* 触发自定义事件 */
     emitEventHandler(event) {
       this.$emit(event, ...Array.from(arguments).slice(1))
     },
-    // 获取本地数据
+
+    /* 获取本地数据 */
     loadLocalData(data) {
       const { autoLoad } = this
       if (!data) {

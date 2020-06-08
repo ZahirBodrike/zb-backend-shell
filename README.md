@@ -8,7 +8,7 @@
 
 1. 下载nvm管理node.js的版本，[nvm下载](https://www.cnblogs.com/gaozejie/p/10689742.html),安装好后终端执行 ```nvm install v12.12.0```
 2. 下载vscode开发，是免费的
-3. 推荐vscode拓展插件: Auto Close Tag, chinese language pack, element ui snippets, eslint, gitlens, html css support, javascript code snippets, vetur, vue 2 snippets
+3. 推荐vscode拓展插件: Auto Close Tag, chinese language pack, element ui snippets, eslint, gitlens, html css support, javascript code snippets, vetur, vue 2 snippets, editorconfig for vscode
 4. ```git clone 本项目```
 5. ```npm install```
 6. ```npm run dev``` 跑起项目

@@ -1,8 +1,6 @@
 {
   "git.autofetch": true,
   "diffEditor.renderSideBySide": false,
-  "editor.tabSize": 2,
-  "editor.detectIndentation": false,
   "emmet.triggerExpansionOnTab": true,
   "explorer.confirmDelete": false,
   "window.zoomLevel": 0,
@@ -21,5 +19,7 @@
         "autoFix": true
     }
   ],
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true
 }

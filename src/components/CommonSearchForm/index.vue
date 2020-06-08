@@ -20,7 +20,6 @@
           v-if="item.itemType === 'input' || item.itemType === undefined"
           v-model="formData[item.modelValue]"
           :size="item.size ? item.size : size"
-          :readonly="item.readonly"
           :disabled="item.disabled"
           :placeholder="item.placeholder"
           :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
@@ -54,13 +53,13 @@
         >
           <el-option
             v-for="(option, optionIndex) in item.options"
-            :key="optionIndex + '_local'"
+            :key="`${optionIndex}_local`"
             :value="(typeof option === 'object') ? option[item.valueKey || 'value'] : option"
             :label="(typeof option === 'object') ? option[item.labelKey || 'label'] : option"
           />
           <el-option
             v-for="(op, opIndex) in selectOptions[selectOptionPrefix + index]"
-            :key="opIndex + '_remote'"
+            :key="`${opIndex}_remote`"
             :value="(typeof op === 'object') ? op[item.valueKey || 'value'] : op"
             :label="(typeof op === 'object') ? op[item.labelKey || 'label'] : op"
           />
@@ -161,29 +160,45 @@ export default {
   props: formProps,
   data() {
     const { formItemList, fuzzy } = this.$props
+
+    /* date前缀 */
     const datePrefix = 'daterange-prefix'
+
+    /* select-option前缀 */
     const selectOptionPrefix = 'select-option-prefix'
 
+    /* 动态select option数据 */
     const dataObj = {
       selectOptions: {}
     }
+
+    /* 表单数据 */
     const formData = {}
+
+    /* 表单数据处理器 */
     const format = {}
+
+    /* 本地表格用的模糊搜索数据 */
     const fuzzyOps = {}
 
     formItemList && formItemList.forEach((item, index) => {
       const propType = typeof item.prop
+
       if (propType === 'string') {
+        /* input select date ... */
         item.modelValue = item.prop
         formData[item.prop] = ''
 
         fuzzyOps[item.prop] = item.fuzzy ? item.fuzzy : fuzzy
+
         if (item.format) {
           format[item.prop] = item.format
         }
       } else if (propType === 'object' && Object.prototype.toString.call(item.prop) === '[object Array]') {
+        /* daterange */
         item.prop.forEach((value) => {
           formData[value] = ''
+
           if (item.format) {
             format[value] = item.format
           }
@@ -191,10 +206,14 @@ export default {
           fuzzyOps[value] = item.fuzzy ? item.fuzzy : fuzzy
         })
       }
+
+      /* daterange组件绑定的字段 */
       if (item.itemType === 'daterange') {
         formData[datePrefix + index] = ''
         item.modelValue = datePrefix + index
       }
+
+      /* 获取动态options数据 */
       if (item.itemType === 'select' && item.selectFetch) {
         const dataKey = selectOptionPrefix + index
         dataObj.selectOptions[dataKey] = []
@@ -234,6 +253,7 @@ export default {
     }
   },
   mounted() {
+    /* 动态填充表单数据的情况 */
     if (this.fetch && this.autoFetch) {
       this.fetch(this.fetchParams).then((res) => {
         if (res.code === 200) {
@@ -244,12 +264,17 @@ export default {
     }
   },
   methods: {
+    /* 自定义触发自定义事件(自定义参数) */
     emitEventHandler(event) {
       this.$emit(event, ...Array.from(arguments).slice(1))
     },
+
+    /* 判断是否为数组 */
     isArray(value) {
       return typeof value === 'object' && Object.prototype.toString.call(value) === '[object Array]'
     },
+
+    /* 自定义搜索/提交事件 */
     searchHandler() {
       this.getParams((error, params) => {
         if (!error) {
@@ -262,9 +287,13 @@ export default {
         }
       })
     },
+
+    /* 获取是否本地模糊搜索 */
     getParamFuzzy() {
       return this.fuzzyOps
     },
+
+    /* 触发提交/搜索之前的校验 */
     getParams(callback) {
       this.$refs['form'].validate((valid) => {
         if (valid) {
@@ -281,6 +310,8 @@ export default {
         }
       })
     },
+
+    /* 重置表单按钮 */
     resetForm() {
       this.$refs['form'].resetFields()
 
@@ -290,6 +321,8 @@ export default {
       const { resetBtnCallback } = this
       if (resetBtnCallback) resetBtnCallback()
     },
+
+    /* daterange字段的数据分发到自定义字段 可格式化 */
     changeDate(date, startDate, endDate) {
       let dates
       if (date === null) {
@@ -311,6 +344,8 @@ export default {
       this.formData[startDate] = dates[0]
       this.formData[endDate] = dates[1]
     },
+
+    /* 获取动态select数据 */
     getRemoteData({ fetch, dataKey, resultField, resultHandler }) {
       fetch().then((response) => {
         let result = response

@@ -1,4 +1,4 @@
-// 计算字符串字节数
+/* 计算字符串字节数 */
 export function byteLength(str) {
   let s = str.length
   for (var i = str.length - 1; i >= 0; i--) {
@@ -10,7 +10,7 @@ export function byteLength(str) {
   return s
 }
 
-// 过滤空值的数组
+/* 过滤空值的数组 */
 export function cleanArray(actual) {
   const newArray = []
   for (let i = 0; i < actual.length; i++) {
@@ -21,7 +21,7 @@ export function cleanArray(actual) {
   return newArray
 }
 
-// json转化为url的字符串形式
+/* json转化为url的字符串形式 */
 export function param(json) {
   if (!json) return ''
   return cleanArray(
@@ -32,7 +32,7 @@ export function param(json) {
   ).join('&')
 }
 
-// 获取url的query由字符串转换成对象/
+/* 获取url的query由字符串转换成对象 */
 export function param2Obj(url) {
   const search = url.split('?')[1]
   if (!search) {
@@ -49,7 +49,7 @@ export function param2Obj(url) {
   )
 }
 
-// 合并对象
+/* 合并对象 */
 export function objectMerge(target, source) {
   if (typeof target !== 'object') {
     target = {}
@@ -68,7 +68,7 @@ export function objectMerge(target, source) {
   return target
 }
 
-// 防抖
+/* 防抖 */
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
@@ -104,12 +104,12 @@ export function debounce(func, wait, immediate) {
   }
 }
 
-// 数组去重
+/* 数组去重 */
 export function uniqueArr(arr) {
   return Array.from(new Set(arr))
 }
 
-// 生成随机string
+/* 生成随机string */
 export function createUniqueString() {
   const timestamp = +new Date() + ''
   const randomNum = parseInt((1 + Math.random()) * 65536) + ''

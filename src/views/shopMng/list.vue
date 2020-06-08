@@ -109,6 +109,7 @@ import { getTaobaoGoodList, getTaobaoFavorites, addTaobaoGoodList,
 
 import { getJingdongGoodList, changeStatusJingdongGoodList } from '@/api/jingdongGoodMng'
 
+/* 各模块的搜索查询 */
 const searchFormMap = {
   taobao: taobaoSearch,
   jingdong: jingdongSearch,
@@ -117,6 +118,7 @@ const searchFormMap = {
   suning: suningSearch
 }
 
+/* 各模块的表格列 */
 const tableMap = {
   taobao: taobaoTable,
   jingdong: jingdongTable,
@@ -125,11 +127,13 @@ const tableMap = {
   suning: suningTable
 }
 
+/* 各模块的表格请求api */
 const listApi = {
   taobao: getTaobaoGoodList,
   jingdong: getJingdongGoodList
 }
 
+/* 部分模块的列表处删除功能 */
 const deleteApi = {
   taobao: delTaobaoGoodList
 }
@@ -138,6 +142,7 @@ export default {
   name: 'ShopMng',
   components: { CommonTable, CommonSearchForm },
   data() {
+    /* 淘宝 - taobao/ 京东 - jingdong / 拼多多 - pinduoduo / 苏宁 - suning / 唯品会 - weipinhui */
     const pageType = this.$route.meta.type
     return {
       pageType,
@@ -168,6 +173,8 @@ export default {
         ...form
       })
     },
+
+    /* 跳转编辑商品详情 */
     gotoDetail(row) {
       let id = null
       if (this.pageType === 'jingdong') {
@@ -178,6 +185,8 @@ export default {
 
       this.$router.push({ name: `${this.pageType}Detail`, query: { id }})
     },
+
+    /* 目前只有淘宝在列表页添加商品 */
     handleAddGood() {
       if (['taobao'].includes(this.pageType)) {
         this.selectLoading = true
@@ -190,6 +199,8 @@ export default {
         this.$router.push({ path: `/${this.pageType}/detail` })
       }
     },
+
+    /* 列表页删除功能 */
     handleDelete(id) {
       this.deleteItem({ goodsId: id }).then((res) => {
         if (res.code === 200) {
@@ -198,6 +209,8 @@ export default {
         }
       })
     },
+
+    /* 列表页上下架功能 */
     handleChangeStatus(row) {
       const obj = {
         id: row.id,
@@ -211,6 +224,7 @@ export default {
       })
     },
 
+    /* 淘宝确认添加商品 */
     handleSubmitAddGood() {
       this.$refs['addGoodForm'].validate((vaild) => {
         if (!vaild) return
@@ -234,6 +248,8 @@ export default {
         })
       })
     },
+
+    /* 切换类型清空输入框 */
     typeChange(val) {
       this.addGoodForm.value = null
     }
