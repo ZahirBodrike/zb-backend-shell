@@ -17,7 +17,7 @@
 
 #### router管理
 
-开发新页面要新开路由，创建一级目录（也就是components：Layout的配置）在src/router/modules里面，再引入asyncRoutes.js, 如果创建二级页面、三级页面，只需要寻找当前模块的一级目录的modules增加配置就好，例如：src/router/modules/components.js
+开发新页面要新开路由，创建一级目录（也就是components：Layout的配置）在src/router/modules里面（无需再引入asyncRoutes.js，已自动化）, 如果创建二级页面、三级页面，只需要寻找当前模块的一级目录的modules增加配置就好，例如：src/router/modules/components.js
 
 #### api注册管理
 
