@@ -1,5 +1,7 @@
 <template>
   <div class="mixin-components-container">
+    <hot-pot :big-img="`https://img.alicdn.com/tfs/TB11cdpoUH1gK0jSZSyXXXtlpXa-520-280.jpg_q90_.webp`" />
+
     <el-row>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
@@ -122,6 +124,7 @@ import MdInput from '@/components/MDinput'
 import Mallki from '@/components/TextHoverEffect/Mallki'
 import DropdownMenu from '@/components/Share/DropdownMenu'
 import waves from '@/directive/waves/index.js'
+import HotPot from '@/components/HotPot'
 
 export default {
   name: 'ComponentMixinDemo',
@@ -129,7 +132,8 @@ export default {
     PanThumb,
     MdInput,
     Mallki,
-    DropdownMenu
+    DropdownMenu,
+    HotPot
   },
   directives: {
     waves

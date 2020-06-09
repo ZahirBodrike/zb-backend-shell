@@ -36,7 +36,7 @@ module.exports = {
     }
   }
   ],
-  actions: data => {
+  actions: (data) => {
     const name = '{{name}}'
     const actions = [{
       type: 'add',

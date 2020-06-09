@@ -42,7 +42,7 @@ module.exports = {
     }
   }
   ],
-  actions: data => {
+  actions: (data) => {
     const name = '{{name}}'
     const subName = '{{subName}}'
     const actions = [{
