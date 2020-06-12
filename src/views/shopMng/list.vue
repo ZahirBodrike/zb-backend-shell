@@ -136,11 +136,12 @@ const listApi = {
   pinduoduo: getPinduoduoGoodList
 }
 
-/* 部分模块的列表处删除功能 */
+/* 部分平台的列表处删除功能 */
 const deleteApi = {
   taobao: delTaobaoGoodList
 }
 
+/* 部分平台的列表上下架功能 */
 const changeStatusApi = {
   jingdong: changeStatusJingdongGoodList,
   pinduoduo: changeStatusPinduoduoGoodList
@@ -150,7 +151,7 @@ export default {
   name: 'ShopMng',
   components: { CommonTable, CommonSearchForm },
   data() {
-    /* 淘宝 - taobao/ 京东 - jingdong / 拼多多 - pinduoduo / 苏宁 - suning / 唯品会 - weipinhui */
+    /* 淘宝 - taobao / 京东 - jingdong / 拼多多 - pinduoduo / 苏宁 - suning / 唯品会 - weipinhui */
     const pageType = this.$route.meta.type
     return {
       pageType,
@@ -221,10 +222,7 @@ export default {
 
     /* 列表页上下架功能 */
     handleChangeStatus(row) {
-      const obj = {
-        id: row.id,
-        status: row.status ? 0 : 1
-      }
+      const obj = { id: row.id, status: row.status ? 0 : 1 }
       this.changeStatusItem(qs.stringify(obj)).then((res) => {
         if (res.code === 0) {
           this.$message.success('操作成功')
@@ -259,7 +257,7 @@ export default {
     },
 
     /* 切换类型清空输入框 */
-    typeChange(val) {
+    typeChange() {
       this.addGoodForm.value = null
     }
   }

@@ -72,6 +72,7 @@ export default {
     const pageType = this.$route.meta.type
     return {
       pageType,
+      getTaobaoTypeList,
       getTypeData: typeDataMap[pageType],
 
       columns: [
@@ -86,8 +87,7 @@ export default {
           return row.status ? '有效' : '无效'
         } },
         { label: '操作', slotName: 'action', minWidth: '250' }
-      ],
-      getTaobaoTypeList
+      ]
     }
   },
   methods: {

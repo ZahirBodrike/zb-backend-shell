@@ -38,8 +38,8 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Element Admin',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '聚米生活后台',
+      logo: 'https://dss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1185812800,2555705639&fm=74&app=80&f=PNG&size=f121,121?sec=1880279984&t=c31736ce0bf83ab5329a8f95601d76e7'
     }
   }
 }
