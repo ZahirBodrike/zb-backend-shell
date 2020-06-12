@@ -121,7 +121,7 @@ export default {
         cashAmount: this.goldenBean.cashAmount
       }
       const { code } = await updateGoldenBeanExchangeConfig(obj)
-      if (code === 200) {
+      if (code === 0) {
         this.$message.success('修改成功')
         this.dialogVisible = false
         this.getExchangeConfig()
@@ -129,7 +129,7 @@ export default {
     },
     async updateTaskConfig() {
       const { code, msg } = await updateGoldenBeanTaskList(this.currentTask)
-      if (code === 200) {
+      if (code === 0) {
         this.$message.success(msg)
         this.taskDialogVisible = false
         this.$refs.table.searchHandler()
@@ -149,7 +149,7 @@ export default {
     async getExchangeConfig() {
       this.beanLoading = true
       const { code, data } = await getGoldenBeanExchangeConfig()
-      if (code === 200) {
+      if (code === 0) {
         this.beanLoading = false
         this.beanNum = data.beanNum
         this.cashAmount = data.cashAmount

@@ -128,7 +128,7 @@ export default {
   mounted() {
     if (this.$route.query.id) {
       getPopupMngListDetail({ popupId: this.$route.query.id }).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.form = res.data
           this.currentJumpType = res.data.jumpType
         }
@@ -148,14 +148,14 @@ export default {
         if (!valid) return
         if (this.$route.query.id) {
           updatePopupMngList(this.form).then((res) => {
-            if (res.code === 200) {
+            if (res.code === 0) {
               this.$message.success('修改成功')
               this.$router.go(-1)
             }
           })
         } else {
           addPopupMngList(this.form).then((res) => {
-            if (res.code === 200) {
+            if (res.code === 0) {
               this.$message.success('修改成功')
               this.$router.go(-1)
             }

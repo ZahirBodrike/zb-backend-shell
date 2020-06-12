@@ -109,6 +109,8 @@ import { getTaobaoGoodList, getTaobaoFavorites, addTaobaoGoodList,
 
 import { getJingdongGoodList, changeStatusJingdongGoodList } from '@/api/jingdongGoodMng'
 
+import { getPinduoduoGoodList, changeStatusPinduoduoGoodList } from '@/api/pinduoduoGoodMng'
+
 /* 各模块的搜索查询 */
 const searchFormMap = {
   taobao: taobaoSearch,
@@ -130,12 +132,18 @@ const tableMap = {
 /* 各模块的表格请求api */
 const listApi = {
   taobao: getTaobaoGoodList,
-  jingdong: getJingdongGoodList
+  jingdong: getJingdongGoodList,
+  pinduoduo: getPinduoduoGoodList
 }
 
 /* 部分模块的列表处删除功能 */
 const deleteApi = {
   taobao: delTaobaoGoodList
+}
+
+const changeStatusApi = {
+  jingdong: changeStatusJingdongGoodList,
+  pinduoduo: changeStatusPinduoduoGoodList
 }
 
 export default {
@@ -150,11 +158,12 @@ export default {
       columns: tableMap[pageType],
       getTable: listApi[pageType],
       deleteItem: deleteApi[pageType],
+      changeStatusItem: changeStatusApi[pageType],
 
       addGoodBtnList: ['taobao', 'jingdong', 'pinduoduo', 'weipinhui', 'suning'],
       mulAddGoodBtnList: ['jingdong', 'pinduoduo', 'weipinhui'],
       actionDeleteLinkList: ['taobao'],
-      actionChangeStatusLinkList: ['jingdong'],
+      actionChangeStatusLinkList: ['jingdong', 'pinduoduo'],
 
       addGoodForm: {
         type: '',
@@ -177,7 +186,7 @@ export default {
     /* 跳转编辑商品详情 */
     gotoDetail(row) {
       let id = null
-      if (this.pageType === 'jingdong') {
+      if (['jingdong', 'pinduoduo'].includes(this.pageType)) {
         id = row.id
       } else {
         id = row.numIid
@@ -203,7 +212,7 @@ export default {
     /* 列表页删除功能 */
     handleDelete(id) {
       this.deleteItem({ goodsId: id }).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.$message.success('删除成功')
           this.$refs['table'].searchHandler()
         }
@@ -216,8 +225,8 @@ export default {
         id: row.id,
         status: row.status ? 0 : 1
       }
-      changeStatusJingdongGoodList(qs.stringify(obj)).then((res) => {
-        if (res.code === 200) {
+      this.changeStatusItem(qs.stringify(obj)).then((res) => {
+        if (res.code === 0) {
           this.$message.success('操作成功')
           this.$refs['table'].searchHandler()
         }
@@ -239,7 +248,7 @@ export default {
         }
 
         addTaobaoGoodList(obj).then((res) => {
-          if (res.code === 200) {
+          if (res.code === 0) {
             this.$message.success('添加成功')
             this.$refs['table'].searchHandler()
             this.addTbDialog = false

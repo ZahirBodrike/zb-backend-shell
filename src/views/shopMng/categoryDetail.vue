@@ -8,7 +8,7 @@
         :label="item.label"
         :prop="item.prop"
       >
-        <upload-img v-if="item.type == 'upload'" :list.sync="imgList" />
+        <upload-img v-if="item.type == 'upload'" :list.sync="form[item.prop]" />
 
         <el-input
           v-else
@@ -37,7 +37,9 @@ import { taobaoCategoryDetailForm, jingdongCategoryDetailForm, pinduoduoCategory
 
 import { getTaobaoTypeListDetail, updateTaobaoTypeList, addTaobaoTypeList } from '@/api/taobaoGoodMng'
 import { getJingdongTypeListDetail, updateJingdongTypeList, addJingdongTypeList } from '@/api/jingdongGoodMng'
+import { getPinduoduoTypeListDetail, updatePinduoduoTypeList, addPinduoduoTypeList } from '@/api/pinduoduoGoodMng'
 
+/* 分类详情表单 */
 const categoryDetailFormMap = {
   taobao: taobaoCategoryDetailForm,
   jingdong: jingdongCategoryDetailForm,
@@ -45,23 +47,30 @@ const categoryDetailFormMap = {
   suning: suningCategoryDetailForm
 }
 
+/* 二级分类的详情表单 */
 const subCategoryDetailFormMap = {
   taobao: taobaoSubCategoryDetailForm
 }
 
+/* 获取分类详情 */
 const getDetailMap = {
   taobao: getTaobaoTypeListDetail,
-  jingdong: getJingdongTypeListDetail
+  jingdong: getJingdongTypeListDetail,
+  pinduoduo: getPinduoduoTypeListDetail
 }
 
+/* 修改分类详情 */
 const updateSubmitMap = {
   taobao: updateTaobaoTypeList,
-  jingdong: updateJingdongTypeList
+  jingdong: updateJingdongTypeList,
+  pinduoduo: updatePinduoduoTypeList
 }
 
+/* 添加分类 */
 const addSubmitMap = {
   taobao: addTaobaoTypeList,
-  jingdong: addJingdongTypeList
+  jingdong: addJingdongTypeList,
+  pinduoduo: addPinduoduoTypeList
 }
 
 export default {
@@ -76,7 +85,6 @@ export default {
       addDetail: addSubmitMap[pageType],
 
       form: {},
-      imgList: '',
       itemStyle: {
         width: `300px`
       },
@@ -119,14 +127,14 @@ export default {
 
         if (this.$route.query.id) {
           this.updateDetail(this.form).then((res) => {
-            if (res.code === 200) {
+            if (res.code === 0) {
               this.$message.success('修改成功')
               this.$router.go(-1)
             }
           })
         } else {
           this.addDetail(this.form).then((res) => {
-            if (res.code === 200) {
+            if (res.code === 0) {
               this.$message.success('添加成功')
               this.$router.go(-1)
             }
@@ -136,7 +144,7 @@ export default {
     },
     handleGetCategoryDetail(id) {
       this.getDetail({ id }).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.form = res.data
 
           /* 淘宝二级分类详情的只读显示 */

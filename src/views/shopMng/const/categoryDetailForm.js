@@ -23,8 +23,8 @@ export const jingdongCategoryDetailForm = [
 
 export const pinduoduoCategoryDetailForm = [
   { label: '类目名称', prop: 'name' },
-  { label: '拼多多类目ID', prop: 'id' },
-  { label: '运营位权重', prop: 'sort' },
+  { label: '拼多多类目ID', prop: 'catId' },
+  { label: '运营位权重', prop: 'sortNum' },
   { label: 'ICON图标', prop: 'icon', type: 'upload' }
 ]
 

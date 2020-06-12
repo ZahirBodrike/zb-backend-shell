@@ -44,24 +44,24 @@ export const jingdongDetailForm = [
 ]
 
 export const pinduoduoDetailForm = [
-  { label: '商品ID', prop: 'goodid' },
-  { label: '店铺名称', prop: 'shopname' },
-  { label: '拼多多标题', prop: 'title' },
-  { label: '商品标题', prop: 'goodtitle' },
-  { label: '商品价格', prop: 'price' },
-  { label: '优惠券id/链接', prop: 'couponid' },
-  { label: '优惠券面值', prop: 'coupon' },
-  { label: '优惠券门槛价格', prop: 'couponInfo' },
-  { label: '优惠券数量', prop: 'couponNum' },
-  { label: '优惠券有效期', prop: 'duration', type: 'daterange' },
-  { label: '领券价（券后）', prop: 'couponPrice' },
-  { label: '佣金比例', prop: 'rate' },
-  { label: '佣金金额', prop: 'commission' },
-  { label: '商品主图', prop: 'mainPic', type: 'bigCard' },
-  { label: '商品小图', prop: 'miniPic', type: 'miniCard' },
-  { label: '一级类目', prop: 'level1' },
-  { label: '检测券', prop: 'check' },
-  { label: '检测时间', prop: 'checkTime', type: 'date' }
+  { label: '商品ID', prop: 'goodsId', type: 'search' },
+  { label: '店铺名称', prop: 'mallName', disable: true },
+  { label: '拼多多标题', prop: 'goodsNameOrigin', disable: true },
+  { label: '商品标题', prop: 'goodsName' },
+  { label: '商品价格', prop: 'minGroupPrice', disable: true },
+  { label: '优惠券id/链接', prop: 'couponid', disable: true }, //
+  { label: '优惠券面值', prop: 'couponDiscount', disable: true },
+  { label: '优惠券门槛价格', prop: 'couponMinOrderAmount', disable: true },
+  { label: '优惠券数量', prop: 'couponRemainQuantity', disable: true },
+  { label: '优惠券有效期', prop: 'couponTime', type: 'daterange', disable: true },
+  { label: '领券价（券后）', prop: 'salePrice', disable: true },
+  { label: '佣金比例', prop: 'promotionRate', disable: true },
+  { label: '佣金金额', prop: 'commission', disable: true }, //
+  { label: '商品主图', prop: 'goodsImageUrl', type: 'bigCard' },
+  { label: '商品小图', prop: 'goodsGalleryUrls', type: 'miniCard' },
+  { label: '一级类目', prop: 'categoryName', disable: true },
+  { label: '检测券', prop: 'checkOffSale', disable: true },
+  { label: '检测时间', prop: 'checkTime', type: 'date', disable: true } //
 ]
 
 export const weipinhuiDetailForm = [

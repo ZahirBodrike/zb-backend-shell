@@ -43,20 +43,27 @@ import { getTaobaoTypeList } from '@/api/taobaoGoodMng'
 
 import { getJingdongTypeList } from '@/api/jingdongGoodMng'
 
+import { getPinduoduoTypeList } from '@/api/pinduoduoGoodMng'
+
+/* 各级类目映射 */
 const levelMap = {
   1: '一级类目',
   2: '二级类目',
   3: '三级类目'
 }
 
+/* 获取分类列表的api */
 const typeDataMap = {
   taobao: getTaobaoTypeList,
-  jingdong: getJingdongTypeList
+  jingdong: getJingdongTypeList,
+  pinduoduo: getPinduoduoTypeList
 }
 
+/* 各个平台的分类名字段 */
 const categoryInfo = {
   taobao: { name: '淘宝', prop: 'catId' },
-  jingdong: { name: '京东', prop: 'jdfCid' }
+  jingdong: { name: '京东', prop: 'jdfCid' },
+  pinduoduo: { name: '拼多多', prop: 'catId' }
 }
 
 export default {
@@ -89,7 +96,7 @@ export default {
         parentTypeId: tree.id
       }
       getTaobaoTypeList(obj).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           resolve(res.data)
         }
       })

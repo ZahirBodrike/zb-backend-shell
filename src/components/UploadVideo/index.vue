@@ -141,7 +141,7 @@ export default {
     // 文件上传成功时的钩子
     async onHandleSuccess(response, file, fileList) {
       const { code, data } = await getAuthUrl({ 'dir': this.dir, 'fileName': file.raw.ossName })
-      if (code === 200) {
+      if (code === 0) {
         const index = fileList.indexOf(file)
         if (index !== -1) {
           file.url = data

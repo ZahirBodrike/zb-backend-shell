@@ -1,22 +1,23 @@
 <template>
   <div class="shopMng-detail">
-    <div class="nav">
-      <mallki text="商品信息" class="text" />
-      <div>
-        <el-button type="primary" size="small" @click="handleSubmit">
-          保存
-        </el-button>
-        <el-button size="small" @click="goBack">
-          取消
-        </el-button>
+    <sticky>
+      <div class="nav">
+        <mallki text="商品信息" class="text" />
+        <div>
+          <el-button type="primary" size="small" @click="handleSubmit">
+            保存
+          </el-button>
+          <el-button size="small" @click="goBack">
+            取消
+          </el-button>
+        </div>
       </div>
-    </div>
-
-    <el-divider />
+    </sticky>
 
     <el-form
       ref="form"
       v-loading="loading"
+      :style="{ marginTop: '20px' }"
       label-width="150px"
       :model="form"
     >
@@ -90,6 +91,7 @@
 import Mallki from '@/components/TextHoverEffect/Mallki'
 import CardList from '@/components/CardList'
 import ElBackToTop from '@/components/ElBackToTop'
+import Sticky from '@/components/Sticky'
 
 import { taobaoDetailForm, jingdongDetailForm, pinduoduoDetailForm,
   weipinhuiDetailForm, suningDetailForm } from './const/goodDetailForm'
@@ -98,6 +100,9 @@ import { getTaobaoGoodListDetail, updateTaobaoGoodList } from '@/api/taobaoGoodM
 
 import { getJingdongGoodListDetail, addJingdongGoodList, updateJingdongGoodList,
   getJingdongGoodListDetailById } from '@/api/jingdongGoodMng'
+
+import { getPinduoduoGoodListDetailByGoodId, addPinduoduoGoodList, updatePinduoduoGoodList,
+  getPinduoduoGoodListDetail } from '@/api/pinduoduoGoodMng'
 
 /* 详情表单字段 */
 const fromItemListMap = {
@@ -111,28 +116,50 @@ const fromItemListMap = {
 /* 获取详情的api */
 const detailApiMap = {
   taobao: getTaobaoGoodListDetail,
-  jingdong: getJingdongGoodListDetailById
+  jingdong: getJingdongGoodListDetailById,
+  pinduoduo: getPinduoduoGoodListDetail
 }
 
 /* 更新功能的api */
 const updateApiMap = {
   taobao: updateTaobaoGoodList,
-  jingdong: updateJingdongGoodList
+  jingdong: updateJingdongGoodList,
+  pinduoduo: updatePinduoduoGoodList
 }
 
 /* 新增功能的api */
 const addApiMap = {
-  jingdong: addJingdongGoodList
+  jingdong: addJingdongGoodList,
+  pinduoduo: addPinduoduoGoodList
 }
 
 /* 兼容各类型的请求id */
 const idNameMap = {
   taobao: 'goodsId',
-  jingdong: 'id'
+  jingdong: 'id',
+  pinduoduo: 'id'
+}
+
+/* 通过商品id输入框查询详情 */
+const searchDetailByGoodIdMap = {
+  jingdong: getJingdongGoodListDetail,
+  pinduoduo: getPinduoduoGoodListDetailByGoodId
+}
+
+/* 通过商品id输入框查询详情的key id */
+const searchDetailByGoodIdMapKey = {
+  jingdong: 'skuId',
+  pinduoduo: 'goodsId'
+}
+
+/* 优惠券开始时间和结束时间字段 */
+const couponTimeStartAndEndMap = {
+  taobao: ['getStartTime', 'getEndTime'],
+  pinduoduo: ['couponStartTime', 'couponEndTime']
 }
 
 export default {
-  components: { Mallki, CardList, ElBackToTop },
+  components: { Mallki, CardList, ElBackToTop, Sticky },
   data() {
     const pageType = this.$route.meta.type
     return {
@@ -142,6 +169,9 @@ export default {
       postUpdate: updateApiMap[pageType],
       postAdd: addApiMap[pageType],
       idName: idNameMap[pageType],
+      goodIdSearchDetail: searchDetailByGoodIdMap[pageType],
+      goodIdSearchDetailKey: searchDetailByGoodIdMapKey[pageType],
+      couponTimeStartAndEnd: couponTimeStartAndEndMap[pageType],
 
       form: {},
       loading: false,
@@ -163,7 +193,11 @@ export default {
   methods: {
     /* 切换主图 */
     setMainPic(item) {
-      this.form['pictUrl'] = item
+      if (this.pageType === 'pinduoduo') {
+        this.form['goodsImageUrl'] = item
+      } else {
+        this.form['pictUrl'] = item
+      }
     },
 
     /* 返回列表 */
@@ -175,6 +209,8 @@ export default {
     smallPicList(prop) {
       if (this.pageType === 'taobao') {
         return this.form[prop] && this.form[prop].slice(0, this.form[prop].length - 1).split(',')
+      } else if (this.pageType === 'pinduoduo') {
+        return this.form[prop] && JSON.parse(this.form[prop])
       } else {
         return this.form[prop] && this.form[prop].slice(0, this.form[prop].length).split(',')
       }
@@ -183,12 +219,12 @@ export default {
     /* 通过商品id查询商品详情 */
     handleSearchGood(id) {
       this.loading = true
-      getJingdongGoodListDetail({ skuId: id }).then((res) => {
-        if (res.code === 200) {
+      this.goodIdSearchDetail({ [this.goodIdSearchDetailKey]: id }).then((res) => {
+        if (res.code === 0) {
           this.loading = false
 
           this.form = res.data
-          this.form.couponTime = [res.data.getStartTime, res.data.getEndTime]
+          this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
 
           if (this.pageType === 'jingdong') {
             const { jdfansCoupon } = res.data
@@ -203,11 +239,11 @@ export default {
     getDetailData(id) {
       this.loading = true
       this.getDetail({ [this.idName]: id }).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.loading = false
 
           this.form = res.data
-          this.form.couponTime = [res.data.getStartTime, res.data.getEndTime]
+          this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
 
           if (this.pageType === 'jingdong') {
             const { jdfansCoupon } = res.data
@@ -220,6 +256,25 @@ export default {
 
     /* 确定修改/新增 区分各个类型的obj参数 */
     handleSubmit() {
+      if (this.$route.query.id) {
+        this.postUpdate(this.getUpdateParams()).then((res) => {
+          if (res.code === 0) {
+            this.$message.success('修改成功')
+            this.$router.go(-1)
+          }
+        })
+      } else {
+        this.postAdd(this.getUpdateParams()).then((res) => {
+          if (res.code === 0) {
+            this.$message.success('添加成功')
+            this.$router.go(-1)
+          }
+        })
+      }
+    },
+
+    /* 区分各个模块添加和编辑的obj参数 */
+    getUpdateParams() {
       let obj = {}
       if (this.pageType === 'taobao') {
         obj = {
@@ -237,23 +292,16 @@ export default {
           goodsName: this.form.jdfSkuName,
           couponLink: this.form.link
         }
+      } else if (this.pageType === 'pinduoduo') {
+        obj = {
+          id: this.form.id,
+          goodsId: this.form.goodsId,
+          pictUrl: this.form.goodsImageUrl,
+          goodsName: this.form.goodsName
+          // couponId: 0
+        }
       }
-
-      if (this.$route.query.id) {
-        this.postUpdate(obj).then((res) => {
-          if (res.code === 200) {
-            this.$message.success('修改成功')
-            this.$router.go(-1)
-          }
-        })
-      } else {
-        this.postAdd(obj).then((res) => {
-          if (res.code === 200) {
-            this.$message.success('添加成功')
-            this.$router.go(-1)
-          }
-        })
-      }
+      return obj
     }
   }
 }
@@ -263,6 +311,9 @@ export default {
 .shopMng-detail {
   padding: 20px;
   .nav {
+    padding: 20px 0;
+    background: white;
+    border-bottom: 0.5px solid #eeeeee;
     display: flex;
     justify-content: space-between;
     align-items: center;

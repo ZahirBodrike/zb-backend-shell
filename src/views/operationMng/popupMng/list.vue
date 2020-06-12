@@ -127,7 +127,7 @@ export default {
     changeStatus(item) {
       const obj = { enable: item.enable ? 0 : 1, popupId: item.popupId }
       updatePopupMngList(obj).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.$refs['table'].fetchHandler()
         }
       })

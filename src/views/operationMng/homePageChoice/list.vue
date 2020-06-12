@@ -137,7 +137,7 @@ export default {
         status: item.status ? 0 : 1
       }
       updateHomePageChoiceMngList(qs.stringify(obj)).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.$message.success('操作成功')
           this.$refs['table'].searchHandler()
         }
@@ -147,7 +147,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (!valid) return
         addHomePageChoiceMngList(this.form).then((res) => {
-          if (res.code === 200) {
+          if (res.code === 0) {
             this.$message.success('添加成功')
             this.addTbDialog = false
             this.$refs['table'].searchHandler()

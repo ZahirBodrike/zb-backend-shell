@@ -159,7 +159,7 @@ export default {
     /** 获取详情信息 */
     getDetailsData(id) {
       materialService.goodsMaterialDetail({ id: id }).then((response) => {
-        if (response.code === 200) {
+        if (response.code === 0) {
           this.detailForm = response.data
         } else {
           this.$message['error'](response.msg)
@@ -190,10 +190,10 @@ export default {
         ](this.detailForm)
           .then((response) => {
             this.loading = false
-            this.$message[response.code === 200 ? 'success' : 'error'](
+            this.$message[response.code === 0 ? 'success' : 'error'](
               response.msg
             )
-            if (response.code === 200) this.$router.go(-1)
+            if (response.code === 0) this.$router.go(-1)
           })
           .catch((Error) => {
             this.loading = false
@@ -209,10 +209,10 @@ export default {
 
       materialService.goodsInfo({ platform: this.detailForm.platform, goodsId: this.detailForm.goodsId })
         .then((response) => {
-          this.$message[response.code === 200 ? 'success' : 'error'](
+          this.$message[response.code === 0 ? 'success' : 'error'](
             response.msg
           )
-          if (response.code === 200) {
+          if (response.code === 0) {
             // TODO 赋值商品信息
           }
         })

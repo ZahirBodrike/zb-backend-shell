@@ -109,10 +109,10 @@ export default {
         .goodsMaterialOnOff({ id: id, enable: enable })
         .then((response) => {
           this.loading = false
-          this.$message[response.code === 200 ? 'success' : 'error'](
+          this.$message[response.code === 0 ? 'success' : 'error'](
             response.msg
           )
-          if (response.code === 200) {
+          if (response.code === 0) {
             this.$refs.table.dataChangeHandler()
           }
         })
@@ -127,10 +127,10 @@ export default {
         .goodsMaterialDelete(id)
         .then((response) => {
           this.loading = false
-          this.$message[response.code === 200 ? 'success' : 'error'](
+          this.$message[response.code === 0 ? 'success' : 'error'](
             response.msg
           )
-          if (response.code === 200) this.submitHandler()
+          if (response.code === 0) this.submitHandler()
         })
         .catch((Error) => {
           this.loading = false

@@ -99,7 +99,7 @@ export default {
       return new Promise((resolve) => {
         const xhr = new XMLHttpRequest()
         xhr.onreadystatechange = () => {
-          if (xhr.readyState === 4 && xhr.status === 200) {
+          if (xhr.readyState === 4 && xhr.status === 0) {
             this[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, '')
             resolve()
           }

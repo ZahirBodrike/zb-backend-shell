@@ -256,7 +256,7 @@ export default {
     /* 动态填充表单数据的情况 */
     if (this.fetch && this.autoFetch) {
       this.fetch(this.fetchParams).then((res) => {
-        if (res.code === 200) {
+        if (res.code === 0) {
           this.formData = res.data
           this.$emit('getData', this.formData)
         }

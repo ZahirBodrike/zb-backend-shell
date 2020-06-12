@@ -125,7 +125,7 @@ export default {
       operationService.invitePosterDetail({ id: id }).then((response) => {
         var addedTime = new Date(response.data.addedTime.replace(/-/g, '/')).getTime()
         var shelfTime = new Date(response.data.shelfTime.replace(/-/g, '/')).getTime()
-        if (response.code === 200) {
+        if (response.code === 0) {
           this.detailForm = {
             ...response.data,
             onLine: [addedTime, shelfTime]
@@ -161,7 +161,7 @@ export default {
         ](data)
           .then((response) => {
             this.loading = false
-            if (response.code === 200) this.$router.go(-1)
+            if (response.code === 0) this.$router.go(-1)
           })
           .catch((Error) => {
             this.loading = false

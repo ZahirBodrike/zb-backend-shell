@@ -96,14 +96,14 @@ export default {
     submitHandler(form) {
       if (this.$route.query.id) {
         updateHotSearchWordMngList(form).then((res) => {
-          if (res.code === 200) {
+          if (res.code === 0) {
             this.$message.success('修改成功')
             this.$router.go(-1)
           }
         })
       } else {
         addHotSearchWordMngList(form).then((res) => {
-          if (res.code === 200) {
+          if (res.code === 0) {
             this.$message.success('添加成功')
             this.$router.go(-1)
           }

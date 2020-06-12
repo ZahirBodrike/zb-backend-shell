@@ -70,8 +70,8 @@ export default {
         { prop: ['settledFrom', 'settledTo'], label: '结算时间', itemType: 'daterange' }
       ],
       columns: [
-        { prop: 'orderParentSn', label: '父订单编号', minWidth: 200 },
-        { prop: 'orderSn', label: '子订单编号', slotName: 'link', minWidth: 200 },
+        { prop: 'orderParentSn', label: '父订单编号', minWidth: 140 },
+        { prop: 'orderSn', label: '子订单编号', slotName: 'link', minWidth: 140 },
         { prop: 'source', label: '所属平台',
           formatter: (row) => {
             return platformMap[row.source] || row.source
@@ -82,7 +82,7 @@ export default {
             return orderStatusMap[row.orderStatus] || row.orderStatus
           }
         },
-        { prop: 'itemTitle', label: '商品名称' },
+        { prop: 'itemTitle', label: '商品名称', minWidth: 200 },
         { prop: 'payPrice', label: '付款金额' },
         { prop: 'paymentIncome', label: '预估收益' },
         { prop: 'commissionRate', label: '佣金比例' },

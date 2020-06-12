@@ -37,18 +37,19 @@ export const jingdongTable = [
 ]
 
 export const pinduoduoTable = [
-  { prop: 'img', label: '商品图片', slotName: 'img' },
-  { prop: 'shopId', label: '商品ID' },
-  { prop: 'shopTitle', label: '商品标题' },
-  { prop: 'type1', label: '类目' },
-  { prop: '30sale', label: '月销数量' },
-  { prop: 'price', label: '原价' },
-  { prop: 'groupPrice', label: '拼团价' },
-  { prop: 'couponPrice', label: '领券价(券后)' },
-  { prop: 'coupon', label: '优惠券金额' },
-  { prop: 'rate', label: '佣金比例', fomatter: (row) => row },
+  { prop: 'pictUrl', label: '商品图片', slotName: 'img', fixed: 'left' },
+  { prop: 'numIid', label: '商品ID', fixed: 'left' },
+  { prop: 'title', label: '商品标题', minWidth: 200 },
+  { prop: 'levelOneCategoryName', label: '类目' },
+  { prop: 'volume', label: '月销数量' },
+  { prop: 'reservePrice', label: '原价' },
+  { prop: 'zkFinalPrice', label: '拼团价' },
+  { prop: 'salePrice', label: '领券价(券后)' },
+  { prop: 'couponInfo', label: '优惠券金额' },
+  { prop: 'commissionRate', label: '佣金比例', fomatter: (row) => row },
   { prop: 'commission', label: '佣金' },
-  { prop: 'couponEndTime', label: '优惠券结束时间' },
+  { prop: 'couponEndTime', label: '优惠券结束时间', minWidth: 200 },
+  { prop: 'status', label: '状态', formatter: (row) => row.status ? '上架' : '下架' },
   { label: '操作', slotName: 'action' }
 ]
 

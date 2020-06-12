@@ -122,7 +122,7 @@ export default {
         leaderLevel: this.$route.query.type
       }
       const { code } = await updateLevelLeaderCommission(obj)
-      if (code === 200) {
+      if (code === 0) {
         this.dialogVisible = false
         this.$message.success('修改成功')
         this.$refs['table'].searchHandler()

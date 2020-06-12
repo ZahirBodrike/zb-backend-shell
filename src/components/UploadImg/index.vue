@@ -55,52 +55,57 @@ export default {
   name: 'UploadImg',
   components: { draggable, ElImageViewer },
   props: {
+    /* 是否显示预览 */
     canPreview: {
       type: Boolean,
       default: true
-    }, // 是否显示预览
+    },
+
+    /* 是否显示删除 */
     canDelete: {
       type: Boolean,
       default: true
-    }, // 是否显示删除
+    },
+
+    /* 图片发送请求的地址 */
     actionUrl: {
       type: String,
       default: API.uploadImg2
-    }, // 图片发送请求的地址
+    },
+
+    /* 最大上传文件数 */
     limitCount: {
       type: Number,
       default: 1
-    }, // 最大上传文件数
+    },
+
+    /* 限制图片大小(k) */
     limitSize: {
       type: Number,
       default: 500
-    }, // 限制图片大小(k数)
+    },
+
+    /* 限制图片宽度(px) */
     limitWidth: {
       type: Number,
       default: -1
-    }, // 限制图片宽度(px)
+    },
+
+    /* 限制图片高度(px) */
+    limitHeight: {
+      type: Number,
+      default: -1
+    },
+
+    /* 如果限制为1张时为字符串,绑定时必须加sync修饰符 */
     list: {
       type: [Array, String],
       default: () => '',
       required: true
-    }, // 如果限制为1张时为字符串,绑定时必须加sync修饰符
+    },
+
+    /* 开启图片尺寸校验 */
     sizeLimitCkeck: {
-      type: Boolean,
-      default: false
-    },
-    coverSizeLimitCkeck: {
-      type: Boolean,
-      default: false
-    },
-    bannerSizeLimitCkeck: {
-      type: Boolean,
-      default: false
-    },
-    navigationSizeLimitCkeck: {
-      type: Boolean,
-      default: false
-    },
-    invitePosterSizeLimitCheck: {
       type: Boolean,
       default: false
     }
@@ -137,7 +142,7 @@ export default {
       } else {
         this.isListWatch = true
         const orgList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newVal !== '' && newVal != null ? [newVal] : []) : newVal
-        const newList = [].concat(orgList).map((item) => {
+        const newList = [...orgList].map((item) => {
           return { url: item }
         })
         this.fileList = newList
@@ -150,7 +155,7 @@ export default {
         this.isListWatch = false
       } else {
         this.isFileListWatch = true
-        const newList = [].concat(newVal).map((item) => {
+        const newList = [...newVal].map((item) => {
           return item ? item.url : null
         })
         const resList = (typeof newVal === 'string' || newVal == null || this.limitCount === 1) ? (newList.length > 0 ? newList[0] : '') : newList
@@ -175,10 +180,12 @@ export default {
     /** 图片上传前 */
     beforeUploadImages(file) {
       const list = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-      const isImage = list.indexOf(file.type) > -1
+      const isImage = list.includes(file.type)
       const isLtSize = file.size / 1024 < this.limitSize
+
       if (!isImage) {
         this.$message.error('上传图片只能是jpg/jpeg/png/gif格式!')
+        return false
       }
       if (!isLtSize) {
         this.$message.error(`缩略图片大小不能超过${this.limitSize}K!`)
@@ -187,24 +194,8 @@ export default {
       if (this.sizeLimitCkeck) {
         return this.valSize(file)
       }
-      if (this.coverSizeLimitCkeck) {
-        // 封面图片尺寸校验
-        return this.valCoverSize(file)
-      }
-      if (this.bannerSizeLimitCkeck) {
-        // banner图片尺寸校验
-        return this.valBannerSize(file)
-      }
-      if (this.navigationSizeLimitCkeck) {
-        // banner图片尺寸校验
-        return this.valNavigationSize(file)
-      }
-      if (this.invitePosterSizeLimitCheck) {
-        // 邀请海报尺寸校验
-        return this.valInvitePosterSize(file)
-      }
 
-      if (this.limitWidth !== -1) {
+      if (this.limitWidth > 0) {
         // 有宽度限制
         return this.valWidth(file)
       } else {
@@ -212,16 +203,14 @@ export default {
       }
     },
 
-    /** 校验图片长度 */
+    /** 如果设置宽度限制，只校验图片宽度 */
     valWidth(file) {
-      const _this = this
       return new Promise((resolve, reject) => {
-        const width = _this.limitWidth // 图片宽度
         const _URL = window.URL || window.webkitURL
         const image = new Image()
         image.src = _URL.createObjectURL(file)
         image.onload = () => {
-          const valid = image.width <= width
+          const valid = image.width <= this.limitWidth
           valid ? resolve() : reject()
         }
       }).then(
@@ -235,14 +224,18 @@ export default {
       )
     },
 
-    /** 校验图片规格 */
+    /** 如果开启宽高检查，可校验图片规格 */
     valSize(file) {
+      if (this.limitWidth <= 0 || this.limitHeight <= 0) {
+        console.error('请传入校验的宽高')
+        return false
+      }
       return new Promise((resolve, reject) => {
         const _URL = window.URL || window.webkitURL
         const image = new Image()
         image.src = _URL.createObjectURL(file)
-        image.onload = function() {
-          const valid = (image.width === 750 && image.height === 750) || (image.width === 800 && image.height === 800)
+        image.onload = () => {
+          const valid = (image.width === this.limitWidth && image.height === this.limitHeight)
           valid ? resolve() : reject()
         }
       }).then(
@@ -250,91 +243,7 @@ export default {
           return file
         },
         () => {
-          this.$message.error(`上传图片尺寸必须等于于750*750或者800*800`)
-          return Promise.reject()
-        }
-      )
-    },
-
-    /** 校验图片规格 */
-    valCoverSize(file) {
-      return new Promise((resolve, reject) => {
-        const _URL = window.URL || window.webkitURL
-        const image = new Image()
-        image.src = _URL.createObjectURL(file)
-        image.onload = function() {
-          const valid = (image.width === 750 && image.height === 750) || (image.width === 800 && image.height === 800) || (image.width === 400 && image.height === 400)
-          valid ? resolve() : reject()
-        }
-      }).then(
-        () => {
-          return file
-        },
-        () => {
-          this.$message.error(`上传图片尺寸必须等于于400*400或者750*750或者800*800`)
-          return Promise.reject()
-        }
-      )
-    },
-
-    /** 校验首页banner图片规格 */
-    valBannerSize(file) {
-      return new Promise((resolve, reject) => {
-        const _URL = window.URL || window.webkitURL
-        const image = new Image()
-        image.src = _URL.createObjectURL(file)
-        image.onload = function() {
-          const valid = (image.width === 750 && image.height === 320)
-          valid ? resolve() : reject()
-        }
-      }).then(
-        () => {
-          return file
-        },
-        () => {
-          this.$message.error(`上传图片尺寸必须等于于750*320`)
-          return Promise.reject()
-        }
-      )
-    },
-
-    /** 首页导航栏图片规格 */
-    valNavigationSize(file) {
-      return new Promise((resolve, reject) => {
-        const _URL = window.URL || window.webkitURL
-        const image = new Image()
-        image.src = _URL.createObjectURL(file)
-        image.onload = function() {
-          const valid = (image.width === 750 && image.height === 270)
-          valid ? resolve() : reject()
-        }
-      }).then(
-        () => {
-          return file
-        },
-        () => {
-          this.$message.error(`上传图片尺寸必须等于于750*270`)
-          return Promise.reject()
-        }
-      )
-    },
-
-    /** 邀请海报图片规格 */
-    valInvitePosterSize(file) {
-      return new Promise((resolve, reject) => {
-        const _URL = window.URL || window.webkitURL
-        const image = new Image()
-        image.src = _URL.createObjectURL(file)
-        image.onload = function() {
-          const valid = (image.width === 750 && image.height === 1218)
-          valid ? resolve() : reject()
-        }
-      }).then(
-        () => {
-          return file
-        },
-        () => {
-          this.$message.error(`请上传750×1218px尺寸的海报图片`)
+          this.$message.error(`上传图片尺寸必须等于${this.limitWidth} * ${this.limitHeight}`)
           return Promise.reject()
         }
       )
@@ -344,6 +253,7 @@ export default {
     httpRequestImages(options) {
       if (!options.file) return false
       const reader = new FileReader()
+      /* 文件转base64 */
       reader.readAsDataURL(options.file)
       reader.onload = () => {
         const config = {
@@ -359,7 +269,7 @@ export default {
             options.onError(err)
           })
           .then((res) => {
-            if (res.code === 200) {
+            if (res.code === 0) {
               this.fileList.push({
                 raw: options.file,
                 name: options.file.name,
