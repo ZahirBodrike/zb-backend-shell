@@ -8,9 +8,9 @@
 
 #### 1. 需要传入的参数
 
-`linkInputStyle`
+```linkInputStyle: Object```
 
-该参数是热区对应的链接的input框的宽度配置 默认: 250px
+该参数是热区对应的链接的input框的样式配置 默认: { width: 250px }
 
 ```bigImg: String```
 
