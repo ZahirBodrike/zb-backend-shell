@@ -1,10 +1,20 @@
 ### 上传图片组件 
 
 基本使用:
-```
-<upload-img :list.sync="bannerImg" :limitCount="100"></upload-img>
 
-import uploadImg from '@/components/UploadImg'
+1. 限制图片宽度小于500:
+```
+<upload-img :list.sync="bannerImg" :limitWidth="500" />
+```
+
+2. 限制图片尺寸为500 * 500:
+```
+<upload-img :list.sync="bannerImg" :sizeLimitCkeck="true" :limitWidth="500" :limitHeight="500></upload-img>
+```
+
+3. 限制图片尺寸为500 * 500 或者 600 * 600:
+```
+<upload-img :list.sync="bannerImg" :sizeLimitCkeck="true" :limitWidth="[500, 600]" :limitHeight="[500, 600]" />
 ```
 
 <upload-img>的属性prop文档:

@@ -16,8 +16,8 @@ export const taobaoDetailForm = [
   { label: '商品小图', prop: 'smallImagesStr', type: 'miniCard' },
   { label: '一级类目', prop: 'levelOneCategoryName', disable: true },
   { label: '二级类目', prop: 'categoryName', disable: true },
-  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck', disable: true },
-  { label: '检测时间', prop: 'checkTime', type: 'date', disable: true } //
+  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck' },
+  { label: '检测时间', prop: 'checkOffSaleTime', type: 'date', disable: true }
 ]
 
 export const jingdongDetailForm = [
@@ -31,7 +31,7 @@ export const jingdongDetailForm = [
   { label: '优惠券门槛价格', prop: 'quota', disable: true },
   { label: '优惠券数量', prop: 'couponRemainCount', disable: true },
   { label: '优惠券有效期', prop: 'couponTime', type: 'daterange', disable: true },
-  { label: '领券价（券后）', prop: 'salePrice', disable: true }, //
+  { label: '领券价（券后）', prop: 'salePrice', disable: true },
   { label: '佣金比例', prop: 'commissionShare', disable: true },
   { label: '佣金金额', prop: 'commission', disable: true },
   { label: '商品主图', prop: 'pictUrl', type: 'bigCard' },
@@ -39,8 +39,8 @@ export const jingdongDetailForm = [
   { label: '一级类目', prop: 'jdfCid1Name', disable: true },
   { label: '二级类目', prop: 'jdfCid2Name', disable: true },
   { label: '三级类目', prop: 'jdfCid3Name', disable: true },
-  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck', disable: true }, //
-  { label: '检测时间', prop: 'checkTime', type: 'date', disable: true } //
+  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck' },
+  { label: '检测时间', prop: 'checkOffSaleTime', type: 'date', disable: true }
 ]
 
 export const pinduoduoDetailForm = [
@@ -49,19 +49,19 @@ export const pinduoduoDetailForm = [
   { label: '拼多多标题', prop: 'goodsNameOrigin', disable: true },
   { label: '商品标题', prop: 'goodsName' },
   { label: '商品价格', prop: 'minGroupPrice', disable: true },
-  { label: '优惠券id/链接', prop: 'couponid', disable: true }, //
+  { label: '优惠券id/链接', prop: 'couponid', disable: true }, // todo
   { label: '优惠券面值', prop: 'couponDiscount', disable: true },
   { label: '优惠券门槛价格', prop: 'couponMinOrderAmount', disable: true },
   { label: '优惠券数量', prop: 'couponRemainQuantity', disable: true },
   { label: '优惠券有效期', prop: 'couponTime', type: 'daterange', disable: true },
   { label: '领券价（券后）', prop: 'salePrice', disable: true },
   { label: '佣金比例', prop: 'promotionRate', disable: true },
-  { label: '佣金金额', prop: 'commission', disable: true }, //
+  { label: '佣金金额', prop: 'commission', disable: true }, // todo
   { label: '商品主图', prop: 'goodsImageUrl', type: 'bigCard' },
   { label: '商品小图', prop: 'goodsGalleryUrls', type: 'miniCard' },
   { label: '一级类目', prop: 'categoryName', disable: true },
-  { label: '检测券', prop: 'checkOffSale', disable: true },
-  { label: '检测时间', prop: 'checkTime', type: 'date', disable: true } //
+  { label: '检测券', prop: 'checkOffSale', type: 'chooseCheck' },
+  { label: '检测时间', prop: 'checkOffSaleTime', type: 'date', disable: true }
 ]
 
 export const weipinhuiDetailForm = [

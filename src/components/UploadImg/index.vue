@@ -87,13 +87,13 @@ export default {
 
     /* 限制图片宽度(px) */
     limitWidth: {
-      type: Number,
+      type: [Number, Array],
       default: -1
     },
 
     /* 限制图片高度(px) */
     limitHeight: {
-      type: Number,
+      type: [Number, Array],
       default: -1
     },
 
@@ -235,7 +235,15 @@ export default {
         const image = new Image()
         image.src = _URL.createObjectURL(file)
         image.onload = () => {
-          const valid = (image.width === this.limitWidth && image.height === this.limitHeight)
+          let valid = null
+
+          if (Array.isArray(this.limitWidth) && Array.isArray(this.limitHeight)) {
+            /* limitWidth和limitHeight是数组的多种情况 */
+            valid = this.limitWidth.includes(image.width) && this.limitHeight.includes(image.height)
+          } else {
+            /* limitWidth和limitHeight全等于 */
+            valid = (image.width === this.limitWidth && image.height === this.limitHeight)
+          }
           valid ? resolve() : reject()
         }
       }).then(
@@ -243,7 +251,7 @@ export default {
           return file
         },
         () => {
-          this.$message.error(`上传图片尺寸必须等于${this.limitWidth} * ${this.limitHeight}`)
+          this.$message.error(`上传图片尺寸必须等于 [${this.limitWidth}] * [${this.limitHeight}]`)
           return Promise.reject()
         }
       )

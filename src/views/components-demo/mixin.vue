@@ -2,6 +2,13 @@
   <div class="mixin-components-container">
     <hot-pot :big-img="`https://img.alicdn.com/tfs/TB11cdpoUH1gK0jSZSyXXXtlpXa-520-280.jpg_q90_.webp`" />
 
+    <upload-img
+      :list.sync="uploadImgList"
+      :limit-width="500"
+      :size-limit-ckeck="true"
+      :limit-height="500"
+    />
+
     <el-row>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
@@ -125,6 +132,7 @@ import Mallki from '@/components/TextHoverEffect/Mallki'
 import DropdownMenu from '@/components/Share/DropdownMenu'
 import waves from '@/directive/waves/index.js'
 import HotPot from '@/components/HotPot'
+import UploadImg from '@/components/UploadImg'
 
 export default {
   name: 'ComponentMixinDemo',
@@ -133,7 +141,8 @@ export default {
     MdInput,
     Mallki,
     DropdownMenu,
-    HotPot
+    HotPot,
+    UploadImg
   },
   directives: {
     waves
@@ -147,6 +156,7 @@ export default {
       }
     }
     return {
+      uploadImgList: '',
       demo: {
         title: ''
       },

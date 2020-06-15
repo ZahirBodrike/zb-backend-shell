@@ -43,6 +43,9 @@
           />
           <upload-img
             :list.sync="form[item.prop]"
+            :size-limit-ckeck="true"
+            :limit-width="690"
+            :limit-height="320"
           />
         </div>
 

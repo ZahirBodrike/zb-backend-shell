@@ -43,6 +43,7 @@
           placeholder="请选择时间"
           :style="itemStyle"
           :disabled="item.disable"
+          :value-format="`yyyy-MM-dd HH:mm:ss`"
         />
 
         <el-card
@@ -60,12 +61,19 @@
           @event-confirm="setMainPic"
         />
 
-        <el-radio-group v-else-if="item.type == 'chooseCheck'" v-model="form[item.prop]" :disabled="item.disable">
+        <el-radio-group
+          v-else-if="item.type == 'chooseCheck'"
+          v-model="form[item.prop]"
+          :disabled="item.disable"
+        >
           <el-radio :label="0">
             不检测
           </el-radio>
           <el-radio :label="1">
-            检测
+            自动检测
+          </el-radio>
+          <el-radio :label="2">
+            定时检测
           </el-radio>
         </el-radio-group>
 
@@ -181,6 +189,18 @@ export default {
       }
     }
   },
+  watch: {
+    form: {
+      handler(oldValue) {
+        /* 检测券如果为“定时监测” 才可编辑检测时间 */
+        this.$set(this.formItemList[this.formItemList.length - 1], 'disable', oldValue.checkOffSale !== 2)
+        if (oldValue.checkOffSale !== 2) {
+          this.form['checkOffSaleTime'] = ''
+        }
+      },
+      deep: true
+    }
+  },
   mounted() {
     /* 编辑时的id无法编辑 */
     if (this.$route.query.id) {
@@ -256,6 +276,12 @@ export default {
 
     /* 确定修改/新增 区分各个类型的obj参数 */
     handleSubmit() {
+      /* 校验检测时间 */
+      if (this.form['checkOffSale'] === 2 && !this.form['checkOffSaleTime']) {
+        this.$message.error('请填写检测时间')
+        return
+      }
+
       if (this.$route.query.id) {
         this.postUpdate(this.getUpdateParams()).then((res) => {
           if (res.code === 0) {
@@ -280,9 +306,11 @@ export default {
         obj = {
           id: this.form.id,
           numIid: this.$route.query.id,
-          status: this.form.status,
+          status: this.form.status || 1,
           pictUrl: this.form.pictUrl,
-          title: this.form.title
+          title: this.form.title,
+          checkOffSale: this.form.checkOffSale,
+          checkOffSaleTime: this.form.checkOffSaleTime
         }
       } else if (this.pageType === 'jingdong') {
         obj = {
@@ -290,14 +318,18 @@ export default {
           jdfSkuId: this.form.jdfSkuId,
           pictUrl: this.form.pictUrl,
           goodsName: this.form.jdfSkuName,
-          couponLink: this.form.link
+          couponLink: this.form.link,
+          checkOffSale: this.form.checkOffSale,
+          checkOffSaleTime: this.form.checkOffSaleTime
         }
       } else if (this.pageType === 'pinduoduo') {
         obj = {
           id: this.form.id,
           goodsId: this.form.goodsId,
           pictUrl: this.form.goodsImageUrl,
-          goodsName: this.form.goodsName
+          goodsName: this.form.goodsName,
+          checkOffSale: this.form.checkOffSale,
+          checkOffSaleTime: this.form.checkOffSaleTime
           // couponId: 0
         }
       }
