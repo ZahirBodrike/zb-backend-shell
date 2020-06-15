@@ -11,7 +11,11 @@
       <h1>
         聚米生活后台管理系统
       </h1>
-      <header-search />
+
+      <div class="search">
+        <p>点击快速查找侧边栏：</p>
+        <header-search />
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +58,13 @@ export default {
     top: 200px;
     letter-spacing: 4px;
     text-align: center;
+    .search {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      margin-top: 20px;
+    }
   }
 }
 </style>
