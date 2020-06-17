@@ -12,7 +12,7 @@
         <el-button v-if="addGoodBtnList.includes(pageType)" @click="handleAddGood">
           添加商品
         </el-button>
-        <el-button v-if="mulAddGoodBtnList.includes(pageType)">
+        <el-button v-if="mulAddGoodBtnList.includes(pageType)" @click="handleMultAddGood">
           批量添加商品
         </el-button>
       </template>
@@ -36,19 +36,21 @@
           编辑
         </el-link>
         <el-link
-          v-if="actionDeleteLinkList.includes(pageType)"
-          type="primary"
-          @click="handleDelete(scope.row.numIid)"
-        >
-          删除
-        </el-link>
-        <el-link
           v-if="actionChangeStatusLinkList.includes(pageType)"
           type="primary"
           @click="handleChangeStatus(scope.row)"
         >
           {{ scope.row.status ? '下架' : '上架' }}
         </el-link>
+
+        <!-- 暂时不做删除功能 -->
+        <!-- <el-link
+          v-if="actionDeleteLinkList.includes(pageType)"
+          type="primary"
+          @click="handleDelete(scope.row.numIid)"
+        >
+          删除
+        </el-link> -->
       </template>
     </common-table>
 
@@ -104,8 +106,8 @@ import { taobaoSearch, jingdongSearch, pinduoduoSearch, weipinhuiSearch,
 import { taobaoTable, jingdongTable, pinduoduoTable, weipinhuiTable,
   suningTable } from './const/dataTable'
 
-import { getTaobaoGoodList, getTaobaoFavorites, addTaobaoGoodList,
-  delTaobaoGoodList } from '@/api/taobaoGoodMng'
+import { getTaobaoGoodList, getTaobaoFavorites, multAddTaobaoGoodList,
+  delTaobaoGoodList, changeStatusTaobaoGoodList } from '@/api/taobaoGoodMng'
 
 import { getJingdongGoodList, changeStatusJingdongGoodList } from '@/api/jingdongGoodMng'
 
@@ -143,6 +145,7 @@ const deleteApi = {
 
 /* 部分平台的列表上下架功能 */
 const changeStatusApi = {
+  taobao: changeStatusTaobaoGoodList,
   jingdong: changeStatusJingdongGoodList,
   pinduoduo: changeStatusPinduoduoGoodList
 }
@@ -162,9 +165,9 @@ export default {
       changeStatusItem: changeStatusApi[pageType],
 
       addGoodBtnList: ['taobao', 'jingdong', 'pinduoduo', 'weipinhui', 'suning'],
-      mulAddGoodBtnList: ['jingdong', 'pinduoduo', 'weipinhui'],
+      mulAddGoodBtnList: ['taobao', 'jingdong', 'pinduoduo', 'weipinhui'],
       actionDeleteLinkList: ['taobao'],
-      actionChangeStatusLinkList: ['jingdong', 'pinduoduo'],
+      actionChangeStatusLinkList: ['taobao', 'jingdong', 'pinduoduo'],
 
       addGoodForm: {
         type: '',
@@ -187,7 +190,7 @@ export default {
     /* 跳转编辑商品详情 */
     gotoDetail(row) {
       let id = null
-      if (['jingdong', 'pinduoduo'].includes(this.pageType)) {
+      if (['taobao', 'jingdong', 'pinduoduo'].includes(this.pageType)) {
         id = row.id
       } else {
         id = row.numIid
@@ -196,9 +199,14 @@ export default {
       this.$router.push({ name: `${this.pageType}Detail`, query: { id }})
     },
 
-    /* 目前只有淘宝在列表页添加商品 */
+    /* 跳转添加商品 */
     handleAddGood() {
-      if (['taobao'].includes(this.pageType)) {
+      this.$router.push({ path: `/${this.pageType}/detail` })
+    },
+
+    /* 批量添加商品 */
+    handleMultAddGood() {
+      if (this.pageType === 'taobao') {
         this.selectLoading = true
         this.addTbDialog = true
         getTaobaoFavorites().then((res) => {
@@ -206,7 +214,7 @@ export default {
           this.selectLoading = false
         })
       } else {
-        this.$router.push({ path: `/${this.pageType}/detail` })
+        this.$notify.warning('未确定功能~')
       }
     },
 
@@ -245,7 +253,7 @@ export default {
           obj.materialId = this.addGoodForm.value
         }
 
-        addTaobaoGoodList(obj).then((res) => {
+        multAddTaobaoGoodList(obj).then((res) => {
           if (res.code === 0) {
             this.$message.success('添加成功')
             this.$refs['table'].searchHandler()

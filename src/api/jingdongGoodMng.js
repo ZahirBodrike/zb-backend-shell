@@ -90,3 +90,12 @@ export function changeStatusJingdongGoodList(data) {
   })
 }
 
+/* 京东商品列表 - 获取京东优惠券信息 */
+export function getJingdongGoodListCouponInfo(params) {
+  return request({
+    url: '/distribution-agent-mng/jd/searchCouponDetail',
+    method: 'get',
+    params
+  })
+}
+

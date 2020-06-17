@@ -16,6 +16,7 @@ export const taobaoTable = [
   { prop: 'commissionRate', label: '佣金比例', formatter: (row) => row.commissionRate },
   { prop: 'commission', label: '佣金' },
   { prop: 'couponEndTime', label: '优惠券结束时间', minWidth: 200 },
+  { prop: 'status', label: '状态', formatter: (row) => row.status ? '上架' : '下架' },
   { label: '操作', slotName: 'action' }
 ]
 
