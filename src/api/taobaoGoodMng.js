@@ -17,12 +17,21 @@ export function getTaobaoFavorites() {
   })
 }
 
-/* 淘宝商品列表 - 添加商品 */
-export function addTaobaoGoodList(params) {
+/* 淘宝商品列表 - 批量添加商品 */
+export function multAddTaobaoGoodList(params) {
   return request({
     url: '/distribution-agent-mng/mng/tbk/syncGoods',
     method: 'get',
     params
+  })
+}
+
+/* 淘宝商品列表 - 添加商品 */
+export function addTaobaoGoodList(data) {
+  return request({
+    url: '/distribution-agent-mng/mng/tbk/addGoods',
+    method: 'post',
+    data
   })
 }
 
@@ -35,8 +44,17 @@ export function delTaobaoGoodList(params) {
   })
 }
 
-/* 淘宝商品列表 - 获取商品详情 */
+/* 淘宝商品列表 - 通过id获取商品详情 */
 export function getTaobaoGoodListDetail(params) {
+  return request({
+    url: '/distribution-agent-mng/mng/tbk/searchDetailsByGoodsId',
+    method: 'get',
+    params
+  })
+}
+
+/* 淘宝商品列表 - 通过列表id获取商品详情 */
+export function getTaobaoGoodListDetailById(params) {
   return request({
     url: '/distribution-agent-mng/mng/tbk/getDetailById',
     method: 'get',
@@ -49,6 +67,24 @@ export function updateTaobaoGoodList(data) {
   return request({
     url: '/distribution-agent-mng/mng/tbk/update',
     method: 'post',
+    data
+  })
+}
+
+/* 淘宝商品列表 - 获取淘宝优惠券信息 */
+export function getTaobaoGoodListCouponInfo(params) {
+  return request({
+    url: '/distribution-agent-mng/mng/tbk/searchCouponDetail',
+    method: 'get',
+    params
+  })
+}
+
+/* 淘宝商品列表 - 淘宝商品上下架 */
+export function changeStatusTaobaoGoodList(data) {
+  return request({
+    url: '/distribution-agent-mng/mng/tbk/updateStatus',
+    method: 'put',
     data
   })
 }

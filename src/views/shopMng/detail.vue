@@ -20,6 +20,7 @@
       :style="{ marginTop: '20px' }"
       label-width="150px"
       :model="form"
+      :rules="rules"
     >
       <el-form-item
         v-for="(item, index) in formItemList"
@@ -78,8 +79,23 @@
         </el-radio-group>
 
         <div v-else-if="item.type == 'search'">
-          <el-input v-model="form[item.prop]" :style="itemStyle" :disabled="item.disable" />
+          <el-input
+            v-model="form[item.prop]"
+            :style="itemStyle"
+            clearable
+            :disabled="item.disable"
+          />
           <el-button icon="el-icon-search" :disabled="item.disable" @click="handleSearchGood(form[item.prop])" />
+        </div>
+
+        <div v-else-if="item.type == 'searchCoupon'">
+          <el-input
+            v-model="form[item.prop]"
+            :style="itemStyle"
+            clearable
+            @input="changeCouponLink"
+          />
+          <el-button icon="el-icon-search" :disabled="item.disable" @click="handleSearchCoupon(form[item.prop])" />
         </div>
 
         <el-input
@@ -101,13 +117,16 @@ import CardList from '@/components/CardList'
 import ElBackToTop from '@/components/ElBackToTop'
 import Sticky from '@/components/Sticky'
 
+import { rules } from './const/rules'
+
 import { taobaoDetailForm, jingdongDetailForm, pinduoduoDetailForm,
   weipinhuiDetailForm, suningDetailForm } from './const/goodDetailForm'
 
-import { getTaobaoGoodListDetail, updateTaobaoGoodList } from '@/api/taobaoGoodMng'
+import { getTaobaoGoodListDetail, addTaobaoGoodList, updateTaobaoGoodList,
+  getTaobaoGoodListCouponInfo, getTaobaoGoodListDetailById } from '@/api/taobaoGoodMng'
 
 import { getJingdongGoodListDetail, addJingdongGoodList, updateJingdongGoodList,
-  getJingdongGoodListDetailById } from '@/api/jingdongGoodMng'
+  getJingdongGoodListDetailById, getJingdongGoodListCouponInfo } from '@/api/jingdongGoodMng'
 
 import { getPinduoduoGoodListDetailByGoodId, addPinduoduoGoodList, updatePinduoduoGoodList,
   getPinduoduoGoodListDetail } from '@/api/pinduoduoGoodMng'
@@ -123,7 +142,7 @@ const fromItemListMap = {
 
 /* 获取详情的api */
 const detailApiMap = {
-  taobao: getTaobaoGoodListDetail,
+  taobao: getTaobaoGoodListDetailById,
   jingdong: getJingdongGoodListDetailById,
   pinduoduo: getPinduoduoGoodListDetail
 }
@@ -137,6 +156,7 @@ const updateApiMap = {
 
 /* 新增功能的api */
 const addApiMap = {
+  taobao: addTaobaoGoodList,
   jingdong: addJingdongGoodList,
   pinduoduo: addPinduoduoGoodList
 }
@@ -150,20 +170,28 @@ const idNameMap = {
 
 /* 通过商品id输入框查询详情 */
 const searchDetailByGoodIdMap = {
+  taobao: getTaobaoGoodListDetail,
   jingdong: getJingdongGoodListDetail,
   pinduoduo: getPinduoduoGoodListDetailByGoodId
 }
 
 /* 通过商品id输入框查询详情的key id */
 const searchDetailByGoodIdMapKey = {
+  taobao: 'goodsId',
   jingdong: 'skuId',
   pinduoduo: 'goodsId'
 }
 
 /* 优惠券开始时间和结束时间字段 */
 const couponTimeStartAndEndMap = {
-  taobao: ['getStartTime', 'getEndTime'],
+  taobao: ['couponStartTime', 'couponEndTime'],
   pinduoduo: ['couponStartTime', 'couponEndTime']
+}
+
+/* 查询优惠券信息 */
+const searchCouponApiMap = {
+  taobao: getTaobaoGoodListCouponInfo,
+  jingdong: getJingdongGoodListCouponInfo
 }
 
 export default {
@@ -172,6 +200,7 @@ export default {
     const pageType = this.$route.meta.type
     return {
       pageType,
+      rules,
       formItemList: fromItemListMap[pageType],
       getDetail: detailApiMap[pageType],
       postUpdate: updateApiMap[pageType],
@@ -180,9 +209,11 @@ export default {
       goodIdSearchDetail: searchDetailByGoodIdMap[pageType],
       goodIdSearchDetailKey: searchDetailByGoodIdMapKey[pageType],
       couponTimeStartAndEnd: couponTimeStartAndEndMap[pageType],
+      couponIdSearchCoupon: searchCouponApiMap[pageType],
 
       form: {},
       loading: false,
+      isEditorCouponLink: false,
 
       itemStyle: {
         width: `300px`
@@ -239,20 +270,68 @@ export default {
     /* 通过商品id查询商品详情 */
     handleSearchGood(id) {
       this.loading = true
+
+      this.isEditorCouponLink = true
+
       this.goodIdSearchDetail({ [this.goodIdSearchDetailKey]: id }).then((res) => {
         if (res.code === 0) {
           this.loading = false
 
-          this.form = res.data
-          this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
-
           if (this.pageType === 'jingdong') {
+            this.form = res.data
             const { jdfansCoupon } = res.data
             this.form = { ...this.form, ...jdfansCoupon }
             if (res.data.jdfansCoupon) this.form.couponTime = [res.data.jdfansCoupon.getStartTime, res.data.jdfansCoupon.getEndTime]
+          } else {
+            this.form = res.data
+            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
           }
         }
       })
+    },
+
+    /* 查询优惠券 */
+    handleSearchCoupon(id) {
+      if (!this.form.nick && !this.form.shopName) {
+        this.$message.error('请先搜索商品id详情')
+        return
+      }
+
+      this.isEditorCouponLink = true
+
+      let obj = {}
+      if (this.pageType === 'taobao') {
+        obj = {
+          goodsId: this.form.numIid,
+          couponId: this.form.appointCoupon
+        }
+      } else if (this.pageType === 'jingdong') {
+        obj = {
+          couponLink: this.form.link
+        }
+      }
+
+      this.couponIdSearchCoupon(obj).then((res) => {
+        if (res.code === 0) {
+          if (this.pageType === 'taobao') {
+            this.form.couponInfo = res.data.couponInfo
+            this.form.couponAmount = res.data.couponAmount
+            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
+            this.form.couponRemainCount = res.data.couponRemainCount
+          } else if (this.pageType === 'jingdong') {
+            this.form.link = res.data.link
+            this.form.discount = res.data.discount
+            this.form.quota = res.data.quota
+            this.form.couponRemainCount = res.data.couponRemainCount
+            this.form.couponTime = [res.data.getStartTime, res.data.getEndTime]
+          }
+        }
+      })
+    },
+
+    /* jingdong: 标记用户操作couponLink则传 否则不传couponLink字段 */
+    changeCouponLink() {
+      this.isEditorCouponLink = true
     },
 
     /* 通过列表id获取商品详情 */
@@ -261,27 +340,39 @@ export default {
       this.getDetail({ [this.idName]: id }).then((res) => {
         if (res.code === 0) {
           this.loading = false
-
           this.form = res.data
-          this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
 
           if (this.pageType === 'jingdong') {
             const { jdfansCoupon } = res.data
             this.form = { ...jdfansCoupon, ...res.data }
             if (res.data.jdfansCoupon) this.form.couponTime = [res.data.jdfansCoupon.getStartTime, res.data.jdfansCoupon.getEndTime]
+          } else {
+            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
           }
         }
       })
     },
 
-    /* 确定修改/新增 区分各个类型的obj参数 */
+    /* 校验确认 */
     handleSubmit() {
-      /* 校验检测时间 */
-      if (this.form['checkOffSale'] === 2 && !this.form['checkOffSaleTime']) {
-        this.$message.error('请填写检测时间')
-        return
-      }
+      this.$refs['form'].validate((valid) => {
+        if (!valid) {
+          this.$message.error('请填写必填信息!')
+          return
+        }
 
+        /* 校验检测时间 */
+        if (this.form['checkOffSale'] === 2 && !this.form['checkOffSaleTime']) {
+          this.$message.error('请填写检测时间')
+          return
+        }
+
+        this.postSubmitRequest()
+      })
+    },
+
+    /* 修改或者添加请求 */
+    postSubmitRequest() {
       if (this.$route.query.id) {
         this.postUpdate(this.getUpdateParams()).then((res) => {
           if (res.code === 0) {
@@ -305,12 +396,14 @@ export default {
       if (this.pageType === 'taobao') {
         obj = {
           id: this.form.id,
-          numIid: this.$route.query.id,
+          numIid: this.form.numIid,
           status: this.form.status || 1,
           pictUrl: this.form.pictUrl,
           title: this.form.title,
           checkOffSale: this.form.checkOffSale,
-          checkOffSaleTime: this.form.checkOffSaleTime
+          checkOffSaleTime: this.form.checkOffSaleTime,
+          appointCoupon: this.form.appointCoupon,
+          userCommissionRate: this.form.userCommissionRate
         }
       } else if (this.pageType === 'jingdong') {
         obj = {
@@ -318,7 +411,7 @@ export default {
           jdfSkuId: this.form.jdfSkuId,
           pictUrl: this.form.pictUrl,
           goodsName: this.form.jdfSkuName,
-          couponLink: this.form.link,
+          couponLink: this.isEditorCouponLink ? this.form.link : undefined,
           checkOffSale: this.form.checkOffSale,
           checkOffSaleTime: this.form.checkOffSaleTime
         }
