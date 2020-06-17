@@ -26,6 +26,10 @@ export const AUTHOR_FILTER = [
   { value: '测试', label: '测试' }
 ]
 
+export const AUTHOR_AVATAR_ENUM = {
+  '测试': 'https://imgcdn.chuxingyouhui.com/pintuan/mng/20200617/1773fb77e993407597bcd3233912c9a3.jpeg'
+}
+
 export const STATUS_FILTER = [
   { value: '', label: '全部' },
   { value: 0, label: '已下架' },

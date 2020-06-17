@@ -9,7 +9,7 @@
           label-width="200px"
         >
           <el-row>
-            <el-form-item label="作者：" prop="author">
+            <el-form-item label="作者：" prop="author" :rules="rules.no_null">
               <el-select v-model="detailForm.author" clearable placeholder="请选择">
                 <el-option
                   v-for="item in authorFilter"
@@ -54,7 +54,7 @@
 
 <script>
 import uploadImg from '@/components/UploadImg'
-import { AUTHOR_FILTER } from '@/utils/constant.js'
+import { AUTHOR_FILTER, AUTHOR_AVATAR_ENUM } from '@/utils/constant.js'
 import * as materialService from '@/api/material'
 
 export default {
@@ -73,6 +73,7 @@ export default {
       detailForm: {
         id: '',
         author: '',
+        avatar: '',
         proposal: '',
         imgs: []
       },
@@ -114,6 +115,7 @@ export default {
         if (this.detailId) {
           this.detailForm.id = this.detailId
         }
+        this.detailForm.avatar = AUTHOR_AVATAR_ENUM[this.detailForm.author]
         materialService[
           this.detailId ? 'spreadMaterialUpdate' : 'spreadMaterialAdd'
         ](this.detailForm)
