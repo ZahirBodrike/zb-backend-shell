@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /* 获取首页精选商品列表 */
 export function getHomePageChoiceMngList(data) {
   return request({
-    url: '/distribution-agent-mng/mng/homeSelection/list',
+    url: '/mng/homeSelection/list',
     method: 'post',
     data
   })
@@ -12,7 +12,7 @@ export function getHomePageChoiceMngList(data) {
 /* 获取首页精选商品基础信息 */
 export function getHomePageChoiceMngListDetail(data) {
   return request({
-    url: '/distribution-agent-mng/mng/homeSelection/getGoodsBaseInfo',
+    url: '/mng/homeSelection/getGoodsBaseInfo',
     method: 'post',
     data
   })
@@ -21,7 +21,7 @@ export function getHomePageChoiceMngListDetail(data) {
 /* 添加首页精选商品 */
 export function addHomePageChoiceMngList(params) {
   return request({
-    url: '/distribution-agent-mng/mng/homeSelection/addGoods',
+    url: '/mng/homeSelection/addGoods',
     method: 'get',
     params
   })
@@ -30,7 +30,7 @@ export function addHomePageChoiceMngList(params) {
 /* 编辑首页精选商品 */
 export function updateHomePageChoiceMngList(data) {
   return request({
-    url: '/distribution-agent-mng/mng/homeSelection/updateStatus',
+    url: '/mng/homeSelection/updateStatus',
     method: 'put',
     data
   })
@@ -92,7 +92,7 @@ export function invitePosterDelete(id) {
 /* 获取弹窗管理列表 */
 export function getPopupMngList(data) {
   return request({
-    url: '/distribution-agent-mng/popupListByPage',
+    url: '/popupListByPage',
     method: 'get',
     params: data
   })
@@ -101,7 +101,7 @@ export function getPopupMngList(data) {
 /* 更新弹窗管理列表 */
 export function updatePopupMngList(data) {
   return request({
-    url: '/distribution-agent-mng/updatePopup',
+    url: '/updatePopup',
     method: 'post',
     data
   })
@@ -110,7 +110,7 @@ export function updatePopupMngList(data) {
 /* 获取弹窗管理列表详情 */
 export function getPopupMngListDetail(data) {
   return request({
-    url: '/distribution-agent-mng/popupDetail',
+    url: '/popupDetail',
     method: 'get',
     params: data
   })
@@ -119,7 +119,7 @@ export function getPopupMngListDetail(data) {
 /* 新增弹窗管理列表 */
 export function addPopupMngList(data) {
   return request({
-    url: '/distribution-agent-mng/updatePopup',
+    url: '/updatePopup',
     method: 'post',
     data
   })
@@ -128,7 +128,7 @@ export function addPopupMngList(data) {
 /* 获取搜索热词管理列表 */
 export function getHotSearchWordMngList(data) {
   return request({
-    url: '/distribution-agent-mng/hotWordListByPage',
+    url: '/hotWordListByPage',
     method: 'get',
     params: data
   })
@@ -137,7 +137,7 @@ export function getHotSearchWordMngList(data) {
 /* 更新搜索热词管理列表 */
 export function updateHotSearchWordMngList(data) {
   return request({
-    url: '/distribution-agent-mng/updateHotWord',
+    url: '/updateHotWord',
     method: 'post',
     data
   })
@@ -146,7 +146,7 @@ export function updateHotSearchWordMngList(data) {
 /* 获取搜索热词管理列表详情 */
 export function getHotSearchWordMngListDetail(data) {
   return request({
-    url: '/distribution-agent-mng/hotWordDetail',
+    url: '/hotWordDetail',
     method: 'get',
     params: data
   })
@@ -155,7 +155,7 @@ export function getHotSearchWordMngListDetail(data) {
 /* 新增搜索热词管理列表 */
 export function addHotSearchWordMngList(data) {
   return request({
-    url: '/distribution-agent-mng/addHotWord',
+    url: '/addHotWord',
     method: 'post',
     data
   })
@@ -164,7 +164,7 @@ export function addHotSearchWordMngList(data) {
 /* 获取消息中心管理列表 */
 export function getMessageCenterMngList(data) {
   return request({
-    url: '/distribution-agent-mng/messageListByPage',
+    url: '/messageListByPage',
     method: 'get',
     params: data
   })
@@ -173,7 +173,7 @@ export function getMessageCenterMngList(data) {
 /* 更新消息中心管理列表 */
 export function updateMessageCenterMngList(data) {
   return request({
-    url: '/distribution-agent-mng/updateMessage',
+    url: '/updateMessage',
     method: 'post',
     data
   })
@@ -182,7 +182,7 @@ export function updateMessageCenterMngList(data) {
 /* 获取消息中心管理列表详情 */
 export function getMessageCenterMngListDetail(data) {
   return request({
-    url: '/distribution-agent-mng/messageDetail',
+    url: '/messageDetail',
     method: 'get',
     params: data
   })
@@ -191,7 +191,7 @@ export function getMessageCenterMngListDetail(data) {
 /* 新增消息中心管理列表 */
 export function addMessageCenterMngList(data) {
   return request({
-    url: '/distribution-agent-mng/addMessage',
+    url: '/addMessage',
     method: 'post',
     data
   })

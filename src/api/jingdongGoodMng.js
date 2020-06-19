@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /* 京东商品分类列表 - 分页列表 */
 export function getJingdongTypeList(params) {
   return request({
-    url: '/distribution-agent-mng/mng/jdf/type/list',
+    url: '/mng/jdf/type/list',
     method: 'get',
     params
   })
@@ -12,7 +12,7 @@ export function getJingdongTypeList(params) {
 /* 京东商品分类详情 */
 export function getJingdongTypeListDetail(params) {
   return request({
-    url: '/distribution-agent-mng/mng/jdf/type/detail',
+    url: '/mng/jdf/type/detail',
     method: 'get',
     params
   })
@@ -21,7 +21,7 @@ export function getJingdongTypeListDetail(params) {
 /* 京东商品分类列表 - 添加商品 */
 export function addJingdongTypeList(data) {
   return request({
-    url: '/distribution-agent-mng/mng/jdf/type/create',
+    url: '/mng/jdf/type/create',
     method: 'post',
     data
   })
@@ -30,7 +30,7 @@ export function addJingdongTypeList(data) {
 /* 京东商品分类列表 - 修改商品 */
 export function updateJingdongTypeList(data) {
   return request({
-    url: '/distribution-agent-mng/mng/jdf/type/update',
+    url: '/mng/jdf/type/update',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function updateJingdongTypeList(data) {
 /* 京东商品管理列表 - 分页列表 */
 export function getJingdongGoodList(data) {
   return request({
-    url: '/distribution-agent-mng/jd/v1_0/list',
+    url: '/jd/v1_0/list',
     method: 'post',
     data
   })
@@ -48,7 +48,7 @@ export function getJingdongGoodList(data) {
 /* 京东商品管理列表 - 搜索商品skuid */
 export function getJingdongGoodListDetail(params) {
   return request({
-    url: '/distribution-agent-mng/jd/searchGoodsDetailBySkuId',
+    url: '/jd/searchGoodsDetailBySkuId',
     method: 'get',
     params
   })
@@ -57,7 +57,7 @@ export function getJingdongGoodListDetail(params) {
 /* 京东商品管理列表 - 搜索商品详情id */
 export function getJingdongGoodListDetailById(params) {
   return request({
-    url: '/distribution-agent-mng/jd/getGoodsDetailById',
+    url: '/jd/getGoodsDetailById',
     method: 'get',
     params
   })
@@ -66,7 +66,7 @@ export function getJingdongGoodListDetailById(params) {
 /* 京东商品管理列表 - 添加商品 */
 export function addJingdongGoodList(data) {
   return request({
-    url: '/distribution-agent-mng/jd/addGoods',
+    url: '/jd/addGoods',
     method: 'post',
     data
   })
@@ -75,7 +75,7 @@ export function addJingdongGoodList(data) {
 /* 京东商品管理列表 - 编辑商品 */
 export function updateJingdongGoodList(data) {
   return request({
-    url: '/distribution-agent-mng/jd/updateGoods',
+    url: '/jd/updateGoods',
     method: 'post',
     data
   })
@@ -84,7 +84,7 @@ export function updateJingdongGoodList(data) {
 /* 京东商品管理列表 - 商品上下架 */
 export function changeStatusJingdongGoodList(data) {
   return request({
-    url: '/distribution-agent-mng/jd/updateStatus',
+    url: '/jd/updateStatus',
     method: 'put',
     data
   })
@@ -93,7 +93,7 @@ export function changeStatusJingdongGoodList(data) {
 /* 京东商品列表 - 获取京东优惠券信息 */
 export function getJingdongGoodListCouponInfo(params) {
   return request({
-    url: '/distribution-agent-mng/jd/searchCouponDetail',
+    url: '/jd/searchCouponDetail',
     method: 'get',
     params
   })

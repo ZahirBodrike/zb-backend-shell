@@ -2,7 +2,7 @@
   <div class="redEnvelope-rule-table">
     <div>
       <strong>整点抢红包配置规则</strong>
-      <span>(设置日期2020-05-08 00:00:00)</span>
+      <i :style="{ fontSize: '14px' }">(设置日期 2020-05-08 00:00:00)</i>
       <el-alert
         title="注意⚠️：若不手动设置，沿用前一天的红包配置"
         type="error"
