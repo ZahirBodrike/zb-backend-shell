@@ -70,8 +70,8 @@ export default {
         { prop: ['settledFrom', 'settledTo'], label: '结算时间', itemType: 'daterange' }
       ],
       columns: [
-        { prop: 'orderParentSn', label: '父订单编号', minWidth: 140 },
-        { prop: 'orderSn', label: '子订单编号', slotName: 'link', minWidth: 140 },
+        { prop: 'orderParentSn', label: '父订单编号', minWidth: 140, fixed: 'left' },
+        { prop: 'orderSn', label: '子订单编号', slotName: 'link', minWidth: 140, fixed: 'left' },
         { prop: 'source', label: '所属平台',
           formatter: (row) => {
             return platformMap[row.source] || row.source
