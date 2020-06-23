@@ -44,6 +44,11 @@
             </el-form-item>
           </el-row>
           <el-row>
+            <el-form-item label="商品视频封面：" prop="videoCover">
+              <uploadImg :list.sync="detailForm.videoCover" :limit-count="1" />
+            </el-form-item>
+          </el-row>
+          <el-row>
             <el-form-item label="商品所属平台：" prop="platform" :rules="rules.no_null">
               <el-select v-model.number="detailForm.platform" clearable placeholder="请选择">
                 <el-option
@@ -133,6 +138,7 @@ export default {
         proposal: '',
         imgs: [],
         video: '',
+        videoCover: '',
         platform: '',
         goodsId: '',
         goodsName: '',
@@ -176,17 +182,22 @@ export default {
     onHandleSubmitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) return this.$message.error('提交信息有误！')
-        this.loading = true
         if (this.detailId) {
           this.detailForm.id = this.detailId
         }
         if (this.detailForm.video) {
+          // 有视频则封面非空
+          if (!this.detailForm.videoCover) {
+            this.$message.error('请上传视频封面')
+            return
+          }
           var index = this.detailForm.video.lastIndexOf('?')
           if (index !== -1) {
             this.detailForm.video = this.detailForm.video.substring(0, index)
           }
         }
         this.detailForm.avatar = AUTHOR_AVATAR_ENUM[this.detailForm.author]
+        this.loading = true
         materialService[
           this.detailId ? 'goodsMaterialUpdate' : 'goodsMaterialAdd'
         ](this.detailForm)
