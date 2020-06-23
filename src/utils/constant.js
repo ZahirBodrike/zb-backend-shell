@@ -1,9 +1,9 @@
 export const SUPPLIER_FILTER = [
-  { value: 5, label: '淘宝' },
-  { value: 7, label: '京东' },
-  { value: 11, label: '拼多多' },
-  { value: 14, label: '唯品会' },
-  { value: 21, label: '苏宁' }
+  { value: 10, label: '淘宝' },
+  { value: 20, label: '京东' },
+  { value: 30, label: '拼多多' },
+  { value: 80, label: '唯品会' },
+  { value: 130, label: '苏宁' }
 ]
 
 export const platformMap = {
@@ -20,7 +20,7 @@ export const platformMap = {
   130: '苏宁易购'
 }
 
-export const SUPPLIER_ENUM = { 5: '淘宝', 7: '京东', 11: '拼多多', 14: '唯品会', 21: '苏宁' }
+export const SUPPLIER_ENUM = { 10: '淘宝', 20: '京东', 30: '拼多多', 80: '唯品会', 130: '苏宁' }
 
 export const AUTHOR_FILTER = [
   { value: '测试', label: '测试' }
