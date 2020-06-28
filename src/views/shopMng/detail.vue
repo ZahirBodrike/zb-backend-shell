@@ -112,16 +112,18 @@
 </template>
 
 <script>
+/* component */
 import Mallki from '@/components/TextHoverEffect/Mallki'
 import CardList from '@/components/CardList'
 import ElBackToTop from '@/components/ElBackToTop'
 import Sticky from '@/components/Sticky'
 
+/* constant */
 import { rules } from './const/rules'
-
 import { taobaoDetailForm, jingdongDetailForm, pinduoduoDetailForm,
   weipinhuiDetailForm, suningDetailForm } from './const/goodDetailForm'
 
+/* api */
 import { getTaobaoGoodListDetail, addTaobaoGoodList, updateTaobaoGoodList,
   getTaobaoGoodListCouponInfo, getTaobaoGoodListDetailById } from '@/api/taobaoGoodMng'
 
@@ -294,6 +296,11 @@ export default {
     handleSearchCoupon(id) {
       if (!this.form.nick && !this.form.shopName) {
         this.$message.error('请先搜索商品id详情')
+        return
+      }
+
+      if (!this.form.appointCoupon) {
+        this.$message.error('优惠券链接/id不能为空')
         return
       }
 
