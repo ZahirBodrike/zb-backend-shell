@@ -11,6 +11,7 @@ const name = defaultSettings.title || '聚米生活后台管理系统'
 const port = process.env.port || process.env.npm_config_port || 9527
 
 module.exports = {
+  // todo: 静态资源上传oss访问路径
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
