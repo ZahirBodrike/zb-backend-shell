@@ -11,15 +11,17 @@
   "eslint.validate": [
     "html",
     {
-        "language": "vue",
-        "autoFix": true
+      "language": "vue",
+      "autoFix": true
     },
     {
-        "language": "javascript",
-        "autoFix": true
+      "language": "javascript",
+      "autoFix": true
     }
   ],
   "eslint.autoFixOnSave": true,
   "editor.tabSize": 2,
-  "editor.detectIndentation": true
+  "editor.detectIndentation": true,
+  "vetur.validation.template": false,
+  "vetur.format.enable": false
 }
