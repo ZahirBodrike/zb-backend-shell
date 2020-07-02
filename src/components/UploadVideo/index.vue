@@ -78,7 +78,7 @@ export default {
       fileList: [], // 文件列
       isListWatch: false,
       isFileListWatch: false,
-      dir: 'upload-video/'
+      dir: 'mng/'
     }
   },
 
