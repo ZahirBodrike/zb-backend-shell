@@ -55,7 +55,7 @@ export default {
       getMemoTicket,
 
       formItemList: [
-        { label: '对账月份', prop: 'month', placeholder: '格式：yyyy-MM' },
+        { label: '对账月份', prop: 'month', placeholder: '格式例如: 2020-05' },
         { label: '用户ID', prop: 'uid' },
         { label: '用户级别', prop: 'level', itemType: 'select',
           options: [

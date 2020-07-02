@@ -37,21 +37,21 @@
         <p>修改人：{{ scope.row.creator }}</p>
       </template>
       <template #btn="scope">
-        <el-button type="text" @click="onHandleDetail(scope.row.posterId)">
+        <el-link type="primary" @click="onHandleDetail(scope.row.posterId)">
           编辑
-        </el-button>
-        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="text" @click="onHandleOnOff(scope.row.posterId,0)">
+        </el-link>
+        <el-link v-if="scope.row.defaultFlag===0 && scope.row.enable===1" type="primary" @click="onHandleOnOff(scope.row.posterId,0)">
           下架
-        </el-button>
-        <el-button v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="text" @click="onHandleOnOff(scope.row.posterId,1)">
+        </el-link>
+        <el-link v-if="scope.row.defaultFlag===0 && scope.row.enable===0" type="primary" @click="onHandleOnOff(scope.row.posterId,1)">
           上架
-        </el-button>
-        <el-button type="text" @click="preview(scope.row.posterImgs)">
+        </el-link>
+        <el-link type="primary" @click="preview(scope.row.posterImgs)">
           查看海报
-        </el-button>
-        <el-button type="text" @click="onDelete(scope.row.posterId)">
+        </el-link>
+        <el-link type="primary" @click="onDelete(scope.row.posterId)">
           删除
-        </el-button>
+        </el-link>
       </template>
     </common-table>
     <PreviewImg ref="PreviewPoster" :list="previewUrl" />
@@ -91,7 +91,7 @@ export default {
       ],
       getTable: operationService.invitePosterList,
       statusEnum: STATUS_ENUM,
-      previewUrl: ''
+      previewUrl: []
     }
   },
   methods: {

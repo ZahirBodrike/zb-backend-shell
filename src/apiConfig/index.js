@@ -11,12 +11,12 @@ import supplierInfoPage from './supplierInfoPage'
 function getRuntime() {
   const currentHost = window.location.host
   const obj = {}
-  if ((/^box\d*-h5-pyp-mng/).test(currentHost) || currentHost.indexOf('localhost') !== -1) {
+  if ((/^box\d*-cps-mng-h5/).test(currentHost) || currentHost.indexOf('localhost') !== -1) {
     obj.env = 'dev'
-    obj.prefix = currentHost.substring(0, currentHost.indexOf('-h5-pyp-mng'))
-  } else if ((/^test\d*-h5-pyp-mng/).test(currentHost)) {
+    obj.prefix = currentHost.substring(0, currentHost.indexOf('-cps-mng-h5'))
+  } else if ((/^test\d*-cps-mng-h5/).test(currentHost)) {
     obj.env = 'test'
-    obj.prefix = currentHost.substring(0, currentHost.indexOf('-h5-pyp-mng'))
+    obj.prefix = currentHost.substring(0, currentHost.indexOf('-cps-mng-h5'))
   } else {
     obj.env = 'prod'
     obj.prefix = ''

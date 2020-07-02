@@ -47,11 +47,7 @@
           :value-format="`yyyy-MM-dd HH:mm:ss`"
         />
 
-        <el-card
-          v-else-if="item.type == 'bigCard'"
-          shadow="always"
-          :style="{ width: '350px' }"
-        >
+        <el-card v-else-if="item.type == 'bigCard'" shadow="always" :style="{ width: '350px' }">
           <el-image :src="form[item.prop]" :preview-src-list="[form[item.prop]]" />
         </el-card>
 
@@ -85,7 +81,11 @@
             clearable
             :disabled="item.disable"
           />
-          <el-button icon="el-icon-search" :disabled="item.disable" @click="handleSearchGood(form[item.prop])" />
+          <el-button
+            icon="el-icon-search"
+            :disabled="item.disable"
+            @click="handleSearchGood(form[item.prop])"
+          />
         </div>
 
         <div v-else-if="item.type == 'searchCoupon'">
@@ -95,7 +95,11 @@
             clearable
             @input="changeCouponLink"
           />
-          <el-button icon="el-icon-search" :disabled="item.disable" @click="handleSearchCoupon(form[item.prop])" />
+          <el-button
+            icon="el-icon-search"
+            :disabled="item.disable"
+            @click="handleSearchCoupon(form[item.prop])"
+          />
         </div>
 
         <el-input
@@ -112,24 +116,45 @@
 </template>
 
 <script>
+/* component */
 import Mallki from '@/components/TextHoverEffect/Mallki'
 import CardList from '@/components/CardList'
 import ElBackToTop from '@/components/ElBackToTop'
 import Sticky from '@/components/Sticky'
 
+/* constant */
 import { rules } from './const/rules'
+import {
+  taobaoDetailForm,
+  jingdongDetailForm,
+  pinduoduoDetailForm,
+  weipinhuiDetailForm,
+  suningDetailForm
+} from './const/goodDetailForm'
 
-import { taobaoDetailForm, jingdongDetailForm, pinduoduoDetailForm,
-  weipinhuiDetailForm, suningDetailForm } from './const/goodDetailForm'
+/* api */
+import {
+  getTaobaoGoodListDetail,
+  addTaobaoGoodList,
+  updateTaobaoGoodList,
+  getTaobaoGoodListCouponInfo,
+  getTaobaoGoodListDetailById
+} from '@/api/taobaoGoodMng'
 
-import { getTaobaoGoodListDetail, addTaobaoGoodList, updateTaobaoGoodList,
-  getTaobaoGoodListCouponInfo, getTaobaoGoodListDetailById } from '@/api/taobaoGoodMng'
+import {
+  getJingdongGoodListDetail,
+  addJingdongGoodList,
+  updateJingdongGoodList,
+  getJingdongGoodListDetailById,
+  getJingdongGoodListCouponInfo
+} from '@/api/jingdongGoodMng'
 
-import { getJingdongGoodListDetail, addJingdongGoodList, updateJingdongGoodList,
-  getJingdongGoodListDetailById, getJingdongGoodListCouponInfo } from '@/api/jingdongGoodMng'
-
-import { getPinduoduoGoodListDetailByGoodId, addPinduoduoGoodList, updatePinduoduoGoodList,
-  getPinduoduoGoodListDetail } from '@/api/pinduoduoGoodMng'
+import {
+  getPinduoduoGoodListDetailByGoodId,
+  addPinduoduoGoodList,
+  updatePinduoduoGoodList,
+  getPinduoduoGoodListDetail
+} from '@/api/pinduoduoGoodMng'
 
 /* 详情表单字段 */
 const fromItemListMap = {
@@ -224,7 +249,11 @@ export default {
     form: {
       handler(oldValue) {
         /* 检测券如果为“定时监测” 才可编辑检测时间 */
-        this.$set(this.formItemList[this.formItemList.length - 1], 'disable', oldValue.checkOffSale !== 2)
+        this.$set(
+          this.formItemList[this.formItemList.length - 1],
+          'disable',
+          oldValue.checkOffSale !== 2
+        )
         if (oldValue.checkOffSale !== 2) {
           this.form['checkOffSaleTime'] = ''
         }
@@ -259,11 +288,17 @@ export default {
     /* 商品小图列表 兼容接口字段string的逗号不确定性 */
     smallPicList(prop) {
       if (this.pageType === 'taobao') {
-        return this.form[prop] && this.form[prop].slice(0, this.form[prop].length - 1).split(',')
+        return (
+          this.form[prop] &&
+          this.form[prop].slice(0, this.form[prop].length - 1).split(',')
+        )
       } else if (this.pageType === 'pinduoduo') {
         return this.form[prop] && JSON.parse(this.form[prop])
       } else {
-        return this.form[prop] && this.form[prop].slice(0, this.form[prop].length).split(',')
+        return (
+          this.form[prop] &&
+          this.form[prop].slice(0, this.form[prop].length).split(',')
+        )
       }
     },
 
@@ -273,27 +308,42 @@ export default {
 
       this.isEditorCouponLink = true
 
-      this.goodIdSearchDetail({ [this.goodIdSearchDetailKey]: id }).then((res) => {
-        if (res.code === 0) {
-          this.loading = false
+      this.goodIdSearchDetail({ [this.goodIdSearchDetailKey]: id }).then(
+        (res) => {
+          if (res.code === 0) {
+            this.loading = false
 
-          if (this.pageType === 'jingdong') {
-            this.form = res.data
-            const { jdfansCoupon } = res.data
-            this.form = { ...this.form, ...jdfansCoupon }
-            if (res.data.jdfansCoupon) this.form.couponTime = [res.data.jdfansCoupon.getStartTime, res.data.jdfansCoupon.getEndTime]
-          } else {
-            this.form = res.data
-            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
+            if (this.pageType === 'jingdong') {
+              this.form = res.data
+              const { jdfansCoupon } = res.data
+              this.form = { ...this.form, ...jdfansCoupon }
+              if (res.data.jdfansCoupon) {
+                this.form.couponTime = [
+                  res.data.jdfansCoupon.getStartTime,
+                  res.data.jdfansCoupon.getEndTime
+                ]
+              }
+            } else {
+              this.form = res.data
+              this.form.couponTime = [
+                res.data[this.couponTimeStartAndEnd[0]],
+                res.data[this.couponTimeStartAndEnd[1]]
+              ]
+            }
           }
         }
-      })
+      )
     },
 
     /* 查询优惠券 */
     handleSearchCoupon(id) {
       if (!this.form.nick && !this.form.shopName) {
         this.$message.error('请先搜索商品id详情')
+        return
+      }
+
+      if (!this.form.appointCoupon) {
+        this.$message.error('优惠券链接/id不能为空')
         return
       }
 
@@ -316,7 +366,10 @@ export default {
           if (this.pageType === 'taobao') {
             this.form.couponInfo = res.data.couponInfo
             this.form.couponAmount = res.data.couponAmount
-            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
+            this.form.couponTime = [
+              res.data[this.couponTimeStartAndEnd[0]],
+              res.data[this.couponTimeStartAndEnd[1]]
+            ]
             this.form.couponRemainCount = res.data.couponRemainCount
           } else if (this.pageType === 'jingdong') {
             this.form.link = res.data.link
@@ -345,9 +398,17 @@ export default {
           if (this.pageType === 'jingdong') {
             const { jdfansCoupon } = res.data
             this.form = { ...jdfansCoupon, ...res.data }
-            if (res.data.jdfansCoupon) this.form.couponTime = [res.data.jdfansCoupon.getStartTime, res.data.jdfansCoupon.getEndTime]
+            if (res.data.jdfansCoupon) {
+              this.form.couponTime = [
+                res.data.jdfansCoupon.getStartTime,
+                res.data.jdfansCoupon.getEndTime
+              ]
+            }
           } else {
-            this.form.couponTime = [res.data[this.couponTimeStartAndEnd[0]], res.data[this.couponTimeStartAndEnd[1]]]
+            this.form.couponTime = [
+              res.data[this.couponTimeStartAndEnd[0]],
+              res.data[this.couponTimeStartAndEnd[1]]
+            ]
           }
         }
       })
@@ -443,7 +504,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     .text {
-      font-size:  24px;
+      font-size: 24px;
     }
   }
 }

@@ -94,7 +94,9 @@ export default {
         { label: '商品分类', prop: 'sourceType', itemType: 'select',
           options: [
             { label: '全部', value: null },
-            { label: '淘宝', value: 10 }
+            { label: '淘宝', value: 10 },
+            { label: '京东', value: 20 },
+            { label: '拼多多', value: 30 }
           ]
         }
       ],

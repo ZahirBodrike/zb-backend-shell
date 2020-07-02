@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /* 淘宝商品列表 - 分页列表 */
 export function getTaobaoGoodList(data) {
   return request({
-    url: '/mng/tbk/list',
+    url: `/mng/tbk/list`,
     method: 'post',
     data
   })

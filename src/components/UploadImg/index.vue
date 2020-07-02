@@ -251,7 +251,7 @@ export default {
           return file
         },
         () => {
-          this.$message.error(`上传图片尺寸必须等于 [${this.limitWidth}] * [${this.limitHeight}]`)
+          this.$message.error(`上传图片尺寸必须等于 ${this.limitWidth} * ${this.limitHeight}`)
           return Promise.reject()
         }
       )

@@ -40,7 +40,7 @@
 
       <span slot="footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="updateBeanExchange">确 定</el-button>
+        <el-button type="primary" :loading="beanExchangeBtnLoading" @click="updateBeanExchange">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -64,7 +64,7 @@
 
       <span slot="footer">
         <el-button @click="taskDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="updateTaskConfig">确 定</el-button>
+        <el-button type="primary" :loading="taskConfigBtnLoading" @click="updateTaskConfig">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -94,6 +94,9 @@ export default {
       dialogVisible: false,
       taskDialogVisible: false,
       beanLoading: false,
+      beanExchangeBtnLoading: false,
+      taskConfigBtnLoading: false,
+
       goldenBean: {
         id: 0,
         beanNum: 0,
@@ -115,6 +118,7 @@ export default {
   },
   methods: {
     async updateBeanExchange() {
+      this.beanExchangeBtnLoading = true
       const obj = {
         id: this.beanConfigId,
         beanNum: this.goldenBean.beanNum,
@@ -124,13 +128,16 @@ export default {
       if (code === 0) {
         this.$message.success('修改成功')
         this.dialogVisible = false
+        this.beanExchangeBtnLoading = false
         this.getExchangeConfig()
       }
     },
     async updateTaskConfig() {
+      this.taskConfigBtnLoading = true
       const { code, msg } = await updateGoldenBeanTaskList(this.currentTask)
       if (code === 0) {
         this.$message.success(msg)
+        this.taskConfigBtnLoading = false
         this.taskDialogVisible = false
         this.$refs.table.searchHandler()
       }
@@ -142,8 +149,7 @@ export default {
     },
     showTaskConfig(row) {
       this.taskDialogVisible = true
-      const { taskId, title, beanNum, linkUrl } = row
-      this.currentTask = { taskId, title, beanNum, linkUrl }
+      this.currentTask = row
     },
 
     async getExchangeConfig() {

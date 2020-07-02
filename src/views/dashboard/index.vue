@@ -4,7 +4,6 @@
       :fit="`cover`"
       :src="bannerImg"
       class="banner-img"
-      :style="{ opacity: imgShow ? 0.9 : 0 }"
     />
 
     <div class="body animate__animated animate__wobble">
@@ -28,12 +27,8 @@ export default {
   components: { HeaderSearch },
   data() {
     return {
-      bannerImg: require('@/assets/homepage.png'),
-      imgShow: false
+      bannerImg: require('@/assets/homepage.png')
     }
-  },
-  mounted() {
-    this.imgShow = true
   }
 }
 </script>
