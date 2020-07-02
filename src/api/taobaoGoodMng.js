@@ -1,9 +1,10 @@
 import request from '@/utils/request'
+import { HOST } from '@/apiConfig/index'
 
 /* 淘宝商品列表 - 分页列表 */
 export function getTaobaoGoodList(data) {
   return request({
-    url: '/mng/tbk/list',
+    url: `${HOST}/mng/tbk/list`,
     method: 'post',
     data
   })
