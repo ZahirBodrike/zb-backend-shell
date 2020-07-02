@@ -8,7 +8,7 @@
 
     <div class="body animate__animated animate__wobble">
       <h1>
-        聚米生活后台管理系统
+        聚米生活后台管理系统1122
       </h1>
 
       <div class="search">
