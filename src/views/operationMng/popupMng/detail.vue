@@ -69,6 +69,13 @@
           />
         </div>
 
+        <el-input
+          v-else-if="item.type == 'number'"
+          v-model="form[item.prop]"
+          type="number"
+          :style="itemStyle"
+        />
+
         <el-input v-else v-model="form[item.prop]" :style="itemStyle" />
       </el-form-item>
 

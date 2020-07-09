@@ -107,6 +107,7 @@ export default {
         { label: '频率', prop: 'popupRate',
           formatter: (row) => `每日${row.popupRate}次`
         },
+        { label: '排序', prop: 'popupSort' },
         { label: '状态', prop: 'enable',
           formatter: (row) => row.enable ? '上架' : '下架'
         },
