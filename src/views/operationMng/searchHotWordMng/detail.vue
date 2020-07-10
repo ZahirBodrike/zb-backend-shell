@@ -51,6 +51,12 @@ export default {
             { label: '搜索关键词', value: 1 },
             { label: '跳转链接', value: 2 }
           ], rules: [{ required: true }]
+        },
+        { label: '所属平台', prop: 'platform', modelValue: 'platform', itemType: 'select',
+          options: [
+            { label: '淘宝', value: 10 },
+            { label: '京东', value: 20 }
+          ], rules: [{ required: true }]
         }
       ],
       addNewItem: [
