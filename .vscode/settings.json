@@ -3,7 +3,7 @@
   "diffEditor.renderSideBySide": false,
   "emmet.triggerExpansionOnTab": true,
   "explorer.confirmDelete": false,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 1,
   "editor.renderWhitespace": "none",
   "editor.quickSuggestions": {
     "strings": true
