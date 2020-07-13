@@ -93,8 +93,8 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-form-item label="佣金比例：" prop="goodsCommissionRate">
-              <el-input v-model.trim="detailForm.goodsCommissionRate" disabled />
+            <el-form-item label="佣金比例：" prop="commissionRate">
+              <el-input v-model.trim="detailForm.commissionRate" disabled />
             </el-form-item>
           </el-row>
         </el-form>
@@ -145,7 +145,7 @@ export default {
         goodsPrice: '',
         goodsCouponPrice: '',
         goodsPostCouponPrice: '',
-        goodsCommissionRate: ''
+        commissionRate: ''
       },
       detailId: null,
       authorFilter: AUTHOR_FILTER,
@@ -226,7 +226,12 @@ export default {
             response.msg
           )
           if (response.code === 0) {
-            // TODO 赋值商品信息
+            var data = response.data
+            this.detailForm.goodsName = data.goodsName
+            this.detailForm.goodsPrice = data.goodsPrice
+            this.detailForm.goodsPostCouponPrice = data.goodsPostCouponPrice
+            this.detailForm.goodsCouponPrice = data.goodsCouponPrice
+            this.detailForm.commissionRate = data.commissionRate
           }
         })
         .catch((Error) => {

@@ -28,8 +28,11 @@
       <template #platform="scope">
         {{ supplierEnum[scope.row['platform']] }}
       </template>
-      <template #couponPrice>
-        优惠券金额
+      <template #couponInfo="scope">
+        <p>{{ scope.row.goodsCouponPrice }}</p>
+        <p v-if="scope.row.goodsCouponInfo">
+          ({{ scope.row.goodsCouponInfo }})
+        </p>
       </template>
       <template #stat="scope">
         <p>素材下载：{{ scope.row.downloadNum }}</p>
@@ -84,7 +87,7 @@ export default {
         { label: '商品名称', prop: 'goodsName' },
         { label: '商品价格', prop: 'goodsPrice' },
         { label: '领券价(券后)', prop: 'goodsPostCouponPrice' },
-        { label: '优惠券金额', prop: 'goodsCouponPrice' },
+        { label: '优惠券金额', slotName: 'couponInfo' },
         { label: '宣传文案', prop: 'proposal' },
         { label: '数据', slotName: 'stat' },
         { label: '创建信息', slotName: 'createInfo' },
