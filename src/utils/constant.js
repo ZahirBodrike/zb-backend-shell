@@ -42,3 +42,6 @@ export const STATUS_SELECT_FILTER = [
 ]
 
 export const STATUS_ENUM = { 0: '已下架', 1: '已上架' }
+
+export const TABLE_PAGE_SIZE = [10, 20, 50]
+
