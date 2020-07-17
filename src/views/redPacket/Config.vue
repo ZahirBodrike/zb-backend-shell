@@ -32,15 +32,15 @@
             <ul class="show-box">
               <li>
                 <span>每场整点金额</span>
-                <strong>{{ parseFloat(baseForm.totalMoney)/24||0 }}</strong>
+                <strong>{{ parseInt(baseForm.totalMoney/24)||0 }}(每日 9:00、12:00、15:00、18:00、21:00 金豆数翻倍：{{ parseInt(baseForm.totalMoney/12)||0 }})</strong>
               </li>
               <li>
                 <span>每场整点个数</span>
-                <strong>{{ parseFloat(baseForm.count)/24||0 }}</strong>
+                <strong>{{ parseInt(baseForm.count/24)||0 }}</strong>
               </li>
               <li>
                 <span>单个红包金额</span>
-                <strong>{{ parseFloat(baseForm.totalMoney)/parseFloat(baseForm.count)||0 }}</strong>
+                <strong>{{ parseInt(baseForm.totalMoney/baseForm.count)||0 }}</strong>
               </li>
             </ul>
           </el-col>

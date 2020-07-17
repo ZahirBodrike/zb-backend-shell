@@ -111,7 +111,6 @@
 <script>
 import { TABLE_PAGE_SIZE } from '@/utils/constant'
 import { pageRedPacket } from '@/api/redPacketVideo'
-import { getObjFilter } from '@/utils/index'
 import DialogDetails from './components/DialogDetails'
 
 export default {
@@ -162,7 +161,17 @@ export default {
     onHandleChangeCurrent(e) {
       this.redPacketSearch.pageNo = e
     },
+    /** 获取列表 */
+    async getPageRedPacket() {
+      this.redPacketTableLoading = true
 
+      const { code, data } = await pageRedPacket(this.redPacketSearch)
+        .catch(() => {
+          this.redPacketTableLoading = false
+        })
+      if (+code === 0) this.redPacketTable = data
+      this.redPacketTableLoading = false
+    },
     /** 搜索 */
     onHandleSearch() {
       const [startTime, endTime] = this.redPacketForm.createTime || [null, null]
@@ -173,20 +182,6 @@ export default {
         endTime,
         pageNo: 1
       }
-    },
-
-    /** 获取列表 */
-    async getPageRedPacket() {
-      this.redPacketTableLoading = true
-
-      const { code, data } = await pageRedPacket(getObjFilter(this.redPacketSearch))
-        .catch(() => {
-          this.redPacketTableLoading = false
-        })
-
-      if (+code === 200) this.redPacketTable = data
-
-      this.redPacketTableLoading = false
     },
 
     onHandleDetails(startDate) {
