@@ -23,5 +23,8 @@
   "editor.tabSize": 2,
   "editor.detectIndentation": true,
   "vetur.validation.template": false,
-  "vetur.format.enable": false
+  "vetur.format.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

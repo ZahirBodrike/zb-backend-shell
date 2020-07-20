@@ -105,6 +105,7 @@
           :readonly="item.readonly"
           :editable="item.editable"
           :placeholder="item.placeholder"
+          :default-value="item.defaultValue"
           :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
           :picker-options="item.pickerOptions || {}"
           @change="date => changeDate(date, item.prop[0], item.prop[1])"
