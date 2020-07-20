@@ -19,10 +19,7 @@ export const addNewItem = {
   3: [
     { label: '跳转参数', prop: 'jumpObject' }
   ],
-  4: [
-    { label: '跳转参数', prop: 'jumpObject' }
-  ],
-  5: [
+  1: [
     { label: '链接参数', prop: 'jumpObject' },
     { label: '所属平台', prop: 'platform', type: 'select' }
   ]

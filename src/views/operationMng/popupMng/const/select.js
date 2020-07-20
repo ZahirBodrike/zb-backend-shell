@@ -18,12 +18,15 @@ export const status = [
 ]
 
 export const jumpTypeChoose = [
-  { text: '商品', label: 2 },
-  { text: 'APP路径', label: 3 },
-  { text: 'H5链接', label: 4 },
-  { text: '联盟活动', label: 5 }
+  { text: '商品列表', label: 1 },
+  { text: '商品详情', label: 2 },
+  { text: '链接', label: 3 }
 ]
 
 export const platform = [
-  { label: '京东', value: 0 }
+  { label: '淘宝', value: 10 },
+  { label: '京东', value: 20 },
+  { label: '拼多多', value: 30 },
+  { label: '唯品会', value: 80 },
+  { label: '苏宁', value: 130 }
 ]
