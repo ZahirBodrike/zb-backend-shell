@@ -115,3 +115,14 @@ export function createUniqueString() {
   const randomNum = parseInt((1 + Math.random()) * 65536) + ''
   return (+(randomNum + timestamp)).toString(32)
 }
+
+/**
+ * 异步校验
+ * @param {*} vm
+ * @param {*} refName
+ */
+export function asyncValidate(vm, refName) {
+  return new Promise((resolve, reject) => {
+    vm.$refs[refName].validate(resolve, reject)
+  })
+}

@@ -6,7 +6,7 @@ const redEnvelopeWarRouter = {
   component: Layout,
   redirect: 'noRedirect',
   name: 'redEnvelope',
-  alwaysShow: true,
+  alwaysShow: false,
   meta: {
     title: '整点抢红包管理',
     icon: 'email'
