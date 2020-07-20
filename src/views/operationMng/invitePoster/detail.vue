@@ -43,7 +43,7 @@
                 range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
-                value-format="timestamp"
+                value-format="yyyy-MM-dd HH:mm:ss"
                 align="center"
               />
             </el-form-item>
@@ -123,8 +123,8 @@ export default {
     /** 获取详情信息 */
     getDetailsData(id) {
       operationService.invitePosterDetail({ id: id }).then((response) => {
-        var addedTime = new Date(response.data.addedTime.replace(/-/g, '/')).getTime()
-        var shelfTime = new Date(response.data.shelfTime.replace(/-/g, '/')).getTime()
+        var addedTime = response.data.addedTime
+        var shelfTime = response.data.shelfTime
         if (response.code === 0) {
           this.detailForm = {
             ...response.data,
@@ -148,8 +148,8 @@ export default {
           this.detailForm.id = this.detailId
         }
         const onLine = this.detailForm.onLine
-        var addedTime = new Date(onLine[0] + 8 * 3600000)
-        var shelfTime = new Date(onLine[1] + 8 * 3600000)
+        var addedTime = onLine[0]
+        var shelfTime = onLine[1]
         const data = {
           ...this.detailForm,
           addedTime: addedTime,
