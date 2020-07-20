@@ -95,43 +95,12 @@
           :picker-options="item.pickerOptions || {}"
         />
 
-        <!-- 日期+时间选择器 -->
-        <el-date-picker
-          v-else-if="item.itemType === 'datetime'"
-          v-model="formData[item.modelValue]"
-          type="datetime"
-          :placeholder="item.placeholder"
-          :size="item.size ? item.size : size"
-          :disabled="item.disabled"
-          :readonly="item.readonly"
-          :editable="item.editable"
-          :value-format="item.valueFormat"
-          :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
-          :picker-options="item.pickerOptions || {}"
-        />
-
         <!-- 日期范围选择器 -->
         <el-date-picker
           v-else-if="item.itemType === 'daterange'"
           v-model="formData[item.modelValue]"
           :size="item.size ? item.size : size"
           type="daterange"
-          :disabled="item.disabled"
-          :readonly="item.readonly"
-          :editable="item.editable"
-          :placeholder="item.placeholder"
-          :default-value="item.defaultValue"
-          :style="itemStyle + (item.itemWidth ? `width: ${item.itemWidth}px;` : '')"
-          :picker-options="item.pickerOptions || {}"
-          @change="date => changeDate(date, item.prop[0], item.prop[1])"
-        />
-
-        <!-- 日期+时间范围选择器 -->
-        <el-date-picker
-          v-else-if="item.itemType === 'daterange'"
-          v-model="formData[item.modelValue]"
-          :size="item.size ? item.size : size"
-          type="datetimerange"
           :disabled="item.disabled"
           :readonly="item.readonly"
           :editable="item.editable"
