@@ -55,7 +55,13 @@
           </el-row>
           <el-row>
             <el-form-item label="海报图片(750×1218px)：" prop="posterImgs" :rules="rules.no_null">
-              <uploadImg :list.sync="detailForm.posterImgs" :invite-poster-size-limit-check="true" :limit-count="5" />
+              <uploadImg
+                :list.sync="detailForm.posterImgs"
+                :size-limit-ckeck="true"
+                :limit-width="750"
+                :limit-height="1218"
+                :limit-count="5"
+              />
             </el-form-item>
           </el-row>
         </el-form>
