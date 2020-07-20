@@ -55,7 +55,10 @@ export default {
         { label: '所属平台', prop: 'platform', modelValue: 'platform', itemType: 'select',
           options: [
             { label: '淘宝', value: 10 },
-            { label: '京东', value: 20 }
+            { label: '京东', value: 20 },
+            { label: '拼多多', value: 30 },
+            { label: '唯品会', value: 80 },
+            { label: '苏宁', value: 130 }
           ], rules: [{ required: true }]
         }
       ],
@@ -63,7 +66,7 @@ export default {
         { label: '跳转类型', prop: 'jumpType', modelValue: 'jumpType', itemType: 'radio',
           options: [
             { text: '商品列表', label: 1 },
-            { text: 'H5链接', label: 2 }
+            { text: 'H5链接', label: 4 }
           ], rules: [{ required: true }]
         }
       ],
