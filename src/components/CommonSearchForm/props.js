@@ -2,8 +2,6 @@ export const formProps = {
   /* 请求表单数据api */
   fetch: Function,
 
-  localData: Object,
-
   /* 请求表单数据参数 */
   fetchParams: Object,
 

@@ -262,8 +262,6 @@ export default {
           this.$emit('getData', this.formData)
         }
       })
-    } else if (this.autoFetch && this.localData) {
-      this.formData = this.localData
     }
   },
   methods: {
