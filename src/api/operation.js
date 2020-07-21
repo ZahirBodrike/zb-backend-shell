@@ -119,7 +119,7 @@ export function getPopupMngListDetail(data) {
 /* 新增弹窗管理列表 */
 export function addPopupMngList(data) {
   return request({
-    url: '/updatePopup',
+    url: '/addPopup',
     method: 'post',
     data
   })
