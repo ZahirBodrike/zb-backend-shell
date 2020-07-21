@@ -83,7 +83,8 @@ export default {
         })()
       },
       total: 0,
-      cacheLocalData: []
+      cacheLocalData: [],
+      cacheSearForm: {}
     }
   },
   computed: {
@@ -110,19 +111,20 @@ export default {
     /* 切换每页数据量 */
     handleSizeChange(size) {
       this.pagination.pageSize = size
-      this.dataChangeHandler()
+      this.dataChangeHandler(this.cacheSearForm)
     },
 
     /* 切换页数 */
     handleCurrentChange(pageIndex) {
       this.pagination.pageIndex = pageIndex
-      this.dataChangeHandler()
+      this.dataChangeHandler(this.cacheSearForm)
     },
 
     /* 外部调用的搜索刷新 */
-    searchHandler(...searchForm) {
+    searchHandler(searchForm) {
       this.pagination.pageIndex = 1
-      this.dataChangeHandler(...searchForm)
+      this.cacheSearForm = searchForm
+      this.dataChangeHandler(searchForm)
     },
 
     /* 请求接口数据或者获取本地数据 */
