@@ -6,14 +6,14 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || '聚米生活后台管理系统'
+const name = defaultSettings.title || '大象加油后台管理系统'
 
 const port = process.env.port || process.env.npm_config_port || 9527
 
 module.exports = {
   publicPath:
     process.env.NODE_ENV === 'production'
-      ? 'http://h5.chuxingyouhui.com/tuanzhang-mng-admin/'
+      ? 'http://h5.chuxingyouhui.com/elephant-add-oil-mng-admin/'
       : '/',
   outputDir: 'dist',
   assetsDir: 'static',
@@ -37,14 +37,10 @@ module.exports = {
     }
   },
   chainWebpack(config) {
-    config.plugins.delete('preload') // TODO: need test
-    config.plugins.delete('prefetch') // TODO: need test
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
 
-    // set svg-sprite-loader
-    config.module
-      .rule('svg')
-      .exclude.add(resolve('src/icons'))
-      .end()
+    config.module.rule('svg').exclude.add(resolve('src/icons')).end()
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -57,7 +53,6 @@ module.exports = {
       })
       .end()
 
-    // set preserveWhitespace
     config.module
       .rule('vue')
       .use('vue-loader')
@@ -74,7 +69,6 @@ module.exports = {
         .after('html')
         .use('script-ext-html-webpack-plugin', [
           {
-            // `runtime` must same as runtimeChunk name. default is `runtime`
             inline: /runtime\..*\.js$/
           }
         ])
@@ -86,17 +80,17 @@ module.exports = {
             name: 'chunk-libs',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: 'initial' // only package third parties that are initially dependent
+            chunks: 'initial'
           },
           elementUI: {
-            name: 'chunk-elementUI', // split elementUI into a single package
-            priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+            name: 'chunk-elementUI',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?element-ui(.*)/
           },
           commons: {
             name: 'chunk-commons',
-            test: resolve('src/components'), // can customize your rules
-            minChunks: 3, //  minimum common number
+            test: resolve('src/components'),
+            minChunks: 3,
             priority: 5,
             reuseExistingChunk: true
           }

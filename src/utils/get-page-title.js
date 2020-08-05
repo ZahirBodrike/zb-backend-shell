@@ -1,6 +1,6 @@
 import defaultSettings from '@/settings'
 
-const title = defaultSettings.title || '聚米生活后台管理系统'
+const title = defaultSettings.title || '大象加油后台管理系统'
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

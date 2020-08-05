@@ -1,14 +1,8 @@
 <template>
   <div class="login-container">
-    <el-image
-      :fit="`cover`"
-      :src="bannerImg"
-      class="banner-img animate__animated animate__fadeIn"
-    />
-
     <div class="body animate__animated animate__tada">
       <h1>
-        聚米生活后台管理系统
+        大象加油后台管理系统
       </h1>
 
       <el-button :style="{ marginTop: '20px' }" @click="handleLogin">
@@ -25,8 +19,7 @@ export default {
     return {
       /* 登录重定向 */
       redirect: undefined,
-      otherQuery: {},
-      bannerImg: require('@/assets/login.jpg')
+      otherQuery: {}
     }
   },
   watch: {
@@ -66,6 +59,7 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
+  background: #333333;
   .banner-img {
     width: 100%;
     height: 100%;

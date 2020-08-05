@@ -1,10 +1,9 @@
 const runTime = {
   dev: () => {
-    // return `http://localhost:8502`
-    return `http://box-cps-mng.jumi100.com`
+    return `http://localhost:9527`
   },
   test: () => {
-    return `http://test-cps-mng.jumi100.com`
+    return ``
   },
   prod: () => {
     return ``

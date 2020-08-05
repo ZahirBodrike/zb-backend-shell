@@ -1,14 +1,8 @@
 <template>
   <div class="dashboard-container">
-    <el-image
-      :fit="`cover`"
-      :src="bannerImg"
-      class="banner-img"
-    />
-
     <div class="body animate__animated animate__wobble">
       <h1>
-        聚米生活后台管理系统
+        大象加油后台管理系统
       </h1>
 
       <div class="search">
@@ -24,12 +18,7 @@ import HeaderSearch from '@/components/HeaderSearch'
 
 export default {
   name: 'Dashboard',
-  components: { HeaderSearch },
-  data() {
-    return {
-      bannerImg: require('@/assets/homepage.png')
-    }
-  }
+  components: { HeaderSearch }
 }
 </script>
 
@@ -41,6 +30,7 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
+  background: #333333;
   .banner-img {
     width: 100%;
     height: 100%;
