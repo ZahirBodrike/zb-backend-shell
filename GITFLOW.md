@@ -17,3 +17,4 @@ git commit 的 message不要为空, commit类型如下:
 5. refactor: 代码重构
 6. perf: 性能优化
 7. build: 构建打包
+（后期考虑引入pre-commit）

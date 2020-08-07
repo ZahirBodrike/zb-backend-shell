@@ -1,13 +1,13 @@
 const runTime = {
   dev: () => {
-    return `http://localhost:9527`
+    return `http://localhost:9527`;
   },
   test: () => {
-    return ``
+    return ``;
   },
   prod: () => {
-    return ``
-  }
-}
+    return ``;
+  },
+};
 
-export default runTime
+export default runTime;

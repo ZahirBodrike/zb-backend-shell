@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="body animate__animated animate__tada">
       <h1>
-        大象加油后台管理系统
+        zb-后台管理系统
       </h1>
 
       <el-button :style="{ marginTop: '20px' }" @click="handleLogin">
@@ -14,41 +14,41 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
       /* 登录重定向 */
       redirect: undefined,
-      otherQuery: {}
-    }
+      otherQuery: {},
+    };
   },
   watch: {
     $route: {
       handler(route) {
-        const query = route.query
+        const query = route.query;
         if (query) {
-          this.redirect = query.redirect
-          this.otherQuery = this.getOtherQuery(query)
+          this.redirect = query.redirect;
+          this.otherQuery = this.getOtherQuery(query);
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     handleLogin() {
       /* 改跳企业微信授权页面 */
-      this.$router.push({ name: 'Dashboard' })
+      this.$router.push({ name: "Dashboard" });
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
+        if (cur !== "redirect") {
+          acc[cur] = query[cur];
         }
-        return acc
-      }, {})
-    }
-  }
-}
+        return acc;
+      }, {});
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -10,11 +10,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "eslint.validate": [
-    "html",
-    "javascript",
-    "vue"
-  ],
+  "eslint.validate": ["html", "javascript", "vue"],
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

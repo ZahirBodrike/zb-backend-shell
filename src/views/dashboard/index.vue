@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <div class="body animate__animated animate__wobble">
       <h1>
-        大象加油后台管理系统
+        zb-后台管理系统
       </h1>
 
       <div class="search">
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import HeaderSearch from '@/components/HeaderSearch'
+import HeaderSearch from "@/components/HeaderSearch";
 
 export default {
-  name: 'Dashboard',
-  components: { HeaderSearch }
-}
+  name: "Dashboard",
+  components: { HeaderSearch },
+};
 </script>
 
 <style lang="scss" scoped>

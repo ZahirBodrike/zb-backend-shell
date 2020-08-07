@@ -1,8 +1,8 @@
-### 大象加油后台管理系统
+### zb-后台管理系统
 
-[vue-element-admin](./GUIDE.md)
+基于[vue-element-admin](./GUIDE.md)
 
-这是我们的 git 工作流：[git flow](./GITFLOW.md)
+推荐git工作流：[git flow](./GITFLOW.md)
 
 #### 开发流程：
 
