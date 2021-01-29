@@ -13,7 +13,7 @@ const port = process.env.port || process.env.npm_config_port || 9527;
 module.exports = {
   publicPath:
     process.env.NODE_ENV === "production"
-      ? "http://h5.chuxingyouhui.com/elephant-add-oil-mng-admin/"
+      ? "http://h5.XXX.com/elephant-add-oil-mng-admin/"
       : "/",
   outputDir: "dist",
   assetsDir: "static",
